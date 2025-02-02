@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta  name="description" content="Author: Peter Pekny... Date of release: 25.10.2024... Personal page that includes my professional skills, curriculum vitae and contacts that can worker of human resources take a look and ask my for cooperation... Have a nice day!">
+
+    <title>Peter's personal fun page</title>
+
+    {% load static %}
+
+    <!-- Loading page effect -->
+    <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/loadingPage.css' %}">
+    <script src="{% static 'peter_pekny_page/js/loadingPage.js' %}"></script>
+
+    <!-- Favicon load -->
+    <link rel="shortcut icon" href="{% static 'peter_pekny_page/images/favicon.ico' %}" type="image/x-icon">
+
+    <!-- font-awesome.min.css -->
+    <!-- <link rel="stylesheet" href="assets/css/fontawsom-all.min.css"> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <!-- Loading bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Loading bootstrap jacascript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+
+    <!-- Moj style sheet -->
+    <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/my_style.css' %}">
+    <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/game_style.css' %}">
+    <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/modal_styles.css' %}">
+    <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/animated_modules.css' %}">
+
+   
+
+    <!-- Loading my javascripts -->
+
+    <!-- loading functionality for page and opening text blocks -->
+    <script src="{% static 'peter_pekny_page/js/moving_blocks.js' %}"></script>
+
+    <!-- loading score table for my first game -->
+    <script src="{% static 'peter_pekny_page/js/load_scores.js' %}"></script>
+
+    <!-- Loading EmailJS stuff for sending emails -->
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+
+</head>
+
+<body>
+
+    <!-- Loader stranky -->
+    <div id="loader-background">
+        <div id="loader"></div>
+        <div id="loading-text-1">PAGE IS LOADING ...</div>
+    </div>
+
+    <!-- <button id="submit-email-modal" class="sending_email_text btn btn-outline-myColor"></button> -->
+    <!-- <button class="submit_email_text" type="submit" id="submit-email-modal" disabled="" style="background-color: rgb(204, 204, 204); cursor: not-allowed;">Email sent</button> -->
+
+
+    <div id="content" style="display: none;">
+        <!-- Sem vlož obsah stránky -->
+
+        <!-- Kotva pre HOME -->
+        <div id="home"></div>
+
+        <!-- ------ -->
+        <!-- Header -->
+        <!-- ------ -->
+        <header>
+            <nav>
+                <!-- Hamburger button -->
+                <input type="checkbox" id="check">
+                <label for="check" class="checkbtn">
+                    <!-- <i class="fas fa-bars"></i> -->
+                    <i class="fas fa-hamburger"></i>
+                </label>
+                <!-- Menu Items -->
+                <ul class="menu">
+                    <li class="animation-underline"><a href="#home">Home</a></li>
+                    <li class="animation-underline"><a href="#about" onclick="openSection('about')">About</a></li>
+                    <li class="animation-underline"><a href="#contacts" onclick="openSection('contacts')">Contacts</a>
+                    </li>
+                    <li class="animation-underline"><a href="#curriculum"
+                            onclick="openSections('curriculum')">curriculum</a></li>
+                    <li class="animation-underline"><a href="#" id="openEmailForm">Email Me</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- --------- -->
+        <!-- Main Body -->
+        <!-- --------- -->
+        <div class="logo_basic">
+            <img id="main-img-1" src="{% static 'peter_pekny_page/images/main-img-1.png' %}" alt="picture of name">
+            <div class="stred">
+                <div class="marquee---box">
+                    <p class="marquee-content">Hello.. I am Aplication administrator - Programer beginner - Whole life
+                        student - Life enjoer</p>
+
+                </div>
+            </div>
+            <img id="main-img-2" src="{% static 'peter_pekny_page/images/main-img-2.png' %}" alt="picture of surname">
+            <div class="stred">
+                <p class="online_text">.ONLINE</p>
+            </div>
+        </div>
+
+        <!-- IKON BOX-->
+
+        <div class="stred">
+            <div class="icon_block">
+                <div class="oramovanie">
+                    <a href="https://nextcloud.pekny.sk"><img class="icon" src="{% static 'peter_pekny_page/images/nextcloud_icon.png' %}"
+                            alt="NextCloud"></a>
+                </div>
+                <div class="oramovanie">
+                    <a href="https://mail.pekny.online"><img class="icon" src="{% static 'peter_pekny_page/images/iredmail_icon.png' %}"
+                            alt="IredMail"></a>
+                </div>
+                <div class="oramovanie">
+                    <a href="https://media.pekny.online"><img class="icon" src="{% static 'peter_pekny_page/images/emby_icon.png' %}" alt="Emby"></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- starting text blocks -->
+
+        <div class="slowVisibility">
+
+            <!--------------->
+            <!---- O mne ---->
+            <!--------------->
+            <div class="container white">
+
+                <div class="row">
+                    <h1 class="text-center py-3">About me</h1>
+                </div>
+                <div id="about" class="section hiding_content">
+                    <div class="row">
+                        <div class="col-12 col-sm-12 col-md-7 underlined text-center">
+                            <h3>
+                                Currently I am IT technical specialist who is already working over 10 years with almost
+                                all
+                                common
+                                used IT technology’s standards and infrastructure devices. I am employee of Diebold
+                                Nixdorf
+                                Company
+                                as application administrator for many internal applications.
+                            </h3>
+                            <p class="">
+                                Diebold Nixdorf providing monitoring of ATMs
+                                and payment transactions for different external customers mainly EU.
+                                (approx. 9000 ATMs – UK, DN banks). My responsibilities are to deliver
+                                24/7 functional environment, setup all necessary applications, requests for
+                                other teams to setup infrastructure architecture design of environment.
+                                Organize and solving nonstandard requests for customers under time
+                                pressure. I think personally, I am team player member and also I like to
+                                discuss about possible issues and how to prevent possible problems. I am
+                                very focused on results and I have ability to fast learning a new things. I
+                                like to meet new people and I am adaptable in teams with multiplatform
+                                environments. Personally I would like to participate as DevOps engineer. I
+                                like the responsibility, flexibility and philosophy of this “system”.
+                            </p>
+                        </div>
+                        <div
+                            class="col-12 order-first col-sm-12 order-sm-first col-md-5 order-md-last text-center align-self-center">
+
+                            <div class="row">
+                                <div class="col">
+                                    <img class="img_me_personal img-fluid " src="{% static 'peter_pekny_page/images/Randy_Lorde.webp' %}"
+                                        alt="Personal Image">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <div class="btn">
+                                        <form action="doc/CV_Peter_Pekny_EN.pdf">
+                                            <!-- <button type="submit" class="btn button_style">Download CV</button> -->
+                                            <button type="submit" class="btn btn-outline-myColor mb-5 mt-3">Download
+                                                CV</button>
+
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-------------->
+            <!-- Kontakty -->
+            <!-------------->
+            <div class="container whgrey text-center">
+                <div class="row">
+                    <h1 class="py-3">Contacts</h1>
+                </div>
+                <div id="contacts" class="hiding_content">
+                    <div class="row">
+                        <div class="col-6 col-sm-6 col-md-3 fa_settings text-center">
+                            <h3>phone:</h3>
+                            <h2><i class="fa-solid fa-phone-flip"></i></h2>
+                            <p>&plus;&#x34;&#x32;&#x30;&#x20;&#x37;&#x32;&#x38;&#x20;&#x30;&#x36;&#x30;&#x20;&#x39;&#x38;&#x38;
+                            </p>
+                        </div>
+                        <div class="col-6 col-sm-6 col-md-3 fa_settings text-center">
+                            <h3>email</h3>
+                            <h2><i class="fa-solid fa-envelope"></i></h2>
+                            <p>&#x70;&#x65;&#x74;&#x65;&#x72;<span><i
+                                        class="fas fa-at"></i></span>&#x70;&#x65;&#x6b;&#x6e;&#x79;&period;&#x6f;&#x6e;&#x6c;&#x69;&#x6e;&#x65;
+                            </p>
+                        </div>
+                        <div class="col-6 col-sm-6 col-md-3 fa_settings text-center">
+                            <h3>website</h3>
+                            <h2><i class="fa-solid fa-globe"></i></h2>
+                            <p>
+                                &#x68;&#x74;&#x74;&#x70;&#x73;&#x3A;&#x2F;&#x2F;&#x70;&#x65;&#x74;&#x65;&#x72;&#x2E;&#x70;&#x65;&#x6B;&#x6E;&#x79;&#x2E;&#x6F;&#x6E;&#x6C;&#x69;&#x6E;&#x65;
+                            </p>
+                        </div>
+                        <div class="col-6 col-sm-6 col-md-3 fa_settings text-center">
+                            <h3>LinkedIN</h3>
+                            <h2><a href="https://www.linkedin.com/in/peter-pekny-a8a208a5/"><i
+                                        style="color: #626e94 !important" class="fa-brands fa-linkedin"></i></a></h2>
+                            <p>
+                                Peter Pekny
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ------------------- -->
+            <!-- Pracovne zkusenosti -->
+            <!-- ------------------- -->
+            <div class="container white text-center">
+                <!-- Nadpis sekcie -->
+                <div class="row">
+                    <h1 class="py-3">experience</h1>
+                    <!-- <h3 class="text-center">for last 10 years...</h3> -->
+                </div>
+                <div id="curriculum" name="curriculum" class="hiding_content">
+                    <!-- Diebold Nixdorf -->
+                    <div class="row my-5">
+                        <!-- Lava strana -->
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-12 kratky-blok-vzdelanie text-center fa_settings">
+                            <h2><i class="fa-solid fa-calendar-days"></i> 11/2023 - Present</h2>
+                            <h3>Senior Application & Network Specialist</h3>
+                        </div>
+                        <!-- Prava strana -->
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-12 text-start experience-my">
+                            <div class="row">
+                                <div class="col-1">
+                                </div>
+                                <div class="col-10 border-bottom">
+                                    <h3>Diebold Nixdorf, Prague</h3>
+                                    <p>Responsible for the installation and operational support of Vynamic Transaction
+                                        Engine applications, ensuring stable and reliable functionality across ATM
+                                        systems
+                                        in the fin-tech sector. Delivering end-to-end support including troubleshooting,
+                                        24/7 system monitoring, and third-level technical assistance.</p>
+                                    <p>Key contributions include automating Cash Management reports for clients,
+                                        optimising
+                                        data management processes, and implementing advanced job scheduling using Bash
+                                        scripts and PowerShell. Proficient in supporting both Linux and Windows-based
+                                        applications, with a focus on troubleshooting, debugging, log analysis, and
+                                        reverse
+                                        engineering.</p>
+                                    <p class="experience-underline">Involved in preparing and configuring application
+                                        monitoring solutions with Prometheus and Grafana, ensuring proactive system
+                                        performance oversight. Strong communication skills, collaborating closely with
+                                        clients and internal stakeholders to translate nonstandard requests into
+                                        practical
+                                        solutions.</p>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Thales -->
+                    <div class="row my-5">
+                        <!-- Lava strana -->
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-12 kratky-blok-vzdelanie text-center fa_settings">
+                            <h2><i class="fa-solid fa-calendar-days"></i> 05/2022 - 10/2023</h2>
+                            <h3>eSIM solutions, Application Implementation</h3>
+                        </div>
+                        <!-- Prava strana -->
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-12 text-start experience-my">
+                            <div class="row">
+                                <div class="col-1">
+                                </div>
+                                <div class="col-10 border-bottom">
+                                    <h3>Thales - Gemalto, Prague</h3>
+                                    <p>Implementation and Operation of GSMA M2M and Consumer+ Applications.
+                                    </p>
+                                    <p>Providing stable application solutions for GSMA certificated systems,
+                                        24/7 support, trouble shooting, 3rd level support. Linux based
+                                        applications JAVA - WebLogic.</p>
+                                    <p>Control and setup of scheduled job's (Bash Scripts, Data Management,
+                                        Data Transfers, data archiving). Trouble shooting, log files, debugging,
+                                        reverse engineering.</p>
+                                    <p class="experience-underline">Daily based communication with worldwide customers,
+                                        supporting
+                                        and
+                                        providing information to do needed setup.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Diebold2 -->
+                    <div class="row my-5">
+                        <!-- Lava strana -->
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-12 kratky-blok-vzdelanie text-center fa_settings">
+                            <h2><i class="fa-solid fa-calendar-days"></i> 10/2017 - 04/2022</h2>
+                            <h3>L3/L2 IT Application specialist</h3>
+                        </div>
+                        <!-- Prava strana -->
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-12 text-start experience-my">
+                            <div class="row">
+                                <div class="col-1">
+                                </div>
+                                <div class="col-10 border-bottom">
+                                    <h3>Diebold-Nixdorf, Prague</h3>
+                                    <p>Operation of Diebold-Nixdorf Payments and Cash Management
+                                        applications (fin-tech industry).
+                                    </p>
+                                    <p>Providing stable application solutions for ATM systems, 24/7 support,
+                                        trouble shooting, 3rd level support. Linux applications and Windows
+                                        application support</p>
+                                    <p>Control and setup of scheduled job's (Bash Scripts, PowerShell script,
+                                        Data Management, Data Transfers, data archiving). Trouble shooting,
+                                        log files, debugging, reverse engineering.</p>
+                                    <p class="experience-underline">Communication with requestors, on daily basis and
+                                        transition
+                                        from
+                                        nonstandard requests into real setup.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Cleverbee -->
+                    <div class="row pb-5">
+                        <!-- Lava strana -->
+                        <div class="col-lg-4 col-md-4 col-sm-12 col-12 kratky-blok-vzdelanie text-center fa_settings">
+                            <h2><i class="fa-solid fa-calendar-days"></i> 02/2016 - 07/2017</h2>
+                            <h3>IT Administrator</h3>
+                        </div>
+                        <!-- Prava strana -->
+                        <div class="col-lg-8 col-md-8 col-sm-12 col-12 text-start experience-my">
+                            <div class="row">
+                                <div class="col-1"></div>
+                                <div class="col-10 border-bottom">
+                                    <h3>Cleverbee solutions s.r.o., Prague</h3>
+                                    <p>Mainly administration of open source operating systems. Linux OS
+                                        administration (Deb, RH) and WINDOWS 2000/2008/2012. (Migration
+                                        to 2016)
+                                    </p>
+                                    <p>Setup Firewalls, Appache2, TOMCAT and WILDFLY for JAVA projects,
+                                        network infrastructure, Active Directory, Exchange email server.
+                                        Support for development team</p>
+                                    <p class="">Project documentation, Hardware agenda.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ------------------- -->
+            <!-- ----- SKILLS ------ -->
+            <!-- ------------------- -->
+            <div class="container whgrey text-center proggress-bars">
+                <div class="row">
+                    <h1 class="py-3">SKILLS</h1>
+                </div>
+                <div name="curriculum" class="hiding_content">
+                    <div class="row">
+                        <!-- Skills Lava strana -->
+                        <div
+                            class="col-lg-6 col-md-6 col-sm-12 col-12 ps-5 pe-5 ps-sm-4 pe-sm-4 ps-sm-4 pe-sm-4 ps-md-3 pe-md-3">
+                            <h3>HTML CSS and JavaScript web technologies</h3>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped active" role="progressbar"
+                                    style="width: 45%" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <h3>Operational systems, Linux - BASH, Windows server - Powershell</h3>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 70%"
+                                    aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <h3>VMware ESXi, Docker, Kubectl</h3>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 60%"
+                                    aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <!-- Skills Prava strana -->
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-12 ps-5 pe-5 ps-sm-4 pe-sm-4 ps-md-3 pe-md-3">
+                            <h3>MS-SQL, MySQL, Postgre, Oracle SQL</h3>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 60%"
+                                    aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <h3>Wildfly, JBoss, Tomcat, Weblogic, Appache2</h3>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 70%"
+                                    aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                            <h3>VPN, Proxy, WAN/LAN, Nagios, Firewalld, IPtables, VoIP</h3>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-striped" role="progressbar" style="width: 60%"
+                                    aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div><br><br></div>
+                </div>
+            </div>
+
+            <!-- ------------------- -->
+            <!-- ---- Vzdelanie ---- -->
+            <!-- ------------------- -->
+            <div class="container white text-center">
+                <div class="row">
+                    <h1 class=" py-3">education</h1>
+                </div>
+                <div class="hiding_content" name="curriculum">
+                    <div class="odstrelenie-od-hora">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                <div class="kratky-blok-vzdelanie fa_settings">
+                                    <h2><i class="fa-solid fa-calendar-days"></i> 2010 - 2013</h2>
+                                    <h3><a href="https://www.uniza.sk/index.php/en/">Technical University of Žilina
+                                        </a></h3>
+                                    <span class="single-timeline-horizontal"></span>
+                                    <h3 class="title">
+                                        Žilina, Slovakia
+                                    </h3>
+                                    <h3>New sciences and multimedia sciences</h3>
+                                    <p class="description">
+                                        Bachelor degree in new sciences and multimedia sciences and psychology of
+                                        marketing.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                                <div class="kratky-blok-vzdelanie fa_settings">
+                                    <h2><i class="fa-solid fa-calendar-days"></i> 1995 - 1999</h2>
+                                    <h3><a href="https://spsjm.sk/">Stredná priemyselná škola Jozefa Murgaša
+                                        </a>
+                                    </h3>
+                                    <span class="single-timeline-horizontal"></span>
+                                    <h3 class="title">
+                                        Banská Bystrica, Slovakia
+                                    </h3>
+                                    <h3>
+                                        Electrical engineering, telecommunication and computer technologys.
+                                    </h3>
+                                    <p class="description">
+                                        Slovak middle school of Electrical engineering, telecommunication and computer
+                                        technologys.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- ---------- -->
+            <!-- Napiste mi -->
+            <!-- ---------- -->
+
+            <!-- Email Formular 1 - v stranke -->
+            <div class="container text-center whgrey">
+                <div class="row">
+                    <h1 class="py-3">Email Me</h1>
+                </div>
+                <div id="emailme" class="hiding_content">
+                    <form class="page-email-form" id="page-email-form">
+                        <div class="row">
+                            <div class="col-12 col-md-6 form-color form-custom-font form-group">
+                                <div class="mt-1 p-3">
+                                    <label for="email" class="form-label">Your Email</label>
+                                    <input type="email" class="form-control hranate-rohy form-contro" id="email"
+                                        name="email" placeholder="put your email address">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6 form-color form-custom-font form-group">
+                                <div class="mt-1 p-3">
+                                    <label for="name" class="form-label">Your Name</label>
+                                    <input type="text" class="form-control hranate-rohy form-contro" id="name"
+                                        name="name" placeholder="put your name here:">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 form-color form-custom-font form-group">
+                                <div class="mb-2 p-3">
+                                    <label for="message" class="form-label">Your Message:</label>
+                                    <textarea class="form-control hranate-rohy" id="message" name="message"
+                                        style="height: 120px;" placeholder="Type your message here ..."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row  justify-content-center">
+                            <div class="col-12">
+                                <div class="form-color form-custom-font form-group">
+                                    <div class="mb-2 form-check">
+                                        <input type="checkbox" class="form-check-input" style="float: unset !important;"
+                                            id="exampleCheck1">
+                                        <label class="form-check-label" for="exampleCheck1">I aggree with
+                                            GDPR</label>
+                                    </div>
+                                    <button class="btn btn-outline-myColor mb-3" type="submit"
+                                        id="page-form-submit">Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+
+            <!-- Naiste mi - 2 -->
+            <!-- Tlačidlo Email Me v navigačnom bare -->
+            <!-- Modal okno - emailový formulár -->
+            <div id="emailModal" class="modal">
+                <div class="modal-content">
+                    <span class="close-btn">&times;</span>
+                    <h4 class="font_beckman">Hello, send me an email</h4>
+                    <form id="email-form">
+                        <label for="name">Your Name:</label>
+                        <input class="custom-input" type="text" id="name-modal" name="name" required>
+                        <label for="email">Your Email:</label>
+                        <input class="custom-input" type="email" id="email-modal" name="email" required>
+                        <label for="message">Message Here:</label>
+                        <textarea class="custom-input" id="message-modal" style="min-height: 150px;" name="message"
+                            required></textarea>
+                        <button class="" type="submit" id="submit-email-modal">Send email</button>
+                        <div class="email-status" id="email-status"></div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Email send function -->
+            <script src="{% static 'peter_pekny_page/js/emailFunctions.js' %}"></script>
+            <!-- Moda window functions - email form stuff -->
+            <script src="{% static 'peter_pekny_page/js/modal_window.js' %}"></script>
+
+
+            <!-- ---------- ----->
+            <!-- My First Game -->
+            <!-- ---------- ----->
+            <div class="container text-center white">
+                <div class="row">
+                    <h1 id="myFirstJsGame" class="py-3">My First J.S. Game</h1>
+                </div>
+                <div class="hiding_content">
+                    <div class="row">
+                        <div class="col">
+
+                            <!-- Úvodná obrazovka -->
+                            <div class="intro-container" id="intro-container">
+                                <div id="instructions" class="instructions popis"><b>Inštrukcie:</b><br>Zhadzuj bomby a
+                                    znič
+                                    budovy kde žijú drzí ľudia<br>Hniezda idiotizmu sú označené: "🖕"<br>nesmie
+                                    zostat
+                                    ani
+                                    jeden!!!...<br/></div>
+                                <img class="rounded-picture mt-2" src="{% static 'peter_pekny_page/images/main_img.jpg' %}" alt="Main Picture" width="250">
+                                <div id="instructions" class="instructions popis">Čím vyššia budova, tým skor sa idioti opet vrátia...<br>
+                                    Každá bomba čo minie cieľ je zbytočná strata, strácaš bod..<br>
+                                    Získaj čo najviac bodov, ku sláve v boji proti idotizmu</div>
+                                <button id="play-button" class="btn btn-outline-myColor mt-3">Play to Start</button>
+                                <div class="mt-3">
+                                    <h2>TOP PLAYERs</h2>
+                                </div>
+                                <div id="score-list" class="score-list-container">
+                                    <!-- Výsledky sa zobrazia tu -->
+                                </div>
+                            
+                            </div>
+
+                            <!-- Hlavná herná obrazovka -->
+                            <div class="game-container" id="game-container">
+                                <div id="bomb-count" class="bomb-count"></div>
+                                <div id="board" class="board"></div>
+                                <div id="score" class="score">Score: 0</div>
+                                <div id="popis" class="popis">Zapál domy drzím ľuďom - "🖕", očisti svet od idiotov.</div>
+                                <button id="mute-button" class="mute-btn">
+                                    <i id="mute-icon" class="fas fa-volume-up"></i>
+                                </button>
+                                <button id="pause-button" class="mute-btn">
+                                    <i id="pause-icon" class="fas fa-pause"></i>
+                                </button>
+                                <div id="score-list-after" class="score-list-container">
+                                    <!-- Výsledky sa zobrazia tu -->
+                                </div>
+                            </div>
+                            <!-- --------- -->
+                            <!-- GAME BODY -->
+                            <!-- --------- -->
+                            <script src="{% static 'peter_pekny_page/js/boomers_game.js' %}"></script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="scroll-Top">
+            <div class="return-to-top">
+                <i class="fa fa-angle-up " id="scroll-top"></i>
+            </div>
+
+        </div><!--/.scroll-Top-->
+        <!-- ------ -->
+        <!-- Footer -->
+        <!-- ------ -->
+
+        <!-- Predlzenie stranky -->
+        <div class="predlzenie_stranky">
+        </div>
+
+        <!-- footer -->
+        <footer>
+            <nav role="footer">
+                <ul class="menu">
+                    <li class="hover-underline-animation"><a href="#">Home</a></li>
+                    <li class="hover-underline-animation"><a href="#about" onclick="openSection('about')">About</a></li>
+                    <li class="hover-underline-animation"><a href="#contacts"
+                            onclick="openSection('contacts')">Contacts</a>
+                    </li>
+                    <li class="hover-underline-animation"><a href="#curriculum"
+                            onclick="openSections('curriculum')">curriculum vitae</a></li>
+                    <li class="hover-underline-animation"><a href="#emailme" onclick="openSection('emailme')">Email
+                            Me</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="footer_text">
+                <p>Stránka slúži ako učebný materiál pre kurz IT Step Academy | © 2024 | Peter Pekny</p>
+                <!-- <p></p> -->
+            </div>
+        </footer>
+
+
+
+        <!-- loading function of scroll mouse for navigation menu -->
+        <script src="{% static 'peter_pekny_page/js/scroll_mouse_function.js' %}"></script>
+        <!-- <script src="{% static 'peter_pekny_page/js/jquery.js' %}"></script> -->
+        <!-- <script src="{% static 'peter_pekny_page/js/custom.js' %}"></script> -->
+
+    </div>
+
+</body>
+
+</html>

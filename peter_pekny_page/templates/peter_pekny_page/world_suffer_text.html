@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOOMER Game</title>
+    <style>
+        .board {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgb(9, 38, 93);
+            font-family: monospace;
+            line-height: 1.0;
+            border: 1px solid rgb(14, 14, 98);
+            margin: auto;
+        }
+
+        .sky {
+            color: aqua;
+        }
+
+        .score {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-top: 10px;
+        }
+
+        .game-over {
+            font-size: 2rem;
+            color: red;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        let velkost_X = 50;  // Pociatocna sirka
+        let velkost_Y = 20;  // Pociatocna vyska
+        let backGround_value = ".";  // Obloha
+        let building_value = "█"; // Budova
+        let strecha = "▲"; // strecha
+        let plane = "X";  // Lietadlo
+        let bombSymbol = "•"; // Bomba
+        let explosionSymbol = "*"; // Znak výbuchu
+        let min_building = 0;  // aka vysoka ma byt budova (min)
+        let max_building = 9;  // aka vysoka ma byt budova (max)
+        let obmedzenie_bomb = 3  // kolko bomb ma ist naraz
+        let cas_jedneho_kroku = 200; // cas na jeden krok hry
+        let planeX = velkost_X - plane.length; // Začiatočná pozícia lietadla (sprava)
+        let planeY = 0; // Začína na vrchole mapy
+        
+        var audio = new Audio('bomb2.mp3'); // set sound for bomb
+        
+        let gameOver = false;
+        let score = 0;
+        let playBoard = []; // Definujeme pociatocne pole pre hru
+        let bombs = [];  // Pole pre bomby (viacero bômb naraz)
+        let explosions = []; // Uchováva výbuchy, ktoré sa zobrazia na krátky čas
+
+        console.log(playBoard)
+
+        // Inicializácia hracieho pola - vyrovbime pole o velkost_x a velkost_y
+        for (let y = 0; y < velkost_Y; y++) {
+            playBoard[y] = [];  // struhneme pole do pole (jednotlive riadky) 2D pole 
+            for (let x = 0; x < velkost_X; x++) {
+                playBoard[y][x] = backGround_value;  // Vsetko sa na uvod vyplni oblohou
+                //console.log(playBoard)  // Pro ucebni potreby
+            }
+            //console.log(playBoard)  // Pro ucebni potreby
+        }
+
+        // Náhodné číslo v rozmedzí - min / max
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Generovanie budov
+        function generateBuildings() {
+            for (let x = 0; x < velkost_X; x++) {
+                let randomHeight = getRandomInt(min_building, max_building);
+                if (randomHeight > 0) {
+                    playBoard[velkost_Y - randomHeight][x] = strecha; //
+                }
+                for (let y = velkost_Y - 1; y > velkost_Y - randomHeight; y--) {
+                    playBoard[y][x] = building_value;
+                //    console.log(playBoard)  // Pro ucebni potreby
+                }
+               // console.log(playBoard)  // Pro ucebni potreby
+            }
+        }
+
+
+
+        // Vykreslenie hracej plochy
+        function renderBoard() {
+            if (gameOver) {
+                document.body.innerHTML = '<div class="game-over">GAME OVER</div>';
+                return;
+            }
+
+            let boardHtml = '<div class="board">';
+            for (let y = 0; y < playBoard.length; y++) {
+                for (let x = 0; x < playBoard[y].length; x++) {
+                    // Kontrola či je v poli lietadlo
+                    if (y === planeY && x >= planeX && x < planeX + plane.length) {
+                        boardHtml += plane[x - planeX]; // Zobrazenie lietadla
+                    } 
+                    // Kontrola či je na poli bomba
+                    else if (bombs.some(b => b.y === y && b.x === x)) {
+                        boardHtml += bombSymbol; // Bomba
+                    }
+                    // Kontrola či je na poli výbuch
+                    else if (explosions.some(e => e.y === y && e.x === x)) {
+                        boardHtml += explosionSymbol; // Výbuch
+                    } 
+                    else {
+                        boardHtml += playBoard[y][x]; // Ostatné časti mapy
+                    }
+                }
+                boardHtml += "<br>";
+            }
+            boardHtml += '</div>';
+            boardHtml += '<div class="score">Score: ' + score + '</div>'; // Zobrazenie skóre
+            document.body.innerHTML = boardHtml;
+        }
+
+        // Pohyb lietadla
+        function movePlane() {
+            if (gameOver) return;
+
+            // Detekcia kolízie s budovou
+            for (let x = 0; x < plane.length; x++) {
+                if (planeY < velkost_Y && playBoard[planeY][planeX + x] !== backGround_value) {
+                    gameOver = true;
+                    renderBoard();
+                    return;
+                }
+            }
+
+            if (planeY % 2 === 0) {
+                planeX--; // Sprava doľava
+                if (planeX < 0) {
+                    planeX = 0;
+                    planeY++;
+                }
+            } else {
+                planeX++; // Zľava doprava
+                if (planeX > velkost_X - plane.length) {
+                    planeX = velkost_X - plane.length;
+                    planeY++;
+                }
+            }
+            if (planeY >= velkost_Y) {
+                planeY = 0; // Znova na vrchole
+            }
+            renderBoard();
+        }
+
+        // Pohyb bomby
+        function moveBombs() {
+            bombs = bombs.filter(b => {
+                b.y++; // Bomba padá dolu
+                if (b.y >= velkost_Y) return false; // Ak bomba vyjde z poľa, odstráni sa
+
+                // Kontrola zasiahnutia budovy
+                if (playBoard[b.y][b.x] !== backGround_value) {
+                    playBoard[b.y][b.x] = backGround_value; // Zničenie budovy
+                    explosions.push({x: b.x, y: b.y}); // Zaznamenanie výbuchu
+                    audio.play();
+                    score++; // Zvýšenie skóre
+                    setTimeout(() => {
+                        explosions = explosions.filter(e => e.x !== b.x || e.y !== b.y); // Odstránenie výbuchu po sekunde
+                        renderBoard();
+                    }, 1000);
+                    return false; // Bomba sa odstráni po zásahu
+                }
+                return true; // Bomba pokračuje v páde
+            });
+        }
+
+        // Spustenie bomby
+        function dropBomb() {
+            if (bombs.length < obmedzenie_bomb) { // Obmedzenie na dve bomby naraz
+                let bombX = planeX + Math.floor(plane.length / 2);
+                let bombY = planeY + 1;
+                bombs.push({x: bombX, y: bombY});
+            }
+        }
+
+        // Funkcia na prehratie zvuku výbuchu
+        function playExplosionSound() {
+            let explosionSound = document.getElementById('bomb.mp3');
+            explosionSound.play();
+        }
+
+
+        // Ovládanie pomocou kláves
+        window.addEventListener('keydown', function (event) {
+            if (event.key === ' ' && !gameOver) {
+                dropBomb(); // Zhadzovanie bomby
+            }
+        });
+
+        // Generovanie budov
+        generateBuildings();
+
+        // Animácia
+        setInterval(() => {
+            movePlane();
+            moveBombs();
+        }, cas_jedneho_kroku);
+
+        renderBoard();
+    </script>
+</body>
+
+</html>
+

@@ -1,0 +1,414 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOOMER Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            /* Umiestňuje prvky zhora nadol */
+        }
+
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid #000;
+            padding: 10px;
+            background-color: white;
+        }
+
+        .board {
+            font-family: monospace;
+            color: rgb(9, 38, 93);
+            line-height: 1.0;
+            background-color: #f0f0f0;
+            padding: 10px;
+            /* background-image: url('invaders_back.png'); */
+            /* background-position: center; */
+        }
+
+        .sky {
+            color: aqua;
+
+        }
+
+        .score {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 1.5rem;
+            text-shadow: 1px 1px;
+            margin-top: 10px;
+        }
+
+        .popis {
+            margin-top: 10px;
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: blueviolet;
+            text-align: center;
+            text-shadow: 1px 1px;
+        }
+
+        .bunka {
+            display: inline-block;
+            width: 14px;
+            height: 12px;
+            text-align: center;
+        }
+
+        .font-12 {
+            font-size: small;
+        }
+
+        .strecha {
+            color: brown;
+            font-weight: bold;
+        }
+
+        .game-over,
+        .victory {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 2rem;
+            text-shadow: 1px 1px;
+            color: red;
+            text-align: center;
+        }
+
+        .victory {
+            color: green;
+        }
+
+        /* .bomb-count {
+               font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 1.2rem;
+            text-shadow: 1px 1px;
+            align-items: left;
+            margin-top: -5px;
+            padding-bottom: 5px;
+            } */
+
+
+        .bomb-count {
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            font-size: 1.0rem;
+            /* font-size: 12px; */
+            height: 20px;
+            text-shadow: 1px 1px;
+            align-self: flex-start;  /* Aligns to the left */
+            margin-top: -5px;
+            padding-bottom: 15px;
+            text-align: left;  /* Left-aligns the text inside */
+            }
+
+
+
+    </style>
+</head>
+
+<body>
+
+    <div class="game-container">
+        <div id="bomb-count" class="bomb-count"></div>
+        <div id="board" class="board"></div>
+        <div id="score" class="score">Score: 0</div>
+        <div id="popis" class="popis">Poskod kazdu budovu aspon jeden krat, a ziskaj najviac bodov</div>
+    </div>
+
+    <script>
+        let velkost_X = 50;  // Pociatocna sirka
+        let velkost_Y = 20;  // Pociatocna vyska
+        let backGround_value = '<span class="bunka sky">  </span>';  // Obloha
+        let building_value = '<span class="bunka">██</span>'; // Budova
+        let flagSymbol = '<span class="bunka">🍺</span>'; // Flag icon above the roof
+        let strecha = '<span class="bunka strecha">/\\</span>'; // strecha
+        let plane = '🛸';  // Lietadlo
+        let bombSymbol = '<span class="bunka font-12">💣</span>'; // Bomba
+        let explosionSymbol = '<span class="bunka">🔥</span>'; // Znak výbuchu
+        let min_building = 0;  // aka vysoka ma byt budova (min)
+        let max_building = 9;  // aka vysoka ma byt budova (max)
+        let obmedzenie_bomb = 5;  // kolko bomb ma ist naraz
+        let cas_horenia = 11000;
+        let cas_jedneho_kroku = 200; // cas na jeden krok hry
+        let planeX = velkost_X - plane.length; // Začiatočná pozícia lietadla (sprava)
+        let planeY = 0; // Začína na vrchole mapy
+
+        var audio = new Audio('bomb2.mp3'); // set sound for bomb
+        var audio1 = new Audio('bomb3.wav');
+        var audio2 = new Audio('drop_bomb_sound.wav');
+
+        let gameOver = false;
+        let victory = false;
+        let score = 0;
+        let playBoard = []; // Definujeme pociatocne pole pre hru
+        let bombs = [];  // Pole pre bomby (viacero bômb naraz)
+        let explosions = []; // Uchováva výbuchy, ktoré sa zobrazia na krátky čas
+        //let remainingBombs = obmedzenie_bomb;  // Premenna na pocet zostavajucich bomb
+        let krokovLietadla = 0; // Počítadlo krokov lietadla
+
+
+        // Inicializácia hracieho pola - vyrovbime pole o velkost_x a velkost_y
+        for (let y = 0; y < velkost_Y; y++) {
+            playBoard[y] = [];  // struhneme pole do pole (jednotlive riadky) 2D pole 
+            for (let x = 0; x < velkost_X; x++) {
+                playBoard[y][x] = backGround_value;  // Vsetko sa na uvod vyplni oblohou
+            }
+        }
+
+        // Funkcia na aktualizáciu počtu bomb
+        //function updateBombCount() {
+        //    document.getElementById('bomb-count').innerHTML = 'Zasobnik bombiciek: ' + ((bombs.length - obmedzenie_bomb)* -1);
+        //                }
+
+        function updateBombCount() {
+        let remainingBombs = obmedzenie_bomb - bombs.length;
+        let bombIcons = '';  // Initialize an empty string for the bomb icons
+            for (let i = 0; i < remainingBombs; i++) {
+                    bombIcons += '💣';  // Add a bomb icon for each remaining bomb
+                }
+        document.getElementById('bomb-count').innerHTML = 'Zasobnik bombiciek: ' + bombIcons;
+        }
+
+
+        // Náhodné číslo v rozmedzí - min / max
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Generovanie budov
+        function generateBuildings() {
+        for (let x = 1; x < velkost_X - 1; x++) {
+        let randomHeight = getRandomInt(min_building, max_building);
+        if (randomHeight > 1) {
+            playBoard[velkost_Y - randomHeight][x] = strecha; // Place the roof
+            playBoard[velkost_Y - randomHeight - 1][x] = flagSymbol; // Place the flag above the roof
+        }
+        for (let y = velkost_Y - 1; y > velkost_Y - randomHeight; y--) {
+            playBoard[y][x] = building_value;
+        }
+    }
+}
+
+
+        // Funkcia na kontrolu výhry
+        function checkVictory() {
+            for (let y = 0; y < velkost_Y; y++) {
+                for (let x = 0; x < velkost_X; x++) {
+                    if (playBoard[y][x] === strecha) {
+                        return false; // Ak nájdeme aspoň jednu strechu, hra pokračuje
+                    }
+                }
+            }
+            return true; // Ak nebola nájdená žiadna strecha, hráč vyhráva
+        }
+
+        // Vykreslenie hracej plochy
+        function renderBoard() {
+            if (gameOver) {
+                document.getElementById("board").innerHTML = '<div class="game-over">GAME OVER</div>';
+                document.getElementById('bomb-count').style.display = 'none';  // Hide the bomb counter
+                return;
+            }
+
+            if (victory) {
+                document.getElementById("board").innerHTML = '<div class="victory">Vyhral si, tvoje skóre bolo: ' + score + '</div>';
+                document.getElementById('bomb-count').style.display = 'none';  // Hide the bomb counter
+                return;
+            }
+
+            // If not Game Over or Victory, display the bomb counter
+            document.getElementById('bomb-count').style.display = 'block';
+
+            let boardHtml = '';
+            for (let y = 0; y < playBoard.length; y++) {
+                for (let x = 0; x < playBoard[y].length; x++) {
+                    if (y === planeY && x >= planeX && x < planeX + plane.length) {
+                        boardHtml += plane[x - planeX]; // Zobrazenie lietadla
+                    } else if (bombs.some(b => b.y === y && b.x === x)) {
+                        boardHtml += bombSymbol; // Bomba
+                    } else if (explosions.some(e => e.y === y && e.x === x)) {
+                        boardHtml += explosionSymbol; // Výbuch
+                    } else {
+                        boardHtml += playBoard[y][x]; // Ostatné časti mapy
+                    }
+                }
+                boardHtml += "<br>";
+            }
+            document.getElementById("board").innerHTML = boardHtml;
+            document.getElementById("score").innerHTML = 'Score: ' + score;
+
+            // Kontrola, či hráč vyhral
+            if (checkVictory()) {
+                victory = true;
+                renderBoard(); // Vykreslí správu o výhre
+            }
+        }
+
+
+        // Pohyb lietadla
+        function movePlane() {
+            if (gameOver || victory) return;
+
+            // Detekcia kolízie s budovou
+            for (let x = 0; x < plane.length; x++) {
+                if (planeY < velkost_Y && playBoard[planeY][planeX + x] !== backGround_value) {
+                    gameOver = true;
+                    renderBoard();
+                    return;
+                }
+            }
+
+            if (planeY % 2 === 0) {
+                planeX--; // Sprava doľava
+                if (planeX < 0) {
+                    planeX = 0;
+                    planeY++;
+                }
+            } else {
+                planeX++; // Zľava doprava
+                if (planeX > velkost_X - plane.length) {
+                    planeX = velkost_X - plane.length;
+                    planeY++;
+                }
+            }
+            if (planeY >= velkost_Y) {
+                planeY = 0; // Znova na vrchole
+            }
+
+            // Zvýšime počet krokov a každých 10 krokov spustíme kontrolu
+            krokovLietadla++;
+            if (krokovLietadla % 10 === 0) {
+                kontrolujABudujStrechy();
+            }
+
+            renderBoard();
+        };
+
+
+        // Pohyb bomby
+        function moveBombs() {
+            bombs = bombs.filter(b => {
+            b.y++; // Bomba padá dolu
+            if (b.y >= velkost_Y) return false; // Ak bomba vyjde z poľa, odstráni sa
+
+            // Kontrola zasiahnutia strechy
+            if (playBoard[b.y][b.x] === strecha) {
+                playBoard[b.y][b.x] = backGround_value; // Zničenie strechy
+                playBoard[b.y - 1][b.x] = backGround_value; // Zničenie vlajky nad strechou
+                explosions.push({ x: b.x, y: b.y }); // Zaznamenanie výbuchu
+                audio.play();
+                score++; // Pripočítanie bodu za strechu
+                console.log(playBoard);
+                setTimeout(() => {
+                    explosions = explosions.filter(e => e.x !== b.x || e.y !== b.y); // Odstránenie výbuchu po sekunde
+                    renderBoard();
+                }, cas_horenia);
+                return false; // Bomba sa odstráni po zásahu strechy
+        }
+
+            // Kontrola zasiahnutia budovy
+            if (playBoard[b.y][b.x] === building_value) {
+                playBoard[b.y][b.x] = backGround_value; // Zničenie budovy
+                explosions.push({ x: b.x, y: b.y }); // Zaznamenanie výbuchu
+                audio.play();
+                score++; // Pripočítanie bodu za budovu
+                console.log(playBoard);
+                setTimeout(() => {
+                    explosions = explosions.filter(e => e.x !== b.x || e.y !== b.y); // Odstránenie výbuchu po sekundach
+                    renderBoard();
+                }, cas_horenia);
+                return false; // Bomba sa odstráni po zásahu budovy
+            }
+
+        return true; // Bomba pokračuje v páde
+    });
+}   
+
+
+function kontrolujABudujStrechy() {
+    for (let x = 1; x < velkost_X - 1; x++) {
+        let vyskaBudovy = 0;
+        let stlpecHorí = false; // Premenná na kontrolu, či v stĺpci horí
+
+        // Skontrolujeme, či v stĺpci nie je explózia
+        stlpecHorí = explosions.some(e => e.x === x); // Kontrola, či je v stĺpci explózia
+
+        // Ak stĺpec horí, preskočíme tento stĺpec
+        if (stlpecHorí) {
+            continue;
+        }
+
+        // Zisti výšku budovy, ak stĺpec nehorí (počítame odspodu)
+        for (let y = velkost_Y - 1; y >= 0; y--) {
+            if (playBoard[y][x] === building_value) {
+                vyskaBudovy++;
+            } else if (playBoard[y][x] === strecha) {
+                vyskaBudovy = 0; // Nulujeme výšku, aby sme zabránili pridaniu strechy
+                break;
+            }
+        }
+
+        // Ak je budova vyššia ako 5 a nemá strechu, pridáme strechu a vlajku
+        if (vyskaBudovy > 5) {
+            playBoard[velkost_Y - vyskaBudovy][x] = strecha; // Pridáme strechu
+            playBoard[velkost_Y - vyskaBudovy - 1][x] = flagSymbol; // Pridáme vlajku nad strechu
+        }
+    }
+}
+
+
+
+
+
+
+
+
+        // Spustenie bomby
+        function dropBomb() {
+            if (bombs.length < obmedzenie_bomb) { // Obmedzenie na dve bomby naraz
+                let bombX = planeX + Math.floor(plane.length / 2);
+                let bombY = planeY + 1;
+                bombs.push({ x: bombX, y: bombY });
+                audio2.play();
+            }
+        }
+
+        // Ovládanie pomocou kláves
+        window.addEventListener('keydown', function (event) {
+            if (event.key === ' ' && !gameOver && !victory) {
+                dropBomb(); // Zhadzovanie bomby pri stlačení medzerníka
+            }
+        });
+
+        // Ovládanie pomocou poklepu na displej (pre mobily)
+        window.addEventListener('touchstart', function (event) {
+            if (!gameOver && !victory) {
+                dropBomb(); // Zhadzovanie bomby pri poklepani na displej
+            }
+        });
+
+        // Generovanie budov
+        generateBuildings();
+
+        // Animácia
+        setInterval(() => {
+            movePlane();
+            moveBombs();
+            updateBombCount();
+        }, cas_jedneho_kroku);
+
+        renderBoard();
+
+    </script>
+
+</body>
+
+</html>
