@@ -91,7 +91,15 @@
                     </li>
                     <li class="animation-underline"><a href="#curriculum"
                             onclick="openSections('curriculum')">curriculum</a></li>
-                    <li class="animation-underline"><a href="#" id="openEmailForm">Email Me</a></li>
+                    
+                    <!-- We are deciding which menu items we will show -->
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'create_project' %}">Create Project</a></li>
+                    <li><a href="?logout=True">Logout</a></li>
+                    
+                    {% else %}
+                    <li class="animation-underline"><a href="#" id="openLoginForm">login</a></li>
+                    {% endif %}
                 </ul>
             </nav>
         </header>
@@ -544,20 +552,21 @@
             <!-- Naiste mi - 2 -->
             <!-- Tlačidlo Email Me v navigačnom bare -->
             <!-- Modal okno - emailový formulár -->
-            <div id="emailModal" class="modal">
+            <div id="loginModal" class="modal">
                 <div class="modal-content">
                     <span class="close-btn">&times;</span>
-                    <h4 class="font_beckman">Hello, send me an email</h4>
-                    <form id="email-form">
-                        <label for="name">Your Name:</label>
-                        <input class="custom-input" type="text" id="name-modal" name="name" required>
-                        <label for="email">Your Email:</label>
-                        <input class="custom-input" type="email" id="email-modal" name="email" required>
-                        <label for="message">Message Here:</label>
+                    <h4 class="font_beckman">Hello Admin, please login ...</h4>
+                    <form id="login-form" method="post" action="/">
+                        {% csrf_token %}
+                        <label for="name">User name:</label>
+                        <input class="custom-input" type="text" id="name-modal" name="username" required>
+                        <label for="email">Password</label>
+                        <input class="custom-input" type="password" id="pass-modal" name="password" required>
+                        <!-- <label for="message">Message Here:</label>
                         <textarea class="custom-input" id="message-modal" style="min-height: 150px;" name="message"
-                            required></textarea>
-                        <button class="" type="submit" id="submit-email-modal">Send email</button>
-                        <div class="email-status" id="email-status"></div>
+                            required></textarea> -->
+                        <button class="" type="submit" id="submit-login-modal">Login</button>
+                        <div class="login-status" id="login-status"></div>
                     </form>
                 </div>
             </div>

@@ -69,6 +69,7 @@ TEMPLATES = [
     },
 ]
 
+#  added because of static files, like CSS styles, JS files, fonts, and images and other page stuff
 STATIC_URL = '/static/'
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
