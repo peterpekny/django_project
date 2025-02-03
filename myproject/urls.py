@@ -21,5 +21,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # Add peter_pekny_page app to the urlpatterns list
     path('', include('peter_pekny_page.urls')),
+    path('editorjs/', include('django_editorjs2.urls')),
 
 ]
+

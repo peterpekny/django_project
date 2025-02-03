@@ -2,6 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+# Importuj JsonResponse z modulu django.http - editorjs2
+import json
+from django.http import JsonResponse
+from .models import Article
 
 
 # Create your views here.
@@ -34,3 +38,16 @@ def index(request):
 @login_required
 def create_project(request):
     return render(request, "peter_pekny_page/create_project.html")
+
+
+@login_required
+def save_article(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        title = data.get("title", "Untitled")  # Ak nie je nadpis, použije "Untitled"
+        content = data.get("content", "")
+
+        article = Article.objects.create(title=title, content=content)
+        return JsonResponse({"message": "Article saved successfully!", "article_id": article.id})
+
+    return JsonResponse({"error": "Invalid request"}, status=400)

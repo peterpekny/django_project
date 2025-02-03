@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # Add the new app to the INSTALLED_APPS setting
     'peter_pekny_page',
+    'django_editorjs2',
 ]
 
 MIDDLEWARE = [
@@ -122,7 +124,45 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Pridaj tento riadok
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Add for EditorJs
+DJANGO_EDITORJS2_CONFIG = {
+    # Preprocessors for preview generation
+    "image_link_preprocessor": "django_editorjs2.blogapp.utils.image_link_preprocessor",
+    "download_link_preprocessor": "django_editorjs2.blogapp.utils.download_link_preprocessor",
+    
+    # Custom styling and attributes for different block types
+    "extra_attributes": {
+        "list": {"style": "list-style: none"},
+        "checklist": {"style": "list-style: none"},
+        "paragraph": {},
+        "header": {},
+        "quote": {},
+        "code": {},
+        "image": {},
+        "embed": {},
+        "table": {},
+        "delimiter": {},
+        "attaches": {},
+    },
+    
+    # before saving the file, djanog model object EditorJsUploadFiles is passed to this function
+    "callback_before_file_save": "django_editorjs2.blogapp.utils.callback_before_file_save",
+    # before returning the response, the response object is passed to this function
+    "callback_before_return_response": "django_editorjs2.blogapp.utils.callback_before_return_response",
+    
+    # widget
+    "editorjs_field_preview_callback": "django_editorjs2.blogapp.utils.editorjs_field_preview_callback",
+    "editorjs_field_save_callback": "django_editorjs2.blogapp.utils.editorjs_field_save_callback",
+
+    "max_attachment_size_bytes": 5 * 1024 * 1024,  # 5 MiB
+    "attachment_file_extensions": ["zip","doc","docx",]
+
+}
