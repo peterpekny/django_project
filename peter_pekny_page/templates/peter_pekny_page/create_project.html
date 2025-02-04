@@ -7,7 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Create Project</title>
   <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/create-project.css' %}">
-  <!-- <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/my_style.css' %}"> -->
+  <!-- <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/loadingPage.css' %}"> -->
 
   <script src="{% static 'peter_pekny_page/js/loadingPage.js' %}"></script>
 
@@ -27,23 +27,32 @@
 </head>
 
 <body>
+
+  <!-- Loader stranky
+  <div id="loader-background">
+    <div id="loader"></div>
+    <div id="loading-text-1">PAGE IS LOADING ...</div>
+  </div>
+  <div id="content" style="display: none;"> -->
+
   <div class="container">
-  <h2>Add new article to projects ...</h2>
-  <div class="title_block">
-    <label for="title">Title:</label>
+    <h2>Add new article to projects ...</h2>
+    <div class="title_block">
+      <label for="title">Title:</label>
+    </div>
+    <input type="text" id="title" placeholder="Enter title..." required>
+
+
+    <div id="editorjs"></div>
+    <div class="title_block">
+      <button id="saveBtn" class="btn save">Save</button>
+      <button class="btn cancel">
+        <<< Cancel</button>
+    </div>
+
   </div>
-  <input type="text" id="title" placeholder="Enter title..." required>
 
-
-  <div id="editorjs"></div>
-  <div class="title_block">
-    <button id="saveBtn" class="btn save">Save</button>
-    <button class="btn cancel"><<< Cancel</button>
-  </div>
-
-</div>
-
-<script>
+  <script>
     let editor; // Premenná musí byť globálna
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -101,7 +110,7 @@
       });
     });
   </script>
-
+  <!-- </div> -->
 </body>
 
 </html>
