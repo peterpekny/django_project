@@ -34,6 +34,9 @@ def index(request):
 
     return render(request, "peter_pekny_page/index.html")
 
+def editorjs(request):
+    return render(request, "peter_pekny_page/editorjs.html")
+
 
 @login_required
 def create_project(request):
