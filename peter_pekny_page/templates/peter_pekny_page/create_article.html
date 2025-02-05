@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Create Project</title>
+        <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/create-project.css' %}">
+        <script src="{% static 'peter_pekny_page/js/loadingPage.js' %}"></script>
+    </head>
+</head>
+<body>
+
+    <div class="container">
+        <div class="title_block">
+    <h1>Pridať nový článok</h1>
+        </div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.media }}  <!-- Dôležité pre CKEditor -->
+        {{ form.as_p }}  <!-- Formulár sa zobrazí -->
+        <button type="submit">Uložiť článok</button>
+    </form>
+    <a href="{% url 'article_list' %}">Späť na zoznam článkov</a>
+</div>
+
+</body>
+</html>

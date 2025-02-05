@@ -1,0 +1,110 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    background-position-y: top;
+    background-position-x: center;
+    background-size: auto;
+    background-repeat: no-repeat;
+}
+
+::selection {
+    color: rgb(255, 255, 255);
+    background: rgb(228, 141, 255);
+}
+
+.container {
+    max-width: 900px;
+    margin: 50px auto;
+    background: rgb(231, 231, 231, 0.9);
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(1, 1, 1, 1);
+    
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+}
+
+/* Form Styles */
+
+.title_block {
+    display: flex;
+    justify-content: space-between;
+    
+    margin: 10px auto;
+    max-width: 775px;
+    font-weight: bold;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"] {
+    display: block;
+    margin: 10px auto;
+    max-width: 775px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Editor.js Container */
+#editorjs {
+    background: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-height: 300px;
+    max-width: 775px;
+    border-radius: 5px;
+    display: block;
+    margin: 10px auto;
+    opacity: 200%;
+}
+
+/* Save Button */
+.btn {
+    display: block;
+    width: 100%;
+    /* background: #28a745; */
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.save {
+    background: #b3d1ba;
+    margin-right: 5px;
+    margin-left: -10px;
+}
+
+.save:hover {
+    background: #218838;
+}
+
+.cancel {
+    background: #e0737e;
+    margin-left: 5px;
+    margin-right: -10px;
+}
+
+.cancel:hover {
+    background: #dc3545;
+    margin-left: 5px;
+}
+
+
+
+

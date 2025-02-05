@@ -5,7 +5,7 @@ from django.contrib import messages
 # Importuj JsonResponse z modulu django.http - editorjs2
 import json
 from django.http import JsonResponse
-from .models import Article
+#from .models import Article
 
 
 # Create your views here.
@@ -38,19 +38,60 @@ def editorjs(request):
     return render(request, "peter_pekny_page/editorjs.html")
 
 
+# Vytvorim funkciu create article
+from .forms import ArticleForm
+
+def create_article(request):
+    if request.method == 'POST':
+        form = ArticleForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('article_list')
+    else:
+        form = ArticleForm()
+
+    return render(request, 'peter_pekny_page/create_article.html', {'form': form})
+
+# vytvorim list article
+from .models import Article
+def article_list(request):
+    articles = Article.objects.filter(is_deleted=False, visibility="public").order_by('-created_at')
+    return render(request, 'peter_pekny_page/article_list.html', {'articles': articles})
+
+
+
+# Pridame funkciu na pridanie komentára
+from .forms import CommentForm
+
+def add_comment(request):
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('article_list')  # Po uložení presmerovanie na zoznam článkov
+    else:
+        form = CommentForm()
+    
+    return render(request, 'peter_pekny_page/comment_form.html', {'form': form})
+
+
+
 @login_required
 def create_project(request):
     return render(request, "peter_pekny_page/create_project.html")
 
 
-@login_required
-def save_article(request):
-    if request.method == "POST":
-        data = json.loads(request.body)
-        title = data.get("title", "Untitled")  # Ak nie je nadpis, použije "Untitled"
-        content = data.get("content", "")
 
-        article = Article.objects.create(title=title, content=content)
-        return JsonResponse({"message": "Article saved successfully!", "article_id": article.id})
+# save_article view function - editorjs2
 
-    return JsonResponse({"error": "Invalid request"}, status=400)
+# @login_required
+# def save_article(request):
+#     if request.method == "POST":
+#         data = json.loads(request.body)
+#         title = data.get("title", "Untitled")  # Ak nie je nadpis, použije "Untitled"
+#         content = data.get("content", "")
+
+#         article = Article.objects.create(title=title, content=content)
+#         return JsonResponse({"message": "Article saved successfully!", "article_id": article.id})
+
+#     return JsonResponse({"error": "Invalid request"}, status=400)

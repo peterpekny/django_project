@@ -1,0 +1,33 @@
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Create Project</title>
+        <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/create-project.css' %}">
+        <script src="{% static 'peter_pekny_page/js/loadingPage.js' %}"></script>
+    </head>
+<body>
+    <div class="container">
+        <h2>Add new article to projects ...</h2>
+        <div class="title_block">
+          <label for="title">Title:</label>
+        </div>
+        <input type="text" id="title" placeholder="Enter title..." required>
+
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.media }}  <!-- Dôležité pre CKEditor -->
+    {{ form.as_p }}  <!-- Formulár sa zobrazí -->
+    
+
+    
+    <button type="submit">Odoslať</button>
+
+</div>
+
+</form>
