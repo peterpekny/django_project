@@ -203,7 +203,7 @@ customColorPalette = [
     ]
 
 #CKEDITOR_5_CUSTOM_CSS = 'path_to.css' # optional
-#CKEDITOR_5_FILE_STORAGE = "path_to_storage.CustomStorage" # optional
+CKEDITOR_5_FILE_STORAGE = "django.core.files.storage.FileSystemStorage" # optional
 CKEDITOR_5_CONFIGS = {
     'default': {
         'toolbar': ['heading', '|', 'bold', 'italic', 'link',
@@ -218,11 +218,10 @@ CKEDITOR_5_CONFIGS = {
             '|',
             'blockQuote',
         ],
-        'toolbar': ['heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'link', 'underline', 'strikethrough',
-        'code','subscript', 'superscript', 'highlight', '|', 'codeBlock', 'sourceEditing', 'insertImage',
-                    'bulletedList', 'numberedList', 'todoList', '|',  'blockQuote', 'imageUpload', '|',
-                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'mediaEmbed', 'removeFormat',
-                    'insertTable',],
+        'toolbar': ['heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'underline', 'strikethrough',
+         '|', 'alignment', 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor','highlight', 'horizontalLine', 'link','code','subscript', 'superscript',  '|', 'codeBlock', 'sourceEditing', 'insertImage',
+                    'bulletedList', 'numberedList', 'todoList', '|',  'blockQuote', 'imageUpload', 'mediaEmbed', 'removeFormat',
+                    'insertTable', '|', 'undo', 'redo' ],
         'image': {
             'toolbar': ['imageTextAlternative', '|', 'imageStyle:alignLeft',
                         'imageStyle:alignRight', 'imageStyle:alignCenter', 'imageStyle:side',  '|'],
@@ -262,11 +261,27 @@ CKEDITOR_5_CONFIGS = {
             'startIndex': 'true',
             'reversed': 'true',
         }
+    },
+
+        'full': {  # 🔥 Plná konfigurácia (všetky nástroje)
+        'toolbar': [
+            'heading', '|', 'bold', 'italic', 'underline', 'strikethrough',
+            'subscript', 'superscript', '|', 'link', 'imageUpload', 'blockQuote',
+            'code', 'codeBlock', '|', 'bulletedList', 'numberedList', 'outdent', 'indent',
+            '|', 'alignment', 'horizontalLine', 'table', '|', 'undo', 'redo'
+        ],
+        'image': {
+            'toolbar': ['imageTextAlternative', 'imageStyle:full', 'imageStyle:side']
+        },
+        'table': {
+            'contentToolbar': ['tableColumn', 'tableRow', 'mergeTableCells']
+        },
+        'language': 'en',
     }
 }
 
 # Define a constant in settings.py to specify file upload permissions
-CKEDITOR_5_FILE_UPLOAD_PERMISSION = "staff"  # Possible values: "staff", "authenticated", "any"
+CKEDITOR_5_FILE_UPLOAD_PERMISSION = "any"  # Possible values: "staff", "authenticated", "any"
 
 # possible values: "custom_upload_file"
 # CK_EDITOR_5_UPLOAD_FILE_VIEW_NAME = "custom_upload_file"

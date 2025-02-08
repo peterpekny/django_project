@@ -11,10 +11,16 @@ class ArticleForm(forms.ModelForm):
 
     class Meta:
         model = Article
-        fields = ['title', 'content', 'visibility']
+        # fields = ['title', 'short_description', 'content', 'image', 'visibility']
+        fields = ['title', 'short_description', 'content', 'visibility']
         widgets = {
-            'content': CKEditor5Widget(config_name='default'),
-            'visibility': forms.Select(choices=Article.VISIBILITY_CHOICES)
+            'short_description': forms.Textarea(attrs={
+                'class': 'styled-input',
+                'rows': 3,
+                'placeholder': 'Zadajte krátky popis článku...',
+            }),
+            'content': CKEditor5Widget(config_name='extends'),
+            'visibility': forms.Select(choices=Article.VISIBILITY_CHOICES, attrs={'class': 'custom-select'}),
         }
 
 

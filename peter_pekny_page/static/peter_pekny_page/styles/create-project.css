@@ -20,7 +20,7 @@ body {
     margin: 50px auto;
     background: rgb(231, 231, 231, 0.9);
     padding: 20px;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     box-shadow: 0px 0px 10px rgba(1, 1, 1, 1);
     
 }
@@ -34,10 +34,10 @@ h2 {
 
 .title_block {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     
     margin: 10px auto;
-    max-width: 775px;
+    /* max-width: 775px; */
     font-weight: bold;
 }
 
@@ -45,19 +45,43 @@ label {
     font-weight: bold;
 }
 
-input[type="text"] {
+/* input[type="text"] {
     display: block;
-    margin: 10px auto;
-    max-width: 775px;
+    margin: 10px auto 10px;
+    max-width: 880px;
     width: 100%;
     padding: 10px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+
     font-size: 16px;
-}
+} */
+
+
+    input[type="text"], textarea {
+        border: 1px solid #ccc; /* Štandardný šedý okraj */
+        padding: 10px;
+        max-width: 880px;
+        margin: 10px auto 10px;
+        display: block;
+        width: 100%;
+        /* border-radius: 5px; Zaoblené rohy */
+        outline: none; /* Odstráni predvolený modrý okraj prehliadača */
+        transition: all 0.3s ease-in-out; /* Plynulý prechod pri kliknutí */
+
+       
+    }
+
+    input[type="text"]:focus, textarea:focus {
+        border-color: #007bff; /* Modrý okraj pri kliknutí */
+        /* Tien definicia . 1 - uhol , 2 - uhol, 3 - velkost , 4 - dovnutra velkost, (farba, a blur) */
+        box-shadow: inset 0 0 2px 2px rgb(152 152 158 / 30%); /* Modrý vnútorný tieň */
+    }
+
+
+
 
 /* Editor.js Container */
-#editorjs {
+/* #editorjs {
     background: white;
     border: 1px solid #ccc;
     padding: 10px;
@@ -67,17 +91,17 @@ input[type="text"] {
     display: block;
     margin: 10px auto;
     opacity: 200%;
-}
+} */
 
 /* Save Button */
 .btn {
     display: block;
-    width: 100%;
+    width: 900%;
     /* background: #28a745; */
     color: white;
     padding: 10px;
     border: none;
-    border-radius: 5px;
+    /* border-radius: 5px; */
     font-size: 16px;
     margin-top: 20px;
     cursor: pointer;
@@ -85,9 +109,10 @@ input[type="text"] {
 }
 
 .save {
-    background: #b3d1ba;
+    background: #70c283;
     margin-right: 5px;
-    margin-left: -10px;
+    /* margin-left: -10px; */
+    box-shadow: inset 0 0 2px 2px rgb(152 152 158 / 30%); /* Modrý vnútorný tieň */
 }
 
 .save:hover {
@@ -95,16 +120,138 @@ input[type="text"] {
 }
 
 .cancel {
-    background: #e0737e;
+    background: #cfcfcf;
     margin-left: 5px;
-    margin-right: -10px;
+    border: 2px solid #7e7e7e;
+    color:  #7e7e7e;
+    /* margin-right: -10px; */
+    box-shadow: inset 0 0 2px 2px rgb(152 152 158 / 30%); /* Modrý vnútorný tieň */
 }
 
 .cancel:hover {
-    background: #dc3545;
+    background: #ee808b;
     margin-left: 5px;
+    color: #f4f4f4;
+    border: 2px solid #bebebe;
+}
+
+/* Pocitadlo slov a pismen, trochu mensie pismo */
+
+.ck-word-count__words, .ck-word-count__characters {
+  font-size: small;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 
+.form-container {
+    display: flex;       /* Aktivujeme Flexbox */
+    justify-content: space-between; /* Rozmiestni prvky – prvý vľavo, druhý vpravo */
+    align-items: center;  /* Zarovná prvky na výšku */
+    gap: 20px;           /* Pridá medzeru medzi prvkami */
+}
+
+@media (max-width: 768px) {
+    .form-container {
+        flex-direction: column; /* Na mobiloch prvky pod seba */
+    }
+}
+
+.form-group {
+    flex: 1;             /* Každý prvok zaberie rovnakú šírku */
+    min-width: 200px;    /* Minimálna šírka pre menšie obrazovky */
+    margin-top: 20px;
+
+}
+
+.label_obsah {
+    margin-bottom: 10px;
+}
+
+    /* Štýl pre Select box */
+    select {
+        appearance: none; /* Skryje natívny vzhľad v prehliadačoch */
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background-color: white;
+        border: 1px solid #ccc;
+        padding: 10px;
+        width: 100%;
+        font-size: 16px;
+       
+        outline: none;
+        transition: all 0.3s ease-in-out;
+        cursor: pointer;
+    }
+
+    /* Štýl pri kliknutí na select */
+    select:focus {
+ 
+
+        border-color: #007bff; /* Modrý okraj pri kliknutí */
+        /* Tien definicia . 1 - uhol , 2 - uhol, 3 - velkost , 4 - dovnutra velkost, (farba, a blur) */
+        box-shadow: inset 0 0 2px 2px rgb(152 152 158 / 30%); /* Modrý vnútorný tieň */
+    }
+
+    /* Štýl pre rozbaľovací zoznam */
+    select option {
+        background-color: white;
+        color: #333;
+        padding: 10px;
+        border-radius: 0px !important; /* Zaoblené rohy */
+    }
+
+    /* Štýl pri hoveri na možnosti */
+    select option:hover {
+        background-color: #007bff;
+        color: white;
+    }
+
+    /* Ikona rozbaľovania */
+    .custom-select {
+        position: relative;
+        display: inline-block;
+        width: 20%;
+    }
+
+    .custom-select::after {
+        content: '▼'; /* Šípka nadol */
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        color: #007bff;
+        pointer-events: none;
+    }
 
 
+    /* Tlacidlo upload */
+
+
+    /* Skryjeme štandardný input */
+/* input[type="file"] {
+    display: none;
+} */
+
+/* Vytvoríme vlastné tlačidlo */
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    /* border-radius: 5px; */
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+/* Efekt po najazdení myšou */
+.custom-file-upload:hover {
+    background-color: #0056b3;
+}
+
+/* Efekt pri kliknutí */
+.custom-file-upload:active {
+    background-color: #003d80;
+}

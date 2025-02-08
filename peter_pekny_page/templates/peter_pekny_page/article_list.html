@@ -6,14 +6,14 @@
 </head>
 <body>
     <h1>Zoznam článkov</h1>
-    {% for article in articles %}
-        <h2>{{ article.title }}</h2>
-        <p><strong>Viditeľnosť:</strong> {{ article.get_visibility_display }}</p>
-        <p>{{ article.content|safe }}</p>  <!-- Dôležité pre renderovanie HTML -->
-        <hr>
-    {% empty %}
-        <p>Žiadne články zatiaľ neboli pridané.</p>
-    {% endfor %}
+        {% for article in articles %}
+            <h2>{{ article.title }}</h2>
+            <p><strong>Krátky popis:</strong> {{ article.short_description }}</p>
+            <p>{{ article.content|safe }}</p>  <!-- Dôležité pre renderovanie HTML -->
+            <hr>
+        {% empty %}
+            <p>Žiadne články zatiaľ neboli pridané.</p>
+        {% endfor %}
     <a href="{% url 'create_article' %}">Pridať nový článok</a>
 </body>
 </html>

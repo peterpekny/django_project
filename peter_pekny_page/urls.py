@@ -16,4 +16,4 @@ urlpatterns = [
     #path('save-article/', views.save_article, name='save_article'),
     # path('editorjs/', views.editorjs, name='editorjs'),
     # path("ckeditor5/", include('django_ckeditor_5.urls')),
-]  # + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
