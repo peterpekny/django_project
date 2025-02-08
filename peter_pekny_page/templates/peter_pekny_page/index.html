@@ -94,8 +94,8 @@
                     
                     <!-- We are deciding which menu items we will show -->
                     {% if user.is_authenticated %}
-                    <li><a href="{% url 'create_project' %}">Create Project</a></li>
-                    <li><a href="?logout=True">Logout</a></li>
+                    <li class="animation-underline"><a href="{% url 'create_article' %}">Create Project</a></li>
+                    <li class="animation-underline"><a href="?logout=True">Logout</a></li>
                     
                     {% else %}
                     <li class="animation-underline"><a href="#" id="openLoginForm">login</a></li>
@@ -549,9 +549,9 @@
             </div>
 
 
-            <!-- Naiste mi - 2 -->
-            <!-- Tlačidlo Email Me v navigačnom bare -->
-            <!-- Modal okno - emailový formulár -->
+            <!-- ADMIN login -->
+            <!-- Tlačidlo ADMIN v navigačnom bare -->
+            <!-- Modal okno - login formulár -->
             <div id="loginModal" class="modal">
                 <div class="modal-content">
                     <span class="close-btn">&times;</span>
@@ -634,23 +634,76 @@
                     </div>
                 </div>
             </div>
-        </div>
+        
+        
+        
 
+
+
+        <!-- ######################################################################## -->
+        <!-- Dynamic content -->
+        <!-- ######################################################################## -->
+
+
+            <!-- ---------- -->
+            <!-- some fun project page -->
+            <!-- ---------- -->
+
+            
+            <div class="container text-center whgrey">
+                <div class="row">
+                    <h1 class="py-3">Some fun PROJECTS</h1>
+                </div>
+                <div id="project_content" class="hiding_content project_content">
+                    <div class="row">
+                    {% for article in articles %}
+                    
+                        <div class="col-lg-6 col-md-6 col-sm-12 col-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="p-3">
+                                    <!-- Toto bude nazov Projektu -->
+                                     <h2>{{ article.title }}</h2>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="mb-2 ps-3">
+                                    <!-- toto bude popis projektu -->
+                                <p>{{ article.short_description }}</p>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    
+                    {% endfor %}
+<!-- row2 --></div>
+
+
+
+                   
+                </div>
+            </div>
+        <!-- Finishing wisibity effect -->
+        </div>
+        <!-- ######################################################################## -->
+
+
+        <!-- Sipka nahor -->
         <div id="scroll-Top">
             <div class="return-to-top">
                 <i class="fa fa-angle-up " id="scroll-top"></i>
             </div>
+        </div>
 
-        </div><!--/.scroll-Top-->
+        <!-- Predlzenie stranky -->
+        <div class="predlzenie_stranky"></div>
+
         <!-- ------ -->
         <!-- Footer -->
         <!-- ------ -->
 
-        <!-- Predlzenie stranky -->
-        <div class="predlzenie_stranky">
-        </div>
-
-        <!-- footer -->
         <footer>
             <nav role="footer">
                 <ul class="menu">

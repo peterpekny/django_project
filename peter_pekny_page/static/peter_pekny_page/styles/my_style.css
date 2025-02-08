@@ -888,7 +888,8 @@ span.single-timeline-horizontal {
 
 .predlzenie_stranky {
     /* height: 100px; */
-    height: 50px;
+    height: 150px;
+    
 
 }
 
@@ -999,3 +1000,112 @@ footer .footer_text p {
         bottom: 7px;
     }
 }
+
+.project_content h2 {
+
+    font-family: 'Beckman';
+    font-size: 3vh;
+    margin-bottom: 0;
+    margin-left: 20px;
+    padding: 0;
+    cursor: pointer;
+    text-align: left !important;
+    color:#000000;
+    font-weight: bolder;
+}
+
+/* .project_content h2:before { */
+    /* content: ''; */
+    /* border-left: 3px solid #000000; */
+    /* border-top: 10px solid transparent; */
+    /* border-bottom: 7px solid transparent; */
+    /* padding: 10px 0px 10px 15px; */
+    /* margin: 10px 10px 10px 10px; */
+  /* } */
+
+
+  .project_content h2:hover:after {
+    content: '⬅️';
+    /* border-left: 3px solid #000000; */
+    /* border-top: 10px solid transparent; */
+    /* border-bottom: 7px solid transparent; */
+    padding: 10px 0px 10px 10px;
+    /* font-size: small; */
+    /* margin: 10px 10px 10px 10px; */
+    animation: blink-project-after 2s ease-in-out;
+  }
+
+
+  @keyframes blink-blink-project-after {
+    0% {
+        /* background-color: white; */
+        opacity: 0%;
+        /* letter-spacing: 1px; */
+    }
+    50% {
+        /* background-color:  rgb(139, 138, 138); Farba pri bliknutí */
+        opacity: 100%;
+        /* letter-spacing: 5px; */
+    }
+    100% {
+        /* background-color: white; Návrat na pôvodnú farbu */
+        opacity: 0%;
+        /* letter-spacing: 1px; */
+    }
+}
+
+.project_content p {
+
+    font-size: small;
+    text-align: left !important;
+    padding: 0 10px 0 20px;
+}
+/* --  */
+
+
+.project_content h2:hover {
+    animation: blink-projects 2s ease-in-out; /* Animácia bliknutia na čiernu a späť */
+}
+
+@keyframes blink-projects {
+    0% {
+        /* background-color: white; */
+        color:black;
+        /* letter-spacing: 1px; */
+    }
+    50% {
+        /* background-color:  rgb(139, 138, 138); Farba pri bliknutí */
+        color:white;
+        /* letter-spacing: 5px; */
+    }
+    100% {
+        /* background-color: white; Návrat na pôvodnú farbu */
+        color: black;
+        /* letter-spacing: 1px; */
+    }
+}
+
+.whgrey h1:hover {
+    animation: blink-whgrey 0.7s ease-in-out; /* Animácia bliknutia na čiernu a späť */
+}
+
+@keyframes blink-whgrey {
+    0% {
+        background-color: rgb(230, 230, 230);
+        color:black;
+        letter-spacing: 1px;
+    }
+    50% {
+        background-color: rgb(139, 138, 138); /* Farba pri bliknutí */
+        color:white;
+        letter-spacing: 5px;
+    }
+    100% {
+        background-color: rgb(230, 230, 230); /* Návrat na pôvodnú farbu */
+        color: black;
+        letter-spacing: 1px;
+    }
+}
+
+
+/* -- */

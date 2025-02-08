@@ -47,7 +47,7 @@ import os
 import uuid
 from datetime import datetime
 
-def article_image_upload_path(filename):
+def article_image_upload_path(instance, filename):
     """Funkcia, ktorá vygeneruje cestu pre obrázok článku"""
     today = datetime.today()
     upload_dir = f'uploads/{today.year}/{today.month}/'

@@ -32,10 +32,17 @@ def index(request):
         logout(request)
         return redirect("/")  # Presmerovanie na hlavnú stránku
 
-    return render(request, "peter_pekny_page/index.html")
+    if request.user.is_authenticated:
+        # Prihlásený používateľ vidí všetky články okrem vymazaných
+        articles = Article.objects.filter(is_deleted=False).order_by('-created_at')
+    else:
+        # Neprihlásený používateľ vidí len verejné články
+        articles = Article.objects.filter(is_deleted=False, visibility='public').order_by('-created_at')
 
-def editorjs(request):
-    return render(request, "peter_pekny_page/editorjs.html")
+    return render(request, "peter_pekny_page/index.html", {'articles': articles})
+
+# def editorjs(request):
+#     return render(request, "peter_pekny_page/editorjs.html")
 
 
 # Vytvorim funkciu create article

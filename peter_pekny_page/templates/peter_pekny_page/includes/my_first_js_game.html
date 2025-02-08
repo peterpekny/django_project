@@ -1,0 +1,55 @@
+            <div class="container text-center white">
+                <div class="row">
+                    <h1 id="myFirstJsGame" class="py-3">My First J.S. Game</h1>
+                </div>
+                <div class="hiding_content">
+                    <div class="row">
+                        <div class="col">
+
+                            <!-- Úvodná obrazovka -->
+                            <div class="intro-container" id="intro-container">
+                                <div id="instructions" class="instructions popis"><b>Inštrukcie:</b><br>Zhadzuj bomby a
+                                    znič
+                                    budovy kde žijú drzí ľudia<br>Hniezda idiotizmu sú označené: "🖕"<br>nesmie
+                                    zostat
+                                    ani
+                                    jeden!!!...<br/></div>
+                                <img class="rounded-picture mt-2" src="{% static 'peter_pekny_page/images/main_img.jpg' %}" alt="Main Picture" width="250">
+                                <div id="instructions" class="instructions popis">Čím vyššia budova, tým skor sa idioti opet vrátia...<br>
+                                    Každá bomba čo minie cieľ je zbytočná strata, strácaš bod..<br>
+                                    Získaj čo najviac bodov, ku sláve v boji proti idotizmu</div>
+                                <button id="play-button" class="btn btn-outline-myColor mt-3">Play to Start</button>
+                                <div class="mt-3">
+                                    <h2>TOP PLAYERs</h2>
+                                </div>
+                                <div id="score-list" class="score-list-container">
+                                    <!-- Výsledky sa zobrazia tu -->
+                                </div>
+                            
+                            </div>
+
+                            <!-- Hlavná herná obrazovka -->
+                            <div class="game-container" id="game-container">
+                                <div id="bomb-count" class="bomb-count"></div>
+                                <div id="board" class="board"></div>
+                                <div id="score" class="score">Score: 0</div>
+                                <div id="popis" class="popis">Zapál domy drzím ľuďom - "🖕", očisti svet od idiotov.</div>
+                                <button id="mute-button" class="mute-btn">
+                                    <i id="mute-icon" class="fas fa-volume-up"></i>
+                                </button>
+                                <button id="pause-button" class="mute-btn">
+                                    <i id="pause-icon" class="fas fa-pause"></i>
+                                </button>
+                                <div id="score-list-after" class="score-list-container">
+                                    <!-- Výsledky sa zobrazia tu -->
+                                </div>
+                            </div>
+                            <!-- --------- -->
+                            <!-- GAME BODY -->
+                            <!-- --------- -->
+                            <script src="{% static 'peter_pekny_page/js/boomers_game.js' %}"></script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

@@ -1,16 +1,15 @@
 from django.contrib import admin
-
-# Register your models here.
-
-
-#from .models import Article
-
-#admin.site.register(Article)  # Registrácia modelu Article v admin paneli
+from peter_pekny_page.models import Article
 
 
-# Importuj Article model z modulu .models
-#from .models import Article
+@admin.register(Article)
+class ArticleAdmin(admin.ModelAdmin):
+    list_display = ('title', 'visibility', 'created_at', 'is_deleted')  # Stĺpce v admin paneli
+    list_filter = ('visibility', 'is_deleted')  # Možnosť filtrovať články
+    search_fields = ('title', 'short_description', 'content')  # Možnosť vyhľadávať
+    ordering = ('-created_at',)  # Najnovšie články budú hore
+    list_editable = ('visibility', 'is_deleted')  # Priama editácia týchto polí v zozname článkov
+    prepopulated_fields = {"title": ("short_description",)}  # Automatické generovanie názvu (voliteľné)
 
-#@admin.register(Article)
-#class ArticleAdmin(admin.ModelAdmin):
-#    list_display = ('title',)
+
+# admin.site.register(Article, ArticleAdmin)
