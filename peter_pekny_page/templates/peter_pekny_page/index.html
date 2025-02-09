@@ -94,7 +94,7 @@
                     
                     <!-- We are deciding which menu items we will show -->
                     {% if user.is_authenticated %}
-                    <li class="animation-underline"><a href="{% url 'create_article' %}">Create Project</a></li>
+                    <li class="animation-underline"><a href="{% url 'peter_pekny_page:create_article' %}">Create Project</a></li>
                     <li class="animation-underline"><a href="?logout=True">Logout</a></li>
                     
                     {% else %}
@@ -659,19 +659,25 @@
                     {% for article in articles %}
                     
                         <div class="col-lg-6 col-md-6 col-sm-12 col-12">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="p-3">
-                                    <!-- Toto bude nazov Projektu -->
-                                     <h2>{{ article.title }}</h2>
+                        <a href="{% url 'peter_pekny_page:article_detail' number=article.id %}">
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="p-3">
+                                        <!-- Toto bude nazov Projektu -->
+                                        <h2>{{ article.title }}</h2>
+                                    </div>
                                 </div>
-                            </div>
-                        </div> 
+                            </div> 
+                        </a> 
                         <div class="row">
                             <div class="col-12">
-                                <div class="mb-2 ps-3">
-                                    <!-- toto bude popis projektu -->
+                                <div class="mb-0 ps-3">
+                                    <!-- toto bude kratky popis projektu -->
                                 <p>{{ article.short_description }}</p>
+                                </div>
+                                <div class="mb-2 ps-3 meta">
+                                    <p style="font-size: x-small !important;">Publikované: {{ article.created_at|date:"d. m. Y" }} | Viditeľnosť: {{ article.get_visibility_display }}</p>
+                                    
                                 </div>
                             </div>
                         </div>

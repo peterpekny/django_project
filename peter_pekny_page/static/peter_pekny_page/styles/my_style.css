@@ -1014,6 +1014,10 @@ footer .footer_text p {
     font-weight: bolder;
 }
 
+.project_content a {
+    text-decoration: none;
+}
+
 /* .project_content h2:before { */
     /* content: ''; */
     /* border-left: 3px solid #000000; */

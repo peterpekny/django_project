@@ -1,0 +1,45 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <div class="title_block">
+            <title>Create Project</title>
+        </div>
+        <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/create-project.css' %}">
+        <script src="{% static 'peter_pekny_page/js/loadingPage.js' %}"></script>
+
+  
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ckeditor5@44.1.0/dist/ckeditor5.css">
+            <!-- <script src="https://cdn.jsdelivr.net/npm/@ckeditor/ckeditor5-build-classic@44.1.0/build/ckeditor.min.js"></script> -->
+        
+
+    </head>
+</head>
+<body>
+
+    <div class="container" style="opacity: 1 !important;">
+        <div class="title_block">
+            <h1>{{ article.title }}</h1>
+        </div>
+
+        <div class="ck-content">
+            {{ article.content|safe }}
+        </div>
+
+        <a href="{% url 'peter_pekny_page:index' %}">Späť hlavnu stranku</a>
+    </div>
+
+<!-- Highlight.js na formátovanie kódu -->
+<!-- su na vyber 2 moznosti - dark a ligh -->
+ <!-- Tieto styly sa puziju, a ajax highlighter to podla toho naparsuje, a spravi stylovanie -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css"> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<!-- Skript sa musi spustit -->
+<script>hljs.highlightAll();</script>
+
+</body>
+</html>

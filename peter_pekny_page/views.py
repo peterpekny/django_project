@@ -12,7 +12,9 @@ from django.http import JsonResponse
 
 from django.http import HttpResponse
 
-
+# =======================================
+# Main Function for INDEX page
+# =======================================
 def index(request):
     # Spracovanie POST žiadosti na prihlásenie
     if request.method == "POST":
@@ -41,11 +43,21 @@ def index(request):
 
     return render(request, "peter_pekny_page/index.html", {'articles': articles})
 
-# def editorjs(request):
-#     return render(request, "peter_pekny_page/editorjs.html")
+# ============================
+# Create detail of one article
+# ============================
 
+def article_detail_page(request, number):
+    article = Article.objects.get(id=number)
+    print(article)
+    return render(request, 'peter_pekny_page/detail_template.html', { 'article': article })
+    
 
-# Vytvorim funkciu create article
+# ===========================
+# function for create article 
+# ===========================
+# - impoer form for CKediror - Article form 
+# - to be able to load on the page
 from .forms import ArticleForm
 
 def create_article(request):
@@ -53,21 +65,24 @@ def create_article(request):
         form = ArticleForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('article_list')
+            return redirect('/')
     else:
         form = ArticleForm()
 
     return render(request, 'peter_pekny_page/create_article.html', {'form': form})
 
-# vytvorim list article
+# =====================
+# vytvorim list article - pomocna funkcia
+# =====================
 from .models import Article
 def article_list(request):
     articles = Article.objects.filter(is_deleted=False, visibility="public").order_by('-created_at')
     return render(request, 'peter_pekny_page/article_list.html', {'articles': articles})
 
 
-
+# =====================================
 # Pridame funkciu na pridanie komentára
+# =====================================
 from .forms import CommentForm
 
 def add_comment(request):

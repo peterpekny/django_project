@@ -10,6 +10,22 @@ body {
     background-repeat: no-repeat;
 }
 
+/* Donesem si font co sa pouzije dalej v stranke */
+@font-face {
+    font-family: "Beckman";
+    src: url("MyFonts/Beckman-FREE.otf");
+}
+
+@font-face {
+    font-family: "Montserat_regular";
+    src: url("MyFonts/montserrat/Montserrat-Regular.ttf");
+}
+
+
+.font_beckman {
+    font-family: 'Beckman'
+}
+
 ::selection {
     color: rgb(255, 255, 255);
     background: rgb(228, 141, 255);
@@ -18,7 +34,7 @@ body {
 .container {
     max-width: 900px;
     margin: 50px auto;
-    background: rgb(231, 231, 231, 0.9);
+    background: rgb(231, 231, 231, 0.95);
     padding: 20px;
     /* border-radius: 5px; */
     box-shadow: 0px 0px 10px rgba(1, 1, 1, 1);
@@ -254,4 +270,24 @@ label {
 /* Efekt pri kliknutí */
 .custom-file-upload:active {
     background-color: #003d80;
+
+}
+
+
+/* For article styles  */
+
+.ck-content p {
+
+    font-size: 15px;
+    color: #212121;
+    /* padding: 10px 0 43px; */
+    font-family: Montserat_regular;
+}
+
+.ck-content li {
+
+    font-size: 15px;
+    color: #212121;
+    /* padding: 10px 0 43px; */
+    font-family: Montserat_regular;
 }
