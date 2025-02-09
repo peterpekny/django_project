@@ -1004,14 +1004,14 @@ footer .footer_text p {
 .project_content h2 {
 
     font-family: 'Beckman';
-    font-size: 3vh;
+    font-size: 4vh;
     margin-bottom: 0;
     margin-left: 20px;
     padding: 0;
     cursor: pointer;
-    text-align: left !important;
+    margin: 0;
     color:#000000;
-    font-weight: bolder;
+    /* font-weight: bolder; */
 }
 
 .project_content a {
@@ -1028,39 +1028,22 @@ footer .footer_text p {
   /* } */
 
 
-  .project_content h2:hover:after {
+  /* .project_content h2:hover:after {
     content: '⬅️';
     /* border-left: 3px solid #000000; */
     /* border-top: 10px solid transparent; */
     /* border-bottom: 7px solid transparent; */
-    padding: 10px 0px 10px 10px;
+    /* padding: 10px 0px 10px 10px; */
     /* font-size: small; */
     /* margin: 10px 10px 10px 10px; */
-    animation: blink-project-after 2s ease-in-out;
-  }
+    /* animation: blink-project-after 2s ease-in-out; }*/ 
 
 
-  @keyframes blink-blink-project-after {
-    0% {
-        /* background-color: white; */
-        opacity: 0%;
-        /* letter-spacing: 1px; */
-    }
-    50% {
-        /* background-color:  rgb(139, 138, 138); Farba pri bliknutí */
-        opacity: 100%;
-        /* letter-spacing: 5px; */
-    }
-    100% {
-        /* background-color: white; Návrat na pôvodnú farbu */
-        opacity: 0%;
-        /* letter-spacing: 1px; */
-    }
-}
+
 
 .project_content p {
 
-    font-size: small;
+    font-size: 1.7vh;
     text-align: left !important;
     padding: 0 10px 0 20px;
 }
@@ -1068,30 +1051,27 @@ footer .footer_text p {
 
 
 .project_content h2:hover {
-    animation: blink-projects 2s ease-in-out; /* Animácia bliknutia na čiernu a späť */
+    animation: blink-projects 0.7s ease-in-out; /* Animácia bliknutia na čiernu a späť */
 }
 
 @keyframes blink-projects {
     0% {
-        /* background-color: white; */
+        background-color: rgb(230, 230, 230);
         color:black;
-        /* letter-spacing: 1px; */
+        letter-spacing: 1px;
     }
     50% {
-        /* background-color:  rgb(139, 138, 138); Farba pri bliknutí */
+        background-color:  rgb(139, 138, 138);
         color:white;
-        /* letter-spacing: 5px; */
+        letter-spacing: 5px;
     }
     100% {
-        /* background-color: white; Návrat na pôvodnú farbu */
+        background-color: rgb(230, 230, 230);
         color: black;
-        /* letter-spacing: 1px; */
+        letter-spacing: 1px;
     }
 }
 
-.whgrey h1:hover {
-    animation: blink-whgrey 0.7s ease-in-out; /* Animácia bliknutia na čiernu a späť */
-}
 
 @keyframes blink-whgrey {
     0% {
@@ -1111,5 +1091,19 @@ footer .footer_text p {
     }
 }
 
+
+.project_content h3 {
+
+    /* font-family: 'Beckman'; */
+    font-size: 2.2vh;
+    text-align: left;
+    margin-bottom: 0;
+    margin-left: 40px;
+    padding: 0;
+    cursor: pointer;
+    margin: 0;
+    color:#000000;
+    /* font-weight: bolder; */
+}
 
 /* -- */

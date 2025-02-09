@@ -1,6 +1,10 @@
 from django.contrib import admin
-from peter_pekny_page.models import Article
+from peter_pekny_page.models import Article, Category, Comment
 
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ('name',)  # Zobrazí len názov kategórie
+    search_fields = ('name',)  # Povolené vyhľadávanie podľa názvu kategórie
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):

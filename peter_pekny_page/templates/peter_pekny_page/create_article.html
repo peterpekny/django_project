@@ -44,10 +44,20 @@
             <div class="form-container">
 
                 <div class="form-group">
-                    <label for="id_visibility">Viditeľnosť</label>
+                    <label class="label_select" for="id_visibility">Viditeľnosť</label>
                     {{ form.visibility }}
+
                 </div>
-{% comment %} 
+
+                <div class="form-group label_select">
+                    <label for="id_category">Kategória</label>
+                    {{ form.category  }}
+
+                </div>
+                
+
+{% comment %} - zobrazenie obrázku zatial to nefunguje
+
                 <div class="form-group">
                     <label for="id_image">Obrázok</label>
                     {{ form.image }}
@@ -56,7 +66,9 @@
                 <label for="file-upload" class="custom-file-upload">
                     Vybrať súbor
                 </label>
-                <input id="file-upload" type="file"> {% endcomment %}
+                <input id="file-upload" type="file">
+
+{% endcomment %}
             
 
             </div>

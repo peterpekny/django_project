@@ -218,7 +218,7 @@ CKEDITOR_5_CONFIGS = {
             '|',
             'blockQuote',
         ],
-        'toolbar': ['heading', '|', 'outdent', 'indent', '|', 'bold', 'italic', 'underline', 'strikethrough',
+        'toolbar': ['heading', '|', 'outdent', 'indent', '|','SpecialCharacters', 'bold', 'italic', 'underline', 'strikethrough',
          '|', 'alignment', 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor','highlight', 'horizontalLine', 'link','code','subscript', 'superscript',  '|', 'codeBlock', 'sourceEditing', 'insertImage',
                     'bulletedList', 'numberedList', 'todoList', '|',  'blockQuote', 'imageUpload', 'mediaEmbed', 'removeFormat',
                     'insertTable', '|', 'undo', 'redo' ],

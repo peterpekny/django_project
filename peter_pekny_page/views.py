@@ -5,7 +5,7 @@ from django.contrib import messages
 # Importuj JsonResponse z modulu django.http - editorjs2
 import json
 from django.http import JsonResponse
-#from .models import Article
+
 
 
 # Create your views here.
@@ -15,12 +15,16 @@ from django.http import HttpResponse
 # =======================================
 # Main Function for INDEX page
 # =======================================
+from .models import Article, Category, Comment
+
 def index(request):
+    """Hlavná stránka - zobrazí kategórie a články podľa viditeľnosti"""
+
     # Spracovanie POST žiadosti na prihlásenie
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
-        # Autentifikácia používateľa - pomocou funkcie authenticate z modulu django.contrib.auth (vráti objekt User alebo None)
+
         user = authenticate(request, username=username, password=password)
 
         if user is not None:
@@ -29,19 +33,30 @@ def index(request):
         else:
             messages.error(request, "Nesprávne meno alebo heslo")
 
-    # Spracovanie GET žiadosti na odhlásenie (napr. /?logout=True)
+    # Spracovanie GET žiadosti na odhlásenie
     if request.GET.get("logout"):
         logout(request)
         return redirect("/")  # Presmerovanie na hlavnú stránku
 
+    # Filtrujeme články podľa prihlásenia
     if request.user.is_authenticated:
         # Prihlásený používateľ vidí všetky články okrem vymazaných
-        articles = Article.objects.filter(is_deleted=False).order_by('-created_at')
+        categories = Category.objects.prefetch_related(
+            'article_set'
+        ).all()
+        articles = Article.objects.filter(is_deleted=False)
     else:
         # Neprihlásený používateľ vidí len verejné články
-        articles = Article.objects.filter(is_deleted=False, visibility='public').order_by('-created_at')
+        categories = Category.objects.prefetch_related(
+            'article_set'
+        ).all()
+        articles = Article.objects.filter(is_deleted=False, visibility='public')
 
-    return render(request, "peter_pekny_page/index.html", {'articles': articles})
+    # Priradíme filtrované články ku kategóriám
+    for category in categories:
+        category.articles = articles.filter(category=category)
+
+    return render(request, "peter_pekny_page/index.html", {"categories": categories})
 
 # ============================
 # Create detail of one article
@@ -74,7 +89,7 @@ def create_article(request):
 # =====================
 # vytvorim list article - pomocna funkcia
 # =====================
-from .models import Article
+
 def article_list(request):
     articles = Article.objects.filter(is_deleted=False, visibility="public").order_by('-created_at')
     return render(request, 'peter_pekny_page/article_list.html', {'articles': articles})
@@ -96,6 +111,30 @@ def add_comment(request):
     
     return render(request, 'peter_pekny_page/comment_form.html', {'form': form})
 
+# =====================================
+# Test view function for map plugin
+# =====================================
+
+import gpxpy
+
+def show_map(request):
+    # Cesta k GPX súboru
+    gpx_file_path = "media/export.gpx"
+
+    # Načítanie GPX dát
+    with open(gpx_file_path, "r") as gpx_file:
+        gpx = gpxpy.parse(gpx_file)
+
+    # Extrakcia trasových bodov
+    route_points = []
+    for track in gpx.tracks:
+        for segment in track.segments:
+            for point in segment.points:
+                route_points.append((point.latitude, point.longitude))
+
+    return render(request, "peter_pekny_page/map.html", {"route_points": route_points})
+
+# =====================================
 
 
 @login_required

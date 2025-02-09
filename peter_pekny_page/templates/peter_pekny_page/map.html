@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="sk">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mapa trasy</title>
+
+    <!-- Leaflet.js -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+    {% load static %}
+
+    <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/create-project.css' %}">
+    <script src="{% static 'peter_pekny_page/js/loadingPage.js' %}"></script>
+
+
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+   
+    <!-- Map loads here -->
+    <div class="container">
+        <h1>Moja plánovaná trasa</h1>
+        <div id="map"></div>
+    </div>
+
+    <script>
+        // Inicializácia mapy
+        var map = L.map('map').setView([48.1465, 17.1077], 8); // Bratislava ako východiskový bod
+
+        // Pridanie základnej mapovej vrstvy (OpenStreetMap)
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Pridanie trasy (nahrať body zo servera)
+        var routePoints = [
+            {% for lat, lon in route_points %}
+        [{{ lat }}, {{ lon }}],
+            {% endfor %}
+        ];
+
+        var polyline = L.polyline(routePoints, { color: 'blue' }).addTo(map);
+        map.fitBounds(polyline.getBounds());
+    </script>
+
+</body>
+
+</html>

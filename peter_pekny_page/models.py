@@ -66,6 +66,18 @@ def article_image_upload_path(instance, filename):
 # Database model for articles
 # ===========================
 
+#  - Category model
+#    vvvvvvvvvvvvvv
+class Category(models.Model):
+    """Model pre kategórie článkov"""
+    name = models.CharField(max_length=100, unique=True, verbose_name="Názov kategórie")
+
+    def __str__(self):
+        return self.name
+
+#  - Article model
+#    vvvvvvvvvvvvv
+
 class Article(models.Model):
     VISIBILITY_CHOICES = [
         ('public', 'Verejný'),
@@ -77,6 +89,7 @@ class Article(models.Model):
     content           = CKEditor5Field(config_name="extends", verbose_name="Obsah článku")
     created_at        = models.DateTimeField(auto_now_add=True)
     image             = models.ImageField(upload_to=article_image_upload_path, verbose_name="Obrázok", blank=True, null=True)
+    category          = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Kategória")
     
     is_deleted = models.BooleanField(default=False, verbose_name="Vymazaný")
     visibility = models.CharField(
