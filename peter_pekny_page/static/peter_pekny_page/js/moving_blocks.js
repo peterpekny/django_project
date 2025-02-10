@@ -64,3 +64,33 @@ function openSections(sectionsName) {
         }
     }
 }
+
+
+
+// Function for hiding and showing elements from Projects section
+
+// Script: looking for h1 element with sibling calss = "hiding_content"
+// -------------------------------------------
+// document.addEventListener("DOMContentLoaded", function () {
+//     const headings = document.querySelectorAll("h2");
+
+//     headings.forEach((heading) => {
+//         heading.addEventListener("click", function () {
+//             // Skontrolujeme, či nasledujúci element obsahuje triedu "hiding_content"
+//             let content = this.parentNode.nextElementSibling;
+//             //console.log(content);
+
+//             if (content && content.classList.contains("hiding_content")) {
+//                 // Skontrolujeme, či je blok už otvorený
+//                 if (content.classList.contains("open")) {
+//                     // Zatvoríme ho, ak je otvorený
+//                     content.style.maxHeight = "0";
+//                 } else {
+//                     // Otvoríme ho a nastavíme maximálnu výšku
+//                     content.style.maxHeight = content.scrollHeight + "px";
+//                 }
+//                 content.classList.toggle("open"); // Pridáme alebo odstránime triedu 'open'
+//             }
+//         });
+//     });
+// });
