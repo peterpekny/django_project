@@ -179,19 +179,20 @@
                             <a href="{% url 'peter_pekny_page:article_detail' number=article.id %}">
                                 <div class="row">
                                     <div class="col-12">
+                                        <div class="article_index">
+                                            <!-- Toto bude nazov Projektu -->
+                                            <h3>{{ article.title }}</h3>
 
-                                        <!-- Toto bude nazov Projektu -->
-                                        <h3>{{ article.title }}</h3>
-
-                                        <!-- toto bude kratky popis projektu -->
-                                        <p>{{ article.short_description }}</p>
+                                            <!-- toto bude kratky popis projektu -->
+                                            <p>{{ article.short_description }}</p>
 
 
-                                        <p style="font-size: x-small !important;">Publikované: {{ article.created_at|date:"d. m. Y" }} | Viditeľnosť: {{ article.get_visibility_display }}</p>
+                                            <p style="font-size: x-small !important;">Publikované: {{ article.created_at|date:"d. m. Y" }} | Viditeľnosť: {{ article.get_visibility_display }}</p>
 
-                                        <hr
-                                            style="border: 0.5px solid #a6a6a6; margin: 0 100px 0 100px; margin-bottom: 15px;">
-
+                                            <!-- <hr
+                                                style="border: 0.5px solid #a6a6a6; margin: 0 100px 0 100px; margin-bottom: 15px;">
+                                        -->
+                                        </div>
                                     </div>
                                 </div>
                             </a>
