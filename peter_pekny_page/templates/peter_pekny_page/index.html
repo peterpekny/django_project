@@ -164,7 +164,7 @@
                     <h1 class="py-3">Some fun PROJECTS</h1>
                 </div>
                 <div id="project_content" class="hiding_content project_content">
-
+                    <!-- starting loop for categories -->
                     {% for category in categories %}
                     <div class="category">
                         <div class="row">
@@ -172,26 +172,27 @@
                                 <h2 class="p-2">{{ category.name }}</h2>
                             </div>
                         </div>
-                        <!-- Starting rows for Articles -->
 
+                        <!-- Starting rows for Articles -->
                         {% for article in category.articles %}
                         <div class="hiding_content">
                             <a href="{% url 'peter_pekny_page:article_detail' number=article.id %}">
-                                <div class="row">
-                                    <div class="col-12">
+                                <div class="row ">
+                                    <div class="col-12 align-self-center">
                                         <div class="article_index">
+                                            
                                             <!-- Toto bude nazov Projektu -->
                                             <h3>{{ article.title }}</h3>
 
                                             <!-- toto bude kratky popis projektu -->
                                             <p>{{ article.short_description }}</p>
-
-
+                                            
+                                            <!-- toto bude datum a publikovane -->
                                             <p style="font-size: x-small !important;">Publikované: {{ article.created_at|date:"d. m. Y" }} | Viditeľnosť: {{ article.get_visibility_display }}</p>
 
                                             <!-- <hr
                                                 style="border: 0.5px solid #a6a6a6; margin: 0 100px 0 100px; margin-bottom: 15px;">
-                                        -->
+                                            -->
                                         </div>
                                     </div>
                                 </div>

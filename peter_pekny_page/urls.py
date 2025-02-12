@@ -14,6 +14,7 @@ urlpatterns = [
     path('article/new/', views.create_article, name='create_article'),
     path('articles/', views.article_list, name='article_list'),
     path('<int:number>/', views.article_detail_page, name='article_detail'),
+    path("article/<int:article_id>/edit/", views.edit_article, name="article_edit"),
     #path('save-article/', views.save_article, name='save_article'),
     # path('editorjs/', views.editorjs, name='editorjs'),
     # path("ckeditor5/", include('django_ckeditor_5.urls')),

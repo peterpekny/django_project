@@ -1,45 +1,163 @@
 {% load static %}
 
+
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <div class="title_block">
-            <title>Create Project</title>
-        </div>
-        <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/create-project.css' %}">
-        <script src="{% static 'peter_pekny_page/js/loadingPage.js' %}"></script>
 
-  
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ckeditor5@44.1.0/dist/ckeditor5.css">
-            <!-- <script src="https://cdn.jsdelivr.net/npm/@ckeditor/ckeditor5-build-classic@44.1.0/build/ckeditor.min.js"></script> -->
-        
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div class="title_block">
+        <title>Create Project</title>
+    </div>
+    <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/create-project.css' %}">
+    <script src="{% static 'peter_pekny_page/js/loadingPage.js' %}"></script>
 
-    </head>
+    <!-- nahrame bootstrap css styly s CDN -->
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ckeditor5@44.1.0/dist/ckeditor5.css">
+
+    <!-- Toto je externy CKeditor - chcel by som to nejak osulit ale neviem jak -->
+    <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script>
+
+
 </head>
+</head>
+
 <body>
 
-    <div class="container" style="opacity: 1 !important;">
-        <div class="title_block">
-            <h1>{{ article.title }}</h1>
-        </div>
 
-        <div class="ck-content">
-            {{ article.content|safe }}
-        </div>
+    <div id="article-content">
+        <div class="container" style="opacity: 1 !important;">
+            <div class="title_block">
+                <h1>{{ article.title }}</h1>
+            </div>
 
-        <a href="{% url 'peter_pekny_page:index' %}">Späť hlavnu stranku</a>
+            <div class="ck-content">
+                {{ article.content|safe }}
+            </div>
+            <div class="title_block">
+                {% if user.is_authenticated %}
+                <button id="edit-btn" class="btn save">Editovať</button>
+                {% endif %}
+            </div>
+
+            <a href="{% url 'peter_pekny_page:index' %}">Späť hlavnu stranku</a>
+        </div>
     </div>
 
-<!-- Highlight.js na formátovanie kódu -->
-<!-- su na vyber 2 moznosti - dark a ligh -->
- <!-- Tieto styly sa puziju, a ajax highlighter to podla toho naparsuje, a spravi stylovanie -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
-<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css"> -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-<!-- Skript sa musi spustit -->
-<script>hljs.highlightAll();</script>
+
+
+    {{ form.media }} <!-- Dôležité pre CKEditor -->
+
+    <div id="edit-form" style="display: none;">
+        <div id="article-content">
+            <div class="container" style="opacity: 1 !important;">
+                <div class="row">
+                    <div class="col">
+                        <form id="article-edit-form">
+                            {% csrf_token %}
+                            <label for="title">Názov článku</label>
+                            <input type="text" id="title" name="title" value="{{ article.title }}" required>
+
+                            <label for="short_description">Krátky popis</label>
+                            <textarea id="short_description" name="short_description"
+                                required>{{ article.short_description }}</textarea>
+
+                            <label for="content">Obsah článku</label>
+                            <textarea id="content" name="content" class="django_ckeditor_5"
+                                required>{{ article.content }}</textarea>
+                            <div class="title_block">
+                                <button type="submit" class="btn save">Uložiť zmeny</button>
+                                <button type="button" id="cancel-btn" class="btn cancel">Zrušiť</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+
+    <!-- Highlight.js na formátovanie kódu -->
+    <!-- su na vyber 2 moznosti - dark a ligh -->
+    <!-- Tieto styly sa puziju, a ajax highlighter to podla toho naparsuje, a spravi stylovanie -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css"> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <!-- Skript sa musi spustit -->
+    <script>hljs.highlightAll();</script>
+
+    <script>
+
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const editBtn = document.getElementById("edit-btn");
+            const editForm = document.getElementById("edit-form");
+            const articleContent = document.getElementById("article-content");
+            const cancelBtn = document.getElementById("cancel-btn");
+            let editorInstance;
+
+            if (editBtn) {
+                editBtn.addEventListener("click", function () {
+                    articleContent.style.display = "none"; // Skryť obsah článku
+                    editForm.style.display = "block"; // Zobraziť formulár
+
+                    // Inicializujeme CKEditor len raz
+                    if (!editorInstance) {
+                        ClassicEditor
+                            .create(document.querySelector("#content"))
+                            .then(editor => {
+                                editorInstance = editor;
+                            })
+                            .catch(error => console.error("Chyba CKEditor:", error));
+                    }
+                });
+            }
+
+            if (cancelBtn) {
+                cancelBtn.addEventListener("click", function () {
+                    editForm.style.display = "none"; // Skryť formulár
+                    articleContent.style.display = "block"; // Zobraziť článok
+                });
+            }
+
+            document.getElementById("article-edit-form").addEventListener("submit", function (e) {
+                e.preventDefault(); // Zabránime reloadu stránky
+
+                const formData = new FormData(this);
+
+                // Pridáme obsah CKEditoru do `formData`
+                formData.set("content", editorInstance.getData());
+
+                fetch("{% url 'peter_pekny_page:article_edit' article.id %}", {
+                    method: "POST",
+                    body: formData,
+                    headers: {
+                        "X-CSRFToken": formData.get("csrfmiddlewaretoken"),
+                    },
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            location.reload(); // Reload stránky po úspešnom uložení
+                        } else {
+                            alert("Nepodarilo sa uložiť zmeny.");
+                        }
+                    })
+                    .catch(error => console.error("Chyba:", error));
+            });
+        });
+
+
+
+    </script>
 
 </body>
+
 </html>

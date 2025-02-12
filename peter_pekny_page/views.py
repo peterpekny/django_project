@@ -86,6 +86,50 @@ def create_article(request):
 
     return render(request, 'peter_pekny_page/create_article.html', {'form': form})
 
+
+from django.shortcuts import get_object_or_404
+from django.http import JsonResponse
+
+# def edit_article(request, article_id):
+#     """Upraví článok priamo na stránke (AJAX)."""
+#     article = get_object_or_404(Article, id=article_id)
+    
+#     if request.method == "POST" and request.user.is_authenticated:
+      
+#         form = ArticleForm(request.POST, instance=article)
+        
+#         article.title = request.POST.get("title")
+#         article.short_description = request.POST.get("short_description")
+#         article.content = request.POST.get("content")
+#         article.save()
+
+#         return JsonResponse({"success": True})  # Odpoveď pre AJAX
+
+#     return JsonResponse({"success": False}, status=400)
+
+
+def edit_article(request, article_id):
+    """Upraví článok priamo na stránke (AJAX)."""
+    article = get_object_or_404(Article, id=article_id)
+
+    print(article)
+    
+    form = ArticleForm(request.POST, instance=article)
+
+    if request.method == "POST" and request.user.is_authenticated:
+      
+        form = ArticleForm(request.POST, instance=article)
+        
+        article.title = request.POST.get("title")
+        article.short_description = request.POST.get("short_description")
+        article.content = request.POST.get("content")
+        article.save()
+
+        return redirect('peter_pekny_page/edit_article.html', {'form': form})
+
+    return render('peter_pekny_page/edit_article.html', {'form': form})
+
+
 # =====================
 # vytvorim list article - pomocna funkcia
 # =====================

@@ -1115,7 +1115,7 @@ footer .footer_text p {
     margin: 3px;
     font-family: Montserat_regular;
     border-radius: 6px;
-    border: solid 1px #d3d3d375;
+    border: solid 2px #ffffff75;
     background-color: rgb(243, 243, 243);
     box-shadow: 0px 0px 10px -6px black;
     
@@ -1123,6 +1123,8 @@ footer .footer_text p {
 
 .article_index:hover {
     background-color: rgb(255, 255, 255);
-    box-shadow: 0px 0px 10px -6px black;
+    border: solid 2px #8d65c5;
+    box-shadow: 0px 0px 10px -6px #8d65c5;
     transition: background-color 0.7s ease; /* Plynulý prechod medzi farbami */
+    transition: border 0.7s ease;
 }
