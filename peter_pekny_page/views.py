@@ -64,7 +64,7 @@ def index(request):
 
 def article_detail_page(request, number):
     article = Article.objects.get(id=number)
-    print(article)
+    # print(article)
     return render(request, 'peter_pekny_page/detail_template.html', { 'article': article })
     
 
@@ -114,7 +114,7 @@ def edit_article(request, article_id):
 
     print(article)
     
-    form = ArticleForm(request.POST, instance=article)
+    form = ArticleForm(instance=article)
 
     if request.method == "POST" and request.user.is_authenticated:
       
@@ -125,9 +125,9 @@ def edit_article(request, article_id):
         article.content = request.POST.get("content")
         article.save()
 
-        return redirect('peter_pekny_page/edit_article.html', {'form': form})
+        return redirect(request, 'peter_pekny_page/edit_article.html', {'form': form})
 
-    return render('peter_pekny_page/edit_article.html', {'form': form})
+    return render(request, 'peter_pekny_page/edit_article.html', {'form': form, article: article})
 
 
 # =====================

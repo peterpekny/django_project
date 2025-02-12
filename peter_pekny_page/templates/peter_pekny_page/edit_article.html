@@ -23,61 +23,8 @@
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.media }}  <!-- Dôležité pre CKEditor -->
-            {% comment %} {{ form.as_p }}  <!-- Formulár sa zobrazí --> {% endcomment %}
-            <div class="form-group">
-                <label for="id_title">Názov článku</label>
-                {{ form.title }}
-            </div>
-        
-            <div class="form-group">
-                <label for="id_short_description">Krátky popis</label>
-                {{ form.short_description }}
-            </div>
-        
-            <div class="form-group label_obsah">
-                <label for="id_content">Obsah článku</label>
-            </div>
-            <div class="">
-                {{ form.content }}
-            </div>
-        
-            <div class="form-container">
+            {{ form.as_p }}  <!-- Formulár sa zobrazí -->
 
-                <div class="form-group">
-                    <label class="label_select" for="id_visibility">Viditeľnosť</label>
-                    {{ form.visibility }}
-
-                </div>
-
-                <div class="form-group label_select">
-                    <label for="id_category">Kategória</label>
-                    {{ form.category  }}
-
-                </div>
-                
-
-{% comment %} - zobrazenie obrázku zatial to nefunguje
-
-                <div class="form-group">
-                    <label for="id_image">Obrázok</label>
-                    {{ form.image }}
-                </div>
-
-                <label for="file-upload" class="custom-file-upload">
-                    Vybrať súbor
-                </label>
-                <input id="file-upload" type="file">
-
-{% endcomment %}
-            
-
-            </div>
-
-            <div class="title_block">
-                <button id="saveBtn" class="btn save">Save</button>
-                <button type="button" class="btn cancel" onclick="window.location.href='{% url 'peter_pekny_page:index' %}'" >
-                  Cancel</button>
-              </div>
         </form>
         <a href="{% url 'peter_pekny_page:index' %}">Spet na index</a>
     </div>
