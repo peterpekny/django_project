@@ -176,7 +176,7 @@
                         <!-- Starting rows for Articles -->
                         {% for article in category.articles %}
                         <div class="hiding_content">
-                            <a href="{% url 'peter_pekny_page:article_detail' number=article.id %}">
+                            <a href="{% url 'peter_pekny_page:article_detail' article_id=article.id %}">
                                 <div class="row ">
                                     <div class="col-12 align-self-center">
                                         <div class="article_index">

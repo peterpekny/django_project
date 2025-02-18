@@ -62,10 +62,13 @@ def index(request):
 # Create detail of one article
 # ============================
 
-def article_detail_page(request, number):
-    article = Article.objects.get(id=number)
+def article_detail_page(request, article_id):
+    context = {
+        'article' : Article.objects.get(id=article_id),
+        'article_id' : article_id
+    }
     # print(article)
-    return render(request, 'peter_pekny_page/detail_template.html', { 'article': article })
+    return render(request, 'peter_pekny_page/detail_template.html', context)
     
 
 # ===========================
@@ -109,24 +112,28 @@ from django.http import JsonResponse
 
 
 def edit_article(request, article_id):
-    """Upraví článok priamo na stránke (AJAX)."""
+    """Upraví článok priamo na stránke."""
+    # Nacitame obsah clanku
     article = get_object_or_404(Article, id=article_id)
-
-    print(article)
     
+    # Definujem formular s datami z DB
     form = ArticleForm(instance=article)
-
+    
+    # V pripade POST s fromulara = ulozim zmeny
     if request.method == "POST" and request.user.is_authenticated:
       
         form = ArticleForm(request.POST, instance=article)
         
+        # Ulozime zmeny
         article.title = request.POST.get("title")
         article.short_description = request.POST.get("short_description")
         article.content = request.POST.get("content")
         article.save()
-
-        return redirect(request, 'peter_pekny_page/edit_article.html', {'form': form})
-
+       
+        # Po ulozeni, sa vratim sa na stranku s detailom clanku
+        return redirect ('peter_pekny_page:article_detail', article_id=article_id)
+        
+    # Po strlaceni edit vyrendrujem stranku EDIT a formular s datami z DB
     return render(request, 'peter_pekny_page/edit_article.html', {'form': form, article: article})
 
 
