@@ -3,26 +3,45 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Detail Article: {{ article.title }}</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Article: {{ article.title }}</title>
 
-        <!-- Styles for edit article -->
-        <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/create-project.css' %}">
-        <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/loadingPage.css' %}">
-        <script src="{% static 'peter_pekny_page/js/loadingPage.js' %}"></script>
-        
-
-        <!-- My index styles for page -->
-        <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/my_style.css' %}">
-    
-        <!-- CKeditor Styles -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ckeditor5@44.1.0/dist/ckeditor5.css">
-    </head>
+    <!-- Styles for edit article -->
+    <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/create-project.css' %}">
+    <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/loadingPage.css' %}">
+    <script src="{% static 'peter_pekny_page/js/loadingPage.js' %}"></script>
 
 
-    <body>
+    <!-- My index styles for page -->
+    <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/my_style.css' %}">
+
+    <!-- CKeditor Styles -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ckeditor5@44.1.0/dist/ckeditor5.css">
+    <!-- <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script> -->
+
+
+    <style>
+        .ratio {
+            width: auto;
+        }
+
+        .video_container_iframe {
+            height: auto !important;
+            padding-bottom: 0 !important;
+        }
+
+        .video_iframe {
+            position: relative !important;
+            min-height: 50vh;
+        }
+    </style>
+
+</head>
+
+
+<body>
 
     <!-- Loader stranky -->
     <div id="loader-background">
@@ -43,19 +62,22 @@
                 </label>
                 <!-- Menu Items -->
                 <ul class="menu">
-             
-                            
+
+
 
                     <!-- We are deciding which menu items we will show -->
                     {% if user.is_authenticated %}
-  
-                    <button class="btn save"  style="width: 150px; margin-top: 0 !important;" OnClick="location.href='{% url 'peter_pekny_page:create_article' %}'">Create article</button>
-                    <button class="btn save"  style="width: 100px; margin-top: 0 !important;" OnClick="location.href='{% url 'peter_pekny_page:article_edit' article_id=article.id %}'">Editovať</button>
+
+                    <button class="btn save" style="width: 150px; margin-top: 0 !important;"
+                        OnClick="location.href='{% url 'peter_pekny_page:create_article' %}'">Create article</button>
+                    <button class="btn save" style="width: 100px; margin-top: 0 !important;"
+                        OnClick="location.href='{% url 'peter_pekny_page:article_edit' article_id=article.id %}'">Editovať</button>
 
                     {% else %}
-                    
+
                     {% endif %}
-                    <button class="btn cancel" style="width: 100px; margin-top: 0 !important;" OnClick="location.href='{% url 'peter_pekny_page:index' %}'">Home</button>
+                    <button class="btn cancel" style="width: 100px; margin-top: 0 !important;"
+                        OnClick="location.href='{% url 'peter_pekny_page:index' %}'">Home</button>
                 </ul>
             </nav>
         </header>
@@ -74,8 +96,10 @@
                 <!-- Buttons -->
                 <div class="title_block">
                     {% if user.is_authenticated %}
-                    <button class="btn save" OnClick="location.href='{% url 'peter_pekny_page:article_edit' article_id=article.id %}'">Editovať</button>
-                    <button class="btn cancel" OnClick="location.href='{% url 'peter_pekny_page:index' %}'">Back</button>
+                    <button class="btn save"
+                        OnClick="location.href='{% url 'peter_pekny_page:article_edit' article_id=article.id %}'">Editovať</button>
+                    <button class="btn cancel"
+                        OnClick="location.href='{% url 'peter_pekny_page:index' %}'">Back</button>
                     {% endif %}
                 </div>
             </div>
@@ -86,19 +110,34 @@
         <!-- su na vyber 2 moznosti - dark a ligh -->
         <!-- Tieto styly sa puziju, a ajax highlighter to podla toho naparsuje, a spravi stylovanie pre synatx code-->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
-        
+
         <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css"> -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-        
+
         <!-- Skript sa musi spustit -->
         <script>hljs.highlightAll();</script>
-        
+
         <!-- Hiding top level navigation -->
         <script src="{% static 'peter_pekny_page/js/scroll_mouse_function.js' %}"></script>
 
     </div>
 
+    <script>
 
-    </body>
+        window.addEventListener('load', function () {
+            document.querySelectorAll('oembed[url]').forEach(element => {
+                // get just the code for this youtube video from the url
+                let vCode = element.attributes.url.value.split('?v=')[1];
+                // paste some BS5 embed code in place of the Figure tag
+                element.parentElement.outerHTML = `
+    <div class="ratio">
+        <iframe src="https://www.youtube.com/embed/${vCode}?rel=0"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>`;
+            });
+        });
+    </script>
+
+
+</body>
 
 </html>

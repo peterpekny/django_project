@@ -38,11 +38,47 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     # Add the new app to the INSTALLED_APPS setting
-    'peter_pekny_page',
-    'django_editorjs2',
-    'django_ckeditor_5',
+    'peter_pekny_page', # my page app >> peter_pekny_page
+    
+    # virtual keyboard
+    'django_editorjs2', # EditorJs -- will be removed
+    'django_ckeditor_5', # CKEditor 5
+    
+    # All auth settings
+ #   'django.contrib.sites',  # Potrebné pre allauth
+ #   'allauth', # Potrebné pre allauth
+ #   'allauth.account', # Potrebné pre allauth
+ #   'allauth.socialaccount', # Potrebné pre allauth
+ #   'allauth.socialaccount.providers.google', # Potrebné pre allauth
 ]
+
+# all auth settings
+#AUTHENTICATION_BACKENDS = [
+#    'django.contrib.auth.backends.ModelBackend',
+#    'allauth.account.auth_backends.AuthenticationBackend',
+#]
+
+# all auth settings
+LOGIN_REDIRECT_URL = '/'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+
+# all auth settings
+SITE_ID = 1
+
+# all auth settings
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        'APP': {
+            'client_id': 'TVOJ_GOOGLE_CLIENT_ID',
+            'secret': 'TVOJ_GOOGLE_CLIENT_SECRET',
+            'key': ''
+        },
+        'SCOPE': ['profile', 'email'],
+        'AUTH_PARAMS': {'access_type': 'online'},
+    }
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -111,9 +147,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'sk'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Prague'
 
 USE_I18N = True
 
@@ -253,7 +289,8 @@ CKEDITOR_5_CONFIGS = {
                 { 'model': 'heading2', 'view': 'h2', 'title': 'Heading 2', 'class': 'ck-heading_heading2' },
                 { 'model': 'heading3', 'view': 'h3', 'title': 'Heading 3', 'class': 'ck-heading_heading3' }
             ]
-        }
+        },
+        
     },
     'list': {
         'properties': {
@@ -262,6 +299,8 @@ CKEDITOR_5_CONFIGS = {
             'reversed': 'true',
         }
     },
+
+    
 
         'full': {  # 🔥 Plná konfigurácia (všetky nástroje)
         'toolbar': [
