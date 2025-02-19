@@ -68,7 +68,7 @@ def article_detail_page(request, article_id):
         'article_id' : article_id
     }
     # print(article)
-    return render(request, 'peter_pekny_page/detail_template.html', context)
+    return render(request, 'peter_pekny_page/detail_article.html', context)
     
 
 # ===========================

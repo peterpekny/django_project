@@ -1,0 +1,104 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Detail Article: {{ article.title }}</title>
+
+        <!-- Styles for edit article -->
+        <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/create-project.css' %}">
+        <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/loadingPage.css' %}">
+        <script src="{% static 'peter_pekny_page/js/loadingPage.js' %}"></script>
+        
+
+        <!-- My index styles for page -->
+        <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/my_style.css' %}">
+    
+        <!-- CKeditor Styles -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ckeditor5@44.1.0/dist/ckeditor5.css">
+    </head>
+
+
+    <body>
+
+    <!-- Loader stranky -->
+    <div id="loader-background">
+        <div id="loader"></div>
+        <div id="loading-text-1">PAGE IS LOADING ...</div>
+    </div>
+    <!-- Content that is hiding untill all elements are loaded  -->
+    <div id="content" style="display: none;">
+
+        <!-- Header -->
+        <header style="opacity: 100% !important;">
+            <nav>
+                <!-- Hamburger button -->
+                <input type="checkbox" id="check">
+                <label for="check" class="checkbtn">
+                    <!-- <i class="fas fa-bars"></i> -->
+                    <i class="fas fa-hamburger"></i>
+                </label>
+                <!-- Menu Items -->
+                <ul class="menu">
+             
+                            
+
+                    <!-- We are deciding which menu items we will show -->
+                    {% if user.is_authenticated %}
+  
+                    <button class="btn save"  style="width: 150px; margin-top: 0 !important;" OnClick="location.href='{% url 'peter_pekny_page:create_article' %}'">Create article</button>
+                    <button class="btn save"  style="width: 100px; margin-top: 0 !important;" OnClick="location.href='{% url 'peter_pekny_page:article_edit' article_id=article.id %}'">Editovať</button>
+
+                    {% else %}
+                    
+                    {% endif %}
+                    <button class="btn cancel" style="width: 100px; margin-top: 0 !important;" OnClick="location.href='{% url 'peter_pekny_page:index' %}'">Home</button>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Article content -->
+        <div id="article-content">
+            <div class="container" style="opacity: 1 !important;">
+                <!-- article heading -->
+                <div class="title_block">
+                    <h2>{{ article.title }}</h2>
+                </div>
+                <!-- article content  -->
+                <div class="ck-content">
+                    {{ article.content|safe }}
+                </div>
+                <!-- Buttons -->
+                <div class="title_block">
+                    {% if user.is_authenticated %}
+                    <button class="btn save" OnClick="location.href='{% url 'peter_pekny_page:article_edit' article_id=article.id %}'">Editovať</button>
+                    <button class="btn cancel" OnClick="location.href='{% url 'peter_pekny_page:index' %}'">Back</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+
+        <!-- Highlight.js na formátovanie kódu -->
+        <!-- su na vyber 2 moznosti - dark a ligh -->
+        <!-- Tieto styly sa puziju, a ajax highlighter to podla toho naparsuje, a spravi stylovanie pre synatx code-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github.min.css">
+        
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css"> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+        
+        <!-- Skript sa musi spustit -->
+        <script>hljs.highlightAll();</script>
+        
+        <!-- Hiding top level navigation -->
+        <script src="{% static 'peter_pekny_page/js/scroll_mouse_function.js' %}"></script>
+
+    </div>
+
+
+    </body>
+
+</html>
