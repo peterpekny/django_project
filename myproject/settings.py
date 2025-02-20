@@ -258,6 +258,7 @@ CKEDITOR_5_CONFIGS = {
          '|', 'alignment', 'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor','highlight', 'horizontalLine', 'link','code','subscript', 'superscript',  '|', 'codeBlock', 'sourceEditing', 'insertImage',
                     'bulletedList', 'numberedList', 'todoList', '|',  'blockQuote', 'imageUpload', 'mediaEmbed', 'removeFormat',
                     'insertTable', '|', 'undo', 'redo' ],
+                    
         'image': {
             'toolbar': ['imageTextAlternative', '|', 'imageStyle:alignLeft',
                         'imageStyle:alignRight', 'imageStyle:alignCenter', 'imageStyle:side',  '|'],
@@ -270,6 +271,13 @@ CKEDITOR_5_CONFIGS = {
             ]
 
         },
+        
+        # !!!!!!!! - mediaEmbed - enable previews in data
+        'mediaEmbed': {
+            'previewsInData': True  # Enable previews in data
+        },
+        # !!!!!!!!
+
         'table': {
             'contentToolbar': [ 'tableColumn', 'tableRow', 'mergeTableCells',
             'tableProperties', 'tableCellProperties' ],

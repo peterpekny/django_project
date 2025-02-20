@@ -47,6 +47,8 @@ import os
 import uuid
 from datetime import datetime
 
+# Funkcia pre generovanie cesty pre obrázok článku - not working
+# ===============================================
 def article_image_upload_path(instance, filename):
     """Funkcia, ktorá vygeneruje cestu pre obrázok článku"""
     today = datetime.today()
