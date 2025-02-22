@@ -128,13 +128,45 @@ def edit_article(request, article_id):
         article.title = request.POST.get("title")
         article.short_description = request.POST.get("short_description")
         article.content = request.POST.get("content")
+        article.visibility = request.POST.get("visibility")
+
+        # Ukladanie kategorie - ak je zmenena
+        # Nacitame ID kategorie z formulara - a ulozime do databazy
+        category_id = request.POST.get("category")
+        if category_id:  # Ak je ID kategórie zadané
+            article.category = Category.objects.get(id=category_id)
+
         article.save()
        
         # Po ulozeni, sa vratim sa na stranku s detailom clanku
         return redirect ('peter_pekny_page:article_detail', article_id=article_id)
         
     # Po strlaceni edit vyrendrujem stranku EDIT a formular s datami z DB
-    return render(request, 'peter_pekny_page/edit_article.html', {'form': form, article: article})
+    return render(request, 'peter_pekny_page/edit_article.html', {'form': form, 'article': article})
+
+# ===========================
+# function for delete article
+# ===========================
+# def delete_article(request, article_id):
+#     article = get_object_or_404(Article, id=article_id)
+#     article.is_deleted = True
+#     article.save()
+
+from django.shortcuts import redirect
+
+@login_required
+def delete_article(request, article_id):
+    """Označí článok ako vymazaný a presmeruje na hlavnú stránku."""
+    article = get_object_or_404(Article, id=article_id)
+    
+    if request.method == "POST":
+        article.is_deleted = True  # Označíme článok ako vymazaný
+        article.save()
+        messages.success(request, "Článok bol úspešne vymazaný.")
+        return redirect('peter_pekny_page:index')  # Presmerovanie na hlavnú stránku
+
+    return redirect('peter_pekny_page:edit_article', article_id=article_id)  # Ak by niekto volal GET
+
 
 
 # =====================

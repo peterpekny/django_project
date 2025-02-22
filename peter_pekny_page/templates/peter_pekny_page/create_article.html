@@ -13,6 +13,10 @@
     <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/loadingPage.css' %}">
     <script src="{% static 'peter_pekny_page/js/loadingPage.js' %}"></script>
 
+    <!-- Font awsome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- My index styles for page -->
     <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/my_style.css' %}">
@@ -50,14 +54,17 @@
                     <!-- We are deciding which menu items we will show -->
                     {% if user.is_authenticated %}
 
-                    <button type="submit" class="btn save" style="width: 150px; margin-top: 0 !important;" form="create_article_form">Save</button>
+                    <button type="submit" class="btn save" style="width: 150px; margin-top: 0 !important;"
+                        form="create_article_form">Save <i class="fa-solid fa-check"
+                            style="font-size: 15px;"></i></button>
 
 
                     {% else %}
 
                     {% endif %}
                     <button class="btn cancel" style="width: 100px; margin-top: 0 !important;"
-                        OnClick="location.href='{% url 'peter_pekny_page:index' %}'">Home</button>
+                        OnClick="location.href='{% url 'peter_pekny_page:index' %}'">Home <i class="fas fa-home"
+                            style="font-size: 15px;"></i></button>
                 </ul>
             </nav>
         </header>
@@ -121,10 +128,11 @@
                 </div>
 
                 <div class="title_block">
-                    <button id="saveBtn" class="btn save">Save</button>
+                    <button id="saveBtn" class="btn save">Save <i class="fa-solid fa-check"
+                            style="font-size: 15px;"></i></button>
                     <button type="button" class="btn cancel"
                         onclick="window.location.href='{% url 'peter_pekny_page:index' %}'">
-                        Cancel</button>
+                        Cancel <i class="fa-solid fa-xmark"></i></button>
                 </div>
             </form>
             <a href="{% url 'peter_pekny_page:index' %}">Spet na index</a>

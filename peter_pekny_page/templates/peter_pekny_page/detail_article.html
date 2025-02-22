@@ -22,6 +22,12 @@
     <!-- <script src="https://cdn.ckeditor.com/ckeditor5/35.3.2/classic/ckeditor.js"></script> -->
 
 
+    <!-- Font awsome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
     <style>
         .ratio {
             width: auto;
@@ -69,15 +75,15 @@
                     {% if user.is_authenticated %}
 
                     <button class="btn save" style="width: 150px; margin-top: 0 !important;"
-                        OnClick="location.href='{% url 'peter_pekny_page:create_article' %}'">Create article</button>
+                        OnClick="location.href='{% url 'peter_pekny_page:create_article' %}'">Create article <i class="fa-regular fa-file"></i></button>
                     <button class="btn save" style="width: 100px; margin-top: 0 !important;"
-                        OnClick="location.href='{% url 'peter_pekny_page:article_edit' article_id=article.id %}'">Editovať</button>
+                        OnClick="location.href='{% url 'peter_pekny_page:article_edit' article_id=article.id %}'">Editovať <i class="fa-solid fa-pen-to-square"></i></button>
 
                     {% else %}
 
                     {% endif %}
                     <button class="btn cancel" style="width: 100px; margin-top: 0 !important;"
-                        OnClick="location.href='{% url 'peter_pekny_page:index' %}'">Home</button>
+                        OnClick="location.href='{% url 'peter_pekny_page:index' %}'">Home <i class="fas fa-home"></i></button>
                 </ul>
             </nav>
         </header>
@@ -97,9 +103,9 @@
                 <div class="title_block">
                     {% if user.is_authenticated %}
                     <button class="btn save"
-                        OnClick="location.href='{% url 'peter_pekny_page:article_edit' article_id=article.id %}'">Editovať</button>
+                        OnClick="location.href='{% url 'peter_pekny_page:article_edit' article_id=article.id %}'">Editovať <i class="fa-solid fa-pen-to-square"></i></button>
                     <button class="btn cancel"
-                        OnClick="location.href='{% url 'peter_pekny_page:index' %}'">Back</button>
+                        OnClick="location.href='{% url 'peter_pekny_page:index' %}'">Cancel <i class="fa-solid fa-xmark"></i></button>
                     {% endif %}
                 </div>
             </div>

@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/create-project.css' %}">
     <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/loadingPage.css' %}">
     <script src="{% static 'peter_pekny_page/js/loadingPage.js' %}"></script>
+    <!-- Font awsome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
     <!-- My index styles for page -->
@@ -19,6 +23,17 @@
 
     <!-- CKeditor Styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ckeditor5@44.1.0/dist/ckeditor5.css">
+
+<style>
+
+i {
+    font-size: 50px;
+    left: 20px;
+    right: auto;
+}
+
+</style>
+
 </head>
 
 </head>
@@ -52,14 +67,18 @@
                     {% if user.is_authenticated %}
 
                     <button type="submit" class="btn save" style="width: 150px; margin-top: 0 !important;"
-                        form="edit_article_form">Save</button>
+                        form="edit_article_form">Save <i class="fa-solid fa-check"
+                            style="font-size: 15px;"></i></button>
+
+                    <button type="submit" class="btn cancel" style="width: 150px; margin-top: 0 !important;"
+                        form="delete_form">Delete Article <i class="fa-solid fa-xmark"></i></button>
 
 
                     {% else %}
 
                     {% endif %}
                     <button class="btn cancel" style="width: 100px; margin-top: 0 !important;"
-                        OnClick="location.href='{% url 'peter_pekny_page:index' %}'">Home</button>
+                        OnClick="location.href='{% url 'peter_pekny_page:index' %}'">Home <i class="fas fa-home" style="font-size: 15px;"></i></button>
                 </ul>
             </nav>
         </header>
@@ -123,15 +142,26 @@
                 </div>
 
                 <div class="title_block">
-                    <button id="saveBtn" class="btn save">Save</button>
+                    <button id="saveBtn" class="btn save">Save <i class="fa-solid fa-check"
+                            style="font-size: 15px;"></i></button>
                     <button type="button" class="btn cancel"
                         onclick="window.location.href='{% url 'peter_pekny_page:index' %}'">
-                        Cancel</button>
+                        Cancel <i class="fa-solid fa-xmark" style="font-size: 15px;"></i></button>
                 </div>
             </form>
+
+            <form action="{% url 'peter_pekny_page:delete_article' article.id %}" id="delete_form" method="POST"
+                onsubmit="return confirm('Naozaj chcete vymazať tento článok?');">
+                {% csrf_token %}
+
+            </form>
+
             <a href="{% url 'peter_pekny_page:index' %}">Spet na index</a>
         </div>
     </div>
+
+
+
 
     <!-- Hiding top level navigation -->
     <script src="{% static 'peter_pekny_page/js/scroll_mouse_function.js' %}"></script>
