@@ -620,6 +620,11 @@
         <!-- ADMIN login -->
         <!-- Tlačidlo ADMIN v navigačnom bare -->
         <!-- Modal okno - login formulár -->
+        
+        
+
+        {% load socialaccount %}
+        
         <div id="loginModal" class="modal">
             <div class="modal-content">
                 <span class="close-btn">&times;</span>
@@ -635,6 +640,16 @@
                             required></textarea> -->
                     <button class="" type="submit" id="submit-login-modal">Login</button>
                     <div class="login-status" id="login-status"></div>
+
+                    <a href="{% provider_login_url 'google' %}">
+                        <button class="" > <img style="width: 40px;" src="https://upload.wikimedia.org/wikipedia/commons/archive/c/c1/20190925201609%21Google_%22G%22_logo.svg" alt="">  Prihlásiť sa cez Google </button>
+                    </a>
+
+                    <a href="{% provider_login_url 'github' %}" class="btn">
+                        <button class="" >  <img style="width: 40px;" src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Github-desktop-logo-symbol.svg" alt="" /> Prihlásiť sa cez GitHub
+                        </button>
+                        </a>
+
                 </form>
             </div>
         </div>

@@ -10,7 +10,7 @@ urlpatterns = [
     # Add peter_pekny_page app to the urlpatterns list
     path('', include('peter_pekny_page.urls')),
     # path('editorjs/', include('django_editorjs2.urls')),
-   # path('accounts/', include('allauth.urls')),
+    path('accounts/', include('allauth.urls')),
     
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -47,18 +47,20 @@ INSTALLED_APPS = [
     'django_ckeditor_5', # CKEditor 5
     
     # All auth settings
- #   'django.contrib.sites',  # Potrebné pre allauth
- #   'allauth', # Potrebné pre allauth
- #   'allauth.account', # Potrebné pre allauth
- #   'allauth.socialaccount', # Potrebné pre allauth
- #   'allauth.socialaccount.providers.google', # Potrebné pre allauth
+    'django.contrib.sites',  # Potrebné pre allauth
+    'allauth', # Potrebné pre allauth
+    'allauth.account', # Potrebné pre allauth
+    'allauth.socialaccount', # Potrebné pre allauth
+    'allauth.socialaccount.providers.google', # Potrebné pre allauth google login
+    # 'allauth.socialaccount.providers.facebook', # Potrebné pre allauth facebook login
+    'allauth.socialaccount.providers.github', # Potrebné pre allauth github login
 ]
 
 # all auth settings
-#AUTHENTICATION_BACKENDS = [
-#    'django.contrib.auth.backends.ModelBackend',
-#    'allauth.account.auth_backends.AuthenticationBackend',
-#]
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 # all auth settings
 LOGIN_REDIRECT_URL = '/'
@@ -68,16 +70,29 @@ ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 SITE_ID = 1
 
 # all auth settings
+SOCIALACCOUNT_LOGIN_ON_GET = True
+
+# all auth settings
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id': 'TVOJ_GOOGLE_CLIENT_ID',
-            'secret': 'TVOJ_GOOGLE_CLIENT_SECRET',
+            'client_id': '887765029362-vej80eercdnpbggcgov8pg7co22clll1.apps.googleusercontent.com',
+            'secret': 'TGOCSPX-74IfpC2ZjDrRt342vwboEkuBA4KK',
             'key': ''
         },
         'SCOPE': ['profile', 'email'],
         'AUTH_PARAMS': {'access_type': 'online'},
-    }
+        'METHOD': 'oauth2',
+        'VERIFIED_EMAIL': True,
+    },
+    
+    'github': {
+        'APP': {
+            'client_id': 'Ov23liBJo6MbPBsqa9di',    
+            'secret': '3964f7b7f1c305ed59e0f0800b1a5b39e040e4e3', },
+           
+        },
+        
 }
 
 MIDDLEWARE = [
@@ -88,6 +103,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # Add the account middleware:
+    "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'myproject.urls'
