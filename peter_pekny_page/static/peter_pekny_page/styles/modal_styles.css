@@ -86,7 +86,7 @@
             resize: vertical;
         }
 
-        #login-form button {
+        #login-form .button-login {
             /* background-color: #264653; */
             color: white;
             padding: 10px;
@@ -97,12 +97,42 @@
             background-color: #1b5891;
         }
 
-        #login-form button:hover {
+        #login-form .button-login:hover {
             background-color: #f5f5f5;
             color: #1b5891;
             /* font-weight: bold; */
             /* border: 1px #1b5891 solid; */
         }
+
+        #login-form .button-social {
+            /* background-color: #264653; */
+            color: #1b5891;
+            padding: 10px;
+            margin-top: 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            border: 1px #1b5891 solid;
+            
+            background-color: #f5f5f5;
+            width: 100%;
+        }
+
+        #login-form .button-social:hover {
+            background-color: #f5f5f5;
+            color: #1b5891;
+            background-color: #f0f8ff;
+            /* font-weight: bold; */
+            /* border: 1px #1b5891 solid; */
+        }
+
+        #login-form .button-social img{
+            /* background-color: #264653; */
+            position: relative;
+            left: -15px;
+            width: 30px;
+        }
+
 
 
         #login-email {

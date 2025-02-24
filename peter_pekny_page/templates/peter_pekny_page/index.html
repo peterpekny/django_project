@@ -638,17 +638,20 @@
                     <!-- <label for="message">Message Here:</label>
                         <textarea class="custom-input" id="message-modal" style="min-height: 150px;" name="message"
                             required></textarea> -->
-                    <button class="" type="submit" id="submit-login-modal">Login</button>
+                    <button class="button-login" type="submit" id="submit-login-modal">Login</button>
+                    
                     <div class="login-status" id="login-status"></div>
-
+                    
+                    <!-- Social login buttons -->
                     <a href="{% provider_login_url 'google' %}">
-                        <button class="" > <img style="width: 40px;" src="https://upload.wikimedia.org/wikipedia/commons/archive/c/c1/20190925201609%21Google_%22G%22_logo.svg" alt="">  Prihlásiť sa cez Google </button>
+                        <button class="button-social" ><img src="https://upload.wikimedia.org/wikipedia/commons/archive/c/c1/20190925201609%21Google_%22G%22_logo.svg" alt="">Prihlásiť sa cez Google</button>
                     </a>
 
-                    <a href="{% provider_login_url 'github' %}" class="btn">
-                        <button class="" >  <img style="width: 40px;" src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Github-desktop-logo-symbol.svg" alt="" /> Prihlásiť sa cez GitHub
-                        </button>
-                        </a>
+                    <a href="{% provider_login_url 'github' %}">
+                        <button class="button-social" > <img src="https://upload.wikimedia.org/wikipedia/commons/a/ae/Github-desktop-logo-symbol.svg" alt="" />Prihlásiť sa cez GitHub</button>
+                    </a>
+                    
+                        
 
                 </form>
             </div>
