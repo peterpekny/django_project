@@ -11,6 +11,8 @@
   background-color: rgb(252, 226, 189);
   z-index: 9998;
   flex-direction: column; /* Usporiadanie v stĺpci (kruh nad textom) */
+  opacity: 0.9; /* Priehľadnosť */
+  animation: fadeIn 1.5s; /* Animácia zobrazenia */
 }
 
 /* Loader (kruh) == toto som mal prve - staci pridat # namiesto class*/
