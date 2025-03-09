@@ -264,6 +264,13 @@ CKEDITOR_5_CONFIGS = {
                     'bulletedList', 'numberedList', 'blockQuote', 'imageUpload', ],
 
     },
+
+    'comment': {
+        'toolbar': ['heading', '|', 'bold', 'italic', 'link',
+        'bulletedList', 'numberedList', 'blockQuote', 'imageUpload',
+        'highlight', 'horizontalLine', 'link','code', 'codeBlock'  ],
+    },
+
     'extends': {
         'blockToolbar': [
             'paragraph', 'heading1', 'heading2', 'heading3',

@@ -104,7 +104,7 @@
             /* border: 1px #1b5891 solid; */
         }
 
-        #login-form .button-social {
+        .button-social {
             /* background-color: #264653; */
             color: #1b5891;
             padding: 10px;
@@ -118,7 +118,7 @@
             width: 100%;
         }
 
-        #login-form .button-social:hover {
+        .button-social:hover {
             background-color: #f5f5f5;
             color: #1b5891;
             background-color: #f0f8ff;
@@ -126,7 +126,7 @@
             /* border: 1px #1b5891 solid; */
         }
 
-        #login-form .button-social img{
+        .button-social img{
             /* background-color: #264653; */
             position: relative;
             left: -15px;

@@ -110,11 +110,23 @@ class Article(models.Model):
 
 
 # Model for comments
+# vvvvvvvvvvvvvvvvvv
+from django.contrib.auth.models import User
 
 class Comment(models.Model):
-    author = models.CharField(max_length=100, verbose_name="Autor")
-    text = CKEditor5Field(config_name="comment", verbose_name="Komentár")  # Použitie CKEditor5
+    article = models.ForeignKey(
+        'Article',          # Odkaz na model článku
+        on_delete=models.CASCADE,  
+        related_name='comments',  # Pre jednoduchší prístup k článkom v šablóne
+        verbose_name="Článok"
+    )
+    author = models.ForeignKey(
+        User,                # Prepojenie s modelom používateľa
+        on_delete=models.CASCADE,  
+        verbose_name="Autor"
+    )
+    comment = CKEditor5Field(config_name="comment", verbose_name="Komentár")
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.author}: {self.text[:50]}"  # Skrátený náhľad komentára
+        return f"{self.author.username} ({self.article.title}) - {self.comment[:50]}"

@@ -62,13 +62,40 @@ def index(request):
 # Create detail of one article
 # ============================
 
+# def article_detail_page(request, article_id):
+#     context = {
+#         'article' : Article.objects.get(id=article_id),
+#         'article_id' : article_id
+#     }
+#     # print(article)
+#     return render(request, 'peter_pekny_page/detail_article.html', context)
+
 def article_detail_page(request, article_id):
-    context = {
-        'article' : Article.objects.get(id=article_id),
-        'article_id' : article_id
-    }
-    # print(article)
-    return render(request, 'peter_pekny_page/detail_article.html', context)
+    
+    # Nacitame clanky a komentare
+    article = get_object_or_404(Article, id=article_id)
+    comments = article.comments.all()
+    
+    # Ukladanie komentara
+    if request.method == "POST":
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.article = article
+            comment.author = request.user  # Predpokladam, že používateľ je prihlásený
+            comment.save()
+            # Reloadnem stranku na zobrazenie komentara
+            return redirect ('peter_pekny_page:article_detail', article_id=article_id)
+    else:
+        # Ak nie je POST, vytvorim prazdny formular
+        form = CommentForm()
+    
+    # Vratim stranku s clankom a komentarmi
+    return render(request, 'peter_pekny_page/detail_article.html', {
+      'article': article,
+      'comments': comments,
+      'form': form
+    })
     
 
 # ===========================

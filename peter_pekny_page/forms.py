@@ -45,15 +45,20 @@ from .models import Comment
 class CommentForm(forms.ModelForm):
       """Form for comments to the article."""
 
-      def __init__(self, *args, **kwargs):
-          super().__init__(*args, **kwargs)
-          self.fields["text"].required = False
+    #   def __init__(self, *args, **kwargs):
+    #       super().__init__(*args, **kwargs)
+    #       self.fields["text"].required = False
 
       class Meta:
           model = Comment
-          fields = ("author", "text")
+          fields = ['comment']
+          
           widgets = {
-              "text": CKEditor5Widget(
-                  attrs={"class": "django_ckeditor_5"}, config_name="comment"
-              )
-          }
+              "comment": CKEditor5Widget(
+                   config_name='comment',
+                        attrs={
+                        # "style": "min-height: 130px !important;",   # Obmedzenie výšky na približne 5 riadkov
+                        "placeholder": "Zadajte komentár..."  # Predvolený text
+                        }
+                    )
+                }

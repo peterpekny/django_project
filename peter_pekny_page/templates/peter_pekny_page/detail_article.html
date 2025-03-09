@@ -28,9 +28,7 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
-    <style>
-
-    </style>
+        <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/modal_styles.css' %}">
 
 </head>
 
@@ -76,7 +74,9 @@
             </nav>
         </header>
 
+        <!-- --------------- -->
         <!-- Article content -->
+        <!-- --------------- -->
         <div id="article-content">
             <div class="container" style="opacity: 1 !important;">
                 <!-- article heading -->
@@ -96,8 +96,86 @@
                         OnClick="location.href='{% url 'peter_pekny_page:index' %}'">Cancel <i class="fa-solid fa-xmark"></i></button>
                     {% endif %}
                 </div>
+
+                <br>
+                <hr>
+
+                <!-- ---------------- -->
+                <!-- Comments section -->
+                <!-- ---------------- -->
+
+                <div class="title_block">
+                    <h3>Komentáre ku článku</h3>
+                </div>
+                {% for comment in article.comments.all %}
+                    <div class="comment-block">
+                        <div class="comment_header">
+                            <div class="comment-header-name">
+                                <b>{{ comment.author.username }}</b>: {{ comment.author.first_name }} {{ comment.author.last_name }} 
+                            </div>
+                            
+                            <div class="comment-header-date">
+                                <i>{{ comment.created_at|date:"d.m.Y H:i" }}</i>
+                            </div>
+                        </div>
+
+                        <div class="ck-content comment-content">    
+                            {{ comment.comment|safe }}
+                        </div>
+
+                    </div>
+                    <div class="comment_after_line"></div>
+                {% empty %}
+                    <p>Zatiaľ žiadne komentáre.</p>
+                {% endfor %}
+
+
+                
+                <!-- ----------------------  -->
+                <!-- Formular pre komentare  -->
+                <!-- ----------------------  -->
+                <!-- Overide default height of CKeditor5 to 140px -->
+                <style> 
+                    .ck.ck-content.ck-editor__editable {
+                        min-height: 140px !important;
+                    }
+                </style>
+                    <div class="title_block">
+                        <h4>Pridať komentár</h4>
+                    </div>
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form.media }} <!-- Nacitam CKeditor5 -->
+                    
+                        {% comment %} <!-- Check if user is already loged in --> {% endcomment %}
+                        {% if request.user.is_authenticated %}
+                            {{ form.comment }}
+                            <div class="title_block">
+                                <button class="btn save" type="submit">Odoslať komentár</button>
+                            </div>
+                        {% else %}
+                            <div class="disabled-editor">
+                                {{ form.comment }}
+                            </div>
+                            <p style="color: red; padding-bottom:0px;">Pre pridanie komentára sa musíte <a href="{% url 'account_login' %}">prihlásiť</a>.</p>
+                            <p>Alebo sa prihláste cez:</p>
+                            <!-- pridame social buttons -->
+                            <!-- Social login buttons -->
+                        {% load socialaccount %}
+                        {% load static %}
+                        <div class="title_block">
+                            <button class="btn btn-social" OnClick="location.href='{% provider_login_url 'google' %}'" >
+                                <img src="{% static 'peter_pekny_page/images/Google__G__logo.svg' %}" alt="">Prihlásiť sa cez Google
+                            </button>
+                            <button class="btn btn-social" OnClick="location.href='{% provider_login_url 'github' %}'">
+                                <img src="{% static 'peter_pekny_page/images/Github-desktop-logo-symbol.svg' %}" alt="" />Prihlásiť sa cez GitHub
+                            </button>
+                        </div>
+                        {% endif %}
+                    </form>
             </div>
         </div>
+
 
 
         <!-- Highlight.js na formátovanie kódu -->

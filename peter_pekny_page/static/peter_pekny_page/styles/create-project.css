@@ -119,6 +119,7 @@ label {
     border: none;
     /* border-radius: 5px; */
     font-size: 16px;
+    
     margin-top: 20px;
     cursor: pointer;
     transition: background 0.3s;
@@ -143,6 +144,42 @@ label {
     color:  #7e7e7e;
     /* margin-right: -10px; */
     box-shadow: inset 0 0 2px 2px rgb(152 152 158 / 30%); /* Modrý vnútorný tieň */
+}
+
+/* Pridam triedu btn-social kde zarovnam text na stred, updavim velkost obrazku na 50px */
+.btn-social {
+
+}
+
+.btn-social {
+    /* background-color: #264653; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    color: #1b5891;
+    margin: 10px;
+    
+  
+    cursor: pointer;
+    border: 1px #1b5891 solid;
+    background-color: #f5f5f5;
+   
+}
+
+.btn-social:hover {
+    background-color: #f5f5f5;
+    color: #1b5891;
+    background-color: #f0f8ff;
+    /* font-weight: bold; */
+    /* border: 1px #1b5891 solid; */
+}
+
+.btn-social img{
+    /* background-color: #264653; */
+    height: 25px;    /* Uprav výšku podľa potreby */
+    width: auto;     /* Automatická šírka podľa pomeru strán */
+    margin-right: 10px;
 }
 
 .cancel:hover {
@@ -294,4 +331,48 @@ label {
     /* padding: 10px 0 43px; */
     font-family: Montserat_regular;
 }
+/*  */
+/* Kometare */
+/*  */
 
+.comment-block  {
+    margin: 20px 0;
+    padding: 10px;
+    background-color: #f3f3f3d5;
+    border-radius: 5px;
+}
+
+.comment_header {
+    display: flex;           /* Použitie Flexboxu */
+    justify-content: space-between; /* Rozostup: prvý vľavo, druhý vpravo */
+    align-items: center;      /* Vertikálne zarovnanie na stred */
+    padding: 10px;        /* Odporúčam jemné vnútorné okraje pre vizuálne vylepšenie */
+    background-color: #f4f3f3d5; /* Jemné pozadie pre zvýraznenie hlavičky */
+    border-bottom: 1px solid #ddd;
+}
+
+.comment-header-name {
+    font-weight: bold;
+}
+
+.comment-header-date {
+    text-align: right;
+    color: #888;             /* Jemnejšia farba pre dátum */
+    font-size: 0.7rem;       /* O niečo menší text pre dátum */
+}
+.comment-content{
+    margin-left: 10px;
+}
+
+/* font-size: x-small !important */
+
+/* Spravim triedu ktora mi spravy deliacu ciaru pod textom pre blok  */
+.comment_after_line {
+    border-bottom: 1px solid #ccc;
+    margin: 25px 30px 25px 30px;
+}
+
+.disabled-editor {
+    pointer-events: none;
+    opacity: 0.5;
+}   /* Zablokuje možnosť kliknutia na element a zmení jeho priehľadnosť */
