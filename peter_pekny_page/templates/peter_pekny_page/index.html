@@ -95,8 +95,10 @@
 
                     <!-- We are deciding which menu items we will show -->
                     {% if user.is_authenticated %}
-                    <li class="animation-underline"><a href="{% url 'peter_pekny_page:create_article' %}">Create
-                            Project</a></li>
+                        {% if user.is_superuser %}
+                            <li class="animation-underline"><a href="{% url 'peter_pekny_page:create_article' %}">Create
+                                Project</a></li>
+                        {% endif %}
                     <li class="animation-underline"><a href="?logout=True">Logout</a></li>
 
                     {% else %}

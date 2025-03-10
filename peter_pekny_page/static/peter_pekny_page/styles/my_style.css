@@ -562,12 +562,13 @@ header {
     /* Farba textu */
     padding-left: 0%;
     /* Vnútorný okraj zľava */
-    margin-top: 50px;
+    margin-top: 13px;
     /* Toto je kvoli Bootstrapu - bez toho to zle zobrazuje */
-
     animation: marquee 25s linear infinite;
     /* Animácia posunu textu z prava doľava */
 }
+
+
 
 @keyframes marquee {
     0% {

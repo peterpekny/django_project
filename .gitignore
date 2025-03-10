@@ -2,6 +2,6 @@
 *.tmp
 *.swp
 *.pyc
-
+.env
 db.sqlite3
 venv/

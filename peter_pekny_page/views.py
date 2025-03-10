@@ -38,8 +38,8 @@ def index(request):
         logout(request)
         return redirect("/")  # Presmerovanie na hlavnú stránku
 
-    # Filtrujeme články podľa prihlásenia
-    if request.user.is_authenticated:
+    # Filtrujeme články podľa prihlásenia super_usera
+    if request.user.is_authenticated and request.user.is_superuser:
         # Prihlásený používateľ vidí všetky články okrem vymazaných
         categories = Category.objects.prefetch_related(
             'article_set'
@@ -105,7 +105,13 @@ def article_detail_page(request, article_id):
 # - to be able to load on the page
 from .forms import ArticleForm
 
+# superuser only
+
 def create_article(request):
+    # Ak nie je prihlásený ako superuser, presmeruje na hlavnú stránku
+    if not request.user.is_superuser:
+        return redirect('/') 
+    
     if request.method == 'POST':
         form = ArticleForm(request.POST)
         if form.is_valid():
@@ -140,6 +146,10 @@ from django.http import JsonResponse
 
 def edit_article(request, article_id):
     """Upraví článok priamo na stránke."""
+    # Ak nie je prihlásený ako superuser, presmeruje na hlavnú stránku
+    if not request.user.is_superuser:
+        return redirect('/') 
+    
     # Nacitame obsah clanku
     article = get_object_or_404(Article, id=article_id)
     

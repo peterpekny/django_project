@@ -13,6 +13,13 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 
+from decouple import config  # Import knižnice decouple - pre načítanie secret key z .env súboru
+# Import secret key from .env file
+SECRET_GOOGLE_ID = config('SECRET_GOOGLE_ID')
+SECRET_GOOGLE_KEY = config('SECRET_GOOGLE_KEY')
+SECRET_GITHUB_ID = config('SECRET_GITHUB_ID')
+SECRET_GITHUB_KEY = config('SECRET_GITHUB_KEY')
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -76,8 +83,8 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'APP': {
-            'client_id': '887765029362-vej80eercdnpbggcgov8pg7co22clll1.apps.googleusercontent.com',
-            'secret': 'TGOCSPX-74IfpC2ZjDrRt342vwboEkuBA4KK',
+            'client_id': config('SECRET_GOOGLE_ID'),
+            'secret': config('SECRET_GOOGLE_KEY'),
             'key': ''
         },
         'SCOPE': ['profile', 'email'],
@@ -88,8 +95,8 @@ SOCIALACCOUNT_PROVIDERS = {
     
     'github': {
         'APP': {
-            'client_id': 'Ov23liBJo6MbPBsqa9di',    
-            'secret': '3964f7b7f1c305ed59e0f0800b1a5b39e040e4e3', },
+            'client_id': config('SECRET_GITHUB_ID'),    
+            'secret': config('SECRET_GITHUB_KEY'), },
            
         },
         

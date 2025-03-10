@@ -59,12 +59,12 @@
 
                     <!-- We are deciding which menu items we will show -->
                     {% if user.is_authenticated %}
-
-                    <button class="btn save" style="width: 150px; margin-top: 0 !important;"
-                        OnClick="location.href='{% url 'peter_pekny_page:create_article' %}'">Create article <i class="fa-regular fa-file"></i></button>
-                    <button class="btn save" style="width: 100px; margin-top: 0 !important;"
-                        OnClick="location.href='{% url 'peter_pekny_page:article_edit' article_id=article.id %}'">Editovať <i class="fa-solid fa-pen-to-square"></i></button>
-
+                        {% if user.is_superuser %}
+                            <button class="btn save" style="width: 150px; margin-top: 0 !important;"
+                            OnClick="location.href='{% url 'peter_pekny_page:create_article' %}'">Create article <i class="fa-regular fa-file"></i></button>
+                            <button class="btn save" style="width: 100px; margin-top: 0 !important;"
+                            OnClick="location.href='{% url 'peter_pekny_page:article_edit' article_id=article.id %}'">Editovať <i class="fa-solid fa-pen-to-square"></i></button>
+                        {% endif %}
                     {% else %}
 
                     {% endif %}
@@ -111,7 +111,7 @@
                     <div class="comment-block">
                         <div class="comment_header">
                             <div class="comment-header-name">
-                                <b>{{ comment.author.username }}</b>: {{ comment.author.first_name }} {{ comment.author.last_name }} 
+                                <b>@{{ comment.author.username }}</b>: {{ comment.author.first_name }} {{ comment.author.last_name }} 
                             </div>
                             
                             <div class="comment-header-date">
@@ -141,13 +141,16 @@
                     }
                 </style>
                     <div class="title_block">
-                        <h4>Pridať komentár</h4>
+                        <h4 id="comments">Pridať komentár</h4>
                     </div>
+                    
                     <form method="POST">
                         {% csrf_token %}
                         {{ form.media }} <!-- Nacitam CKeditor5 -->
                     
-                        {% comment %} <!-- Check if user is already loged in --> {% endcomment %}
+                        {% comment %}
+                            Check if user is already loged in
+                        {% endcomment %}
                         {% if request.user.is_authenticated %}
                             {{ form.comment }}
                             <div class="title_block">
@@ -164,10 +167,10 @@
                         {% load socialaccount %}
                         {% load static %}
                         <div class="title_block">
-                            <button class="btn btn-social" OnClick="location.href='{% provider_login_url 'google' %}'" >
+                            <button class="btn btn-social" OnClick="location.href='{% provider_login_url 'google' %}?next={{ request.get_full_path }}?login_success=1'" >
                                 <img src="{% static 'peter_pekny_page/images/Google__G__logo.svg' %}" alt="">Prihlásiť sa cez Google
                             </button>
-                            <button class="btn btn-social" OnClick="location.href='{% provider_login_url 'github' %}'">
+                            <button class="btn btn-social" OnClick="location.href='{% provider_login_url 'github' %}?next={{ request.get_full_path }}?login_success=1'">
                                 <img src="{% static 'peter_pekny_page/images/Github-desktop-logo-symbol.svg' %}" alt="" />Prihlásiť sa cez GitHub
                             </button>
                         </div>
@@ -208,6 +211,30 @@
             });
         });
     </script> -->
+
+    <script>
+        
+        {% comment %} 
+        Tento skript robim aby po prihlaseni s komentarovej sekcie bol prerolovany rovno na kometare
+        {% endcomment %}
+        
+        window.addEventListener('load', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.has('login_success')) {
+                console.log('I want to move here because condition was met');
+    
+                // Oneskorenie na 200ms pre načítanie všetkých prvkov
+                setTimeout(function() {
+                    const commentSection = document.getElementById('comments');
+                    console.log(commentSection);
+                    if (commentSection) {
+                        commentSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }, 200);
+            }
+        });
+        console.log('Detail article page loaded');
+    </script>
 
 
 </body>
