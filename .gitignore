@@ -1,7 +1,26 @@
+# See https://docs.github.com/en/get-started/git-basics/ignoring-files 
+# for more about ignoring files.
+
+# block all .log, .tmp, .swp, .pyc files
 *.log
 *.tmp
 *.swp
 *.pyc
+
+# block all __pycache__ folders
+**/__pycache__/
+
+# block .env file
 .env
+
+# Ignore database file
 db.sqlite3
+
+# block venv folder
 venv/
+
+# block all .vscode files
+.vscode/
+
+# block media folder
+media/

@@ -356,6 +356,8 @@ label {
 }
 
 .comment-header-date {
+    display: flex;
+    align-items: center;
     text-align: right;
     color: #888;             /* Jemnejšia farba pre dátum */
     font-size: 0.7rem;       /* O niečo menší text pre dátum */
@@ -376,3 +378,17 @@ label {
     pointer-events: none;
     opacity: 0.5;
 }   /* Zablokuje možnosť kliknutia na element a zmení jeho priehľadnosť */
+
+.xmark {
+    color: rgb(151, 151, 151);
+    font-size: 1.5rem;
+    cursor: pointer
+}
+
+.xmark:hover {
+    color: #f00;;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out; 
+    
+}

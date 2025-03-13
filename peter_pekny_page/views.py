@@ -1,42 +1,43 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.decorators import login_required
+# from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+# from django.http import HttpResponse
+
+# Importujem modely pre články, kategórie a komentáre
+from peter_pekny_page.models import Article, Category, Comment
+
+# Importujem formulare pre články a komentáre
+from peter_pekny_page.forms import ArticleForm, CommentForm
+
 # Importuj JsonResponse z modulu django.http - editorjs2
-import json
-from django.http import JsonResponse
-
-
-
-# Create your views here.
-
-from django.http import HttpResponse
+# import json
+# from django.http import JsonResponse
 
 # =======================================
 # Main Function for INDEX page
 # =======================================
-from .models import Article, Category, Comment
-
 def index(request):
     """Hlavná stránka - zobrazí kategórie a články podľa viditeľnosti"""
 
-    # Spracovanie POST žiadosti na prihlásenie
+    # LOGIN FORM: Spracovanie POST žiadosti na prihlásenie
     if request.method == "POST":
         username = request.POST.get('username')
         password = request.POST.get('password')
-
+        # Autentifikácia používateľa
         user = authenticate(request, username=username, password=password)
-
+        
+        # Ak je používateľ autentifikovaný, prihlásime ho
         if user is not None:
             login(request, user)
-            return redirect("/")  # Presmeruje na tú istú stránku po prihlásení
+            return redirect('peter_pekny_page:index')
         else:
-            messages.error(request, "Nesprávne meno alebo heslo")
+            messages.error(request, "Nesprávne meno alebo heslo") # treba dorobit
 
-    # Spracovanie GET žiadosti na odhlásenie
+    # Spracovanie GET žiadosti na odhlásenie, Ak je v URL parameter logout, odhlásime používateľa
     if request.GET.get("logout"):
         logout(request)
-        return redirect("/")  # Presmerovanie na hlavnú stránku
+        return redirect('peter_pekny_page:index')
 
     # Filtrujeme články podľa prihlásenia super_usera
     if request.user.is_authenticated and request.user.is_superuser:
@@ -59,17 +60,8 @@ def index(request):
     return render(request, "peter_pekny_page/index.html", {"categories": categories})
 
 # ============================
-# Create detail of one article
+# View detail of one article
 # ============================
-
-# def article_detail_page(request, article_id):
-#     context = {
-#         'article' : Article.objects.get(id=article_id),
-#         'article_id' : article_id
-#     }
-#     # print(article)
-#     return render(request, 'peter_pekny_page/detail_article.html', context)
-
 def article_detail_page(request, article_id):
     
     # Nacitame clanky a komentare
@@ -98,20 +90,19 @@ def article_detail_page(request, article_id):
     })
     
 
-# ===========================
-# function for create article 
-# ===========================
-# - impoer form for CKediror - Article form 
-# - to be able to load on the page
-from .forms import ArticleForm
+# =====================================================================
+# function for create article
+# - only superuser can create article, otherwise redirect to index page 
+# =====================================================================
 
-# superuser only
 
 def create_article(request):
+    
     # Ak nie je prihlásený ako superuser, presmeruje na hlavnú stránku
     if not request.user.is_superuser:
-        return redirect('/') 
+        return redirect('peter_pekny_page:index')
     
+    # Ak je prihlásený ako superuser, zobrazí formulár na vytvorenie článku
     if request.method == 'POST':
         form = ArticleForm(request.POST)
         if form.is_valid():
@@ -122,30 +113,14 @@ def create_article(request):
 
     return render(request, 'peter_pekny_page/create_article.html', {'form': form})
 
-
+# =====================================
+# function for edit article
+# =====================================
 from django.shortcuts import get_object_or_404
-from django.http import JsonResponse
-
-# def edit_article(request, article_id):
-#     """Upraví článok priamo na stránke (AJAX)."""
-#     article = get_object_or_404(Article, id=article_id)
-    
-#     if request.method == "POST" and request.user.is_authenticated:
-      
-#         form = ArticleForm(request.POST, instance=article)
-        
-#         article.title = request.POST.get("title")
-#         article.short_description = request.POST.get("short_description")
-#         article.content = request.POST.get("content")
-#         article.save()
-
-#         return JsonResponse({"success": True})  # Odpoveď pre AJAX
-
-#     return JsonResponse({"success": False}, status=400)
-
 
 def edit_article(request, article_id):
     """Upraví článok priamo na stránke."""
+
     # Ak nie je prihlásený ako superuser, presmeruje na hlavnú stránku
     if not request.user.is_superuser:
         return redirect('/') 
@@ -181,19 +156,17 @@ def edit_article(request, article_id):
     # Po strlaceni edit vyrendrujem stranku EDIT a formular s datami z DB
     return render(request, 'peter_pekny_page/edit_article.html', {'form': form, 'article': article})
 
-# ===========================
-# function for delete article
-# ===========================
-# def delete_article(request, article_id):
-#     article = get_object_or_404(Article, id=article_id)
-#     article.is_deleted = True
-#     article.save()
 
 from django.shortcuts import redirect
 
-@login_required
 def delete_article(request, article_id):
     """Označí článok ako vymazaný a presmeruje na hlavnú stránku."""
+
+    # safety reasons - only superuser can delete article
+    if not request.user.is_superuser:
+        return redirect('peter_pekny_page:index')
+    
+    # Nacitame clanok a oznacime ho ako vymazany    
     article = get_object_or_404(Article, id=article_id)
     
     if request.method == "POST":
@@ -205,31 +178,37 @@ def delete_article(request, article_id):
     return redirect('peter_pekny_page:edit_article', article_id=article_id)  # Ak by niekto volal GET
 
 
+# =====================================
+# function for delete comment
+# =====================================
+from django.urls import reverse
+
+def delete_comment(request, comment_id):
+    """Vymaže komentár, ak patrí prihlásenému používateľovi"""
+    
+    # Načítame komentár z databázy alebo vrátime 404
+    comment = get_object_or_404(Comment, id=comment_id)
+    
+    # Overíme, či je aktuálny používateľ autorom komentára
+    if request.user == comment.author:
+        comment.delete()
+        messages.success(request, "Komentár bol úspešne vymazaný.")
+    else:
+        messages.error(request, "Nemáte oprávnenie na vymazanie tohto komentára.")
+    
+    # Presmerovanie späť na stránku článku
+    return redirect(reverse('peter_pekny_page:article_detail', args=[comment.article.id]))
+
 
 # =====================
 # vytvorim list article - pomocna funkcia
 # =====================
 
-def article_list(request):
-    articles = Article.objects.filter(is_deleted=False, visibility="public").order_by('-created_at')
-    return render(request, 'peter_pekny_page/article_list.html', {'articles': articles})
+# def article_list(request):
+#     articles = Article.objects.filter(is_deleted=False, visibility="public").order_by('-created_at')
+#     return render(request, 'peter_pekny_page/article_list.html', {'articles': articles})
 
 
-# =====================================
-# Pridame funkciu na pridanie komentára
-# =====================================
-from .forms import CommentForm
-
-def add_comment(request):
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('article_list')  # Po uložení presmerovanie na zoznam článkov
-    else:
-        form = CommentForm()
-    
-    return render(request, 'peter_pekny_page/comment_form.html', {'form': form})
 
 # =====================================
 # Test view function for map plugin
@@ -253,26 +232,3 @@ def show_map(request):
                 route_points.append((point.latitude, point.longitude))
 
     return render(request, "peter_pekny_page/map.html", {"route_points": route_points})
-
-# =====================================
-
-
-@login_required
-def create_project(request):
-    return render(request, "peter_pekny_page/create_project.html")
-
-
-
-# save_article view function - editorjs2
-
-# @login_required
-# def save_article(request):
-#     if request.method == "POST":
-#         data = json.loads(request.body)
-#         title = data.get("title", "Untitled")  # Ak nie je nadpis, použije "Untitled"
-#         content = data.get("content", "")
-
-#         article = Article.objects.create(title=title, content=content)
-#         return JsonResponse({"message": "Article saved successfully!", "article_id": article.id})
-
-#     return JsonResponse({"error": "Invalid request"}, status=400)

@@ -134,7 +134,7 @@
                     <button id="saveBtn" class="btn save">Save <i class="fa-solid fa-check"
                             style="font-size: 15px;"></i></button>
                     <button type="button" class="btn cancel"
-                        onclick="window.location.href='{% url 'peter_pekny_page:index' %}'">
+                        onclick="window.location.href='{% url 'peter_pekny_page:article_detail' article_id=article.id %}'">
                         Cancel <i class="fa-solid fa-xmark" style="font-size: 15px;"></i></button>
                 </div>
             </form>
