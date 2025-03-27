@@ -21,13 +21,13 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             cd ~
-            cd django_project
-            git pull origin main
-            #source ../venv/bin/activate
-            #pip install -r requirements.txt
-            #python3 manage.py migrate
-            #python3 manage.py collectstatic --noinput
-            #sudo /bin/systemctl status gunicorn.service
-            #sudo /bin/systemctl status nginx.service
-            echo "$(date) : Deployment successful"
+            cd django_project >> /tmp/python-deployment.log
+            git pull origin main >> /tmp/python-deployment.log
+            source ../venv/bin/activate >> /tmp/python-deployment.log
+            pip install -r requirements.txt >> /tmp/python-deployment.log
+            #python3 manage.py migrate >> /tmp/python-deployment.log
+            python3 manage.py collectstatic --noinput >> /tmp/python-deployment.log
+            sudo /bin/systemctl status gunicorn.service >> /tmp/python-deployment.log
+            sudo /bin/systemctl status nginx.service >> /tmp/python-deployment.log
             echo "$(date) : Deployment successful" >> /tmp/python-deployment.log
+            echo "$(date) : Deployment successful" >> /tmp/python-deployment-log.log
