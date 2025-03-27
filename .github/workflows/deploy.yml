@@ -26,6 +26,7 @@ jobs:
             source ../venv/bin/activate >> /tmp/python-deployment.log
             pip install -r requirements.txt >> /tmp/python-deployment.log
             #python3 manage.py migrate >> /tmp/python-deployment.log
+            mv /home/django_project/django_project/staticfiles/ /tmp/staticfiles/ >> /tmp/python-deployment.log
             python3 manage.py collectstatic --noinput >> /tmp/python-deployment.log
             sudo /bin/systemctl status gunicorn.service >> /tmp/python-deployment.log
             sudo /bin/systemctl status nginx.service >> /tmp/python-deployment.log

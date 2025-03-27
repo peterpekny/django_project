@@ -24,6 +24,10 @@ SECRET_KEY = config('SECRET_DJANGO_KEY')
 DEBUG = False
 ALLOWED_HOSTS = ['.pekny.online']
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://django-test.pekny.online",
+]
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
