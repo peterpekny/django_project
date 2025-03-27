@@ -20,6 +20,7 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
+            echo "$(date) : Deployment Start" >> /tmp/python-deployment.log
             cd ~
             cd django_project >> /tmp/python-deployment.log
             git pull origin main >> /tmp/python-deployment.log
@@ -28,7 +29,7 @@ jobs:
             #python3 manage.py migrate >> /tmp/python-deployment.log
             mv /home/django_project/django_project/staticfiles/ /tmp/staticfiles/ >> /tmp/python-deployment.log
             python3 manage.py collectstatic --noinput >> /tmp/python-deployment.log
-            sudo /bin/systemctl status gunicorn.service >> /tmp/python-deployment.log
+            sudo /bin/systemctl restart gunicorn.service >> /tmp/python-deployment.log
             sudo /bin/systemctl status nginx.service >> /tmp/python-deployment.log
-            echo "$(date) : Deployment successful" >> /tmp/python-deployment.log
-            echo "$(date) : Deployment successful" >> /tmp/python-deployment-log.log
+            echo "$(date) : Deployment finish" >> /tmp/python-deployment.log
+            echo "$(date) : Deployment executed" >> /tmp/python-deployment-log.log
