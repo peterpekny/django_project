@@ -21,9 +21,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_DJANGO_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-#ALLOWED_HOSTS = ['.pekny.online', '127.0.0.1']
-ALLOWED_HOSTS = ['127.0.0.1']
+DEBUG = False
+ALLOWED_HOSTS = ['.pekny.online']
 
 # Application definition
 INSTALLED_APPS = [
