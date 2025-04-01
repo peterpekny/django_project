@@ -2,20 +2,8 @@ from pathlib import Path
 import os # import os for definition of static files
 from decouple import config  # Import kniznice decouple - pre nacitanie secret key z .env súboru
 
-# Import secret key from .env file
-"""
-    how thw secrets are coled from .env file
-    SECRET_GOOGLE_ID = config('SECRET_GOOGLE_ID')
-    SECRET_GOOGLE_KEY = config('SECRET_GOOGLE_KEY')
-    SECRET_GITHUB_ID = config('SECRET_GITHUB_ID')
-    SECRET_GITHUB_KEY = config('SECRET_GITHUB_KEY')
-    SECRET_DJANGO_KEY = config('SECRET_DJANGO_KEY')
-"""
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_DJANGO_KEY')
@@ -25,7 +13,7 @@ DEBUG = False
 ALLOWED_HOSTS = ['.pekny.online']
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://django-test.pekny.online",
+    "https://peter.pekny.online",
 ]
 
 # Application definition
@@ -41,7 +29,7 @@ INSTALLED_APPS = [
     'peter_pekny_page',
     
     # virtual keyboard
-    'django_editorjs2', # EditorJs -- will be removed
+    #'django_editorjs2', # EditorJs -- will be removed
     'django_ckeditor_5', # CKEditor 5
     
     # allauth
@@ -72,7 +60,7 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 
 # allauth (google, github)
 SOCIALACCOUNT_PROVIDERS = {
-    # google
+    # google account provider
     'google': {
         'APP': {
             'client_id': config('SECRET_GOOGLE_ID'),
@@ -84,7 +72,7 @@ SOCIALACCOUNT_PROVIDERS = {
         'METHOD': 'oauth2',
         'VERIFIED_EMAIL': True,
     },
-    # github
+    # github account provider
     'github': {
         'APP': {
             'client_id': config('SECRET_GITHUB_ID'),    
@@ -126,10 +114,7 @@ TEMPLATES = [
 # wsgi_application for deployment
 WSGI_APPLICATION = 'myproject.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-# We will use SQLite database for this project
+# Database settings
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -137,10 +122,7 @@ DATABASES = {
     }
 }
 
-
 # Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -156,10 +138,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
-
 LANGUAGE_CODE = 'sk'
 TIME_ZONE = 'Europe/Prague'
 USE_I18N = True
@@ -167,7 +146,7 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.1/howto/static-files/
+# ======================================
 
 #  added because of static files, like CSS styles, JS files, fonts, and images and other page stuff
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Pridaj tento riadok
@@ -178,44 +157,42 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 # Add for EditorJs
-DJANGO_EDITORJS2_CONFIG = {
-    # Preprocessors for preview generation
-    "image_link_preprocessor": "django_editorjs2.blogapp.utils.image_link_preprocessor",
-    "download_link_preprocessor": "django_editorjs2.blogapp.utils.download_link_preprocessor",
-    
-    # Custom styling and attributes for different block types
-    "extra_attributes": {
-        "list": {"style": "list-style: none"},
-        "checklist": {"style": "list-style: none"},
-        "paragraph": {},
-        "header": {},
-        "quote": {},
-        "code": {},
-        "image": {},
-        "embed": {},
-        "table": {},
-        "delimiter": {},
-        "attaches": {},
-    },
-    
-    # before saving the file, djanog model object EditorJsUploadFiles is passed to this function
-    "callback_before_file_save": "django_editorjs2.blogapp.utils.callback_before_file_save",
-    # before returning the response, the response object is passed to this function
-    "callback_before_return_response": "django_editorjs2.blogapp.utils.callback_before_return_response",
-    
-    # widget
-    "editorjs_field_preview_callback": "django_editorjs2.blogapp.utils.editorjs_field_preview_callback",
-    "editorjs_field_save_callback": "django_editorjs2.blogapp.utils.editorjs_field_save_callback",
-
-    "max_attachment_size_bytes": 5 * 1024 * 1024,  # 5 MiB
-    "attachment_file_extensions": ["zip","doc","docx",]
-
-}
+#DJANGO_EDITORJS2_CONFIG = {
+#    # Preprocessors for preview generation
+#    "image_link_preprocessor": "django_editorjs2.blogapp.utils.image_link_preprocessor",
+#    "download_link_preprocessor": "django_editorjs2.blogapp.utils.download_link_preprocessor",
+#    
+#    # Custom styling and attributes for different block types
+#    "extra_attributes": {
+#        "list": {"style": "list-style: none"},
+#        "checklist": {"style": "list-style: none"},
+#        "paragraph": {},
+#        "header": {},
+#        "quote": {},
+#        "code": {},
+#        "image": {},
+#        "embed": {},
+#        "table": {},
+#        "delimiter": {},
+#        "attaches": {},
+#    },
+#    
+#    # before saving the file, djanog model object EditorJsUploadFiles is passed to this function
+#    "callback_before_file_save": "django_editorjs2.blogapp.utils.callback_before_file_save",
+#    # before returning the response, the response object is passed to this function
+#    "callback_before_return_response": "django_editorjs2.blogapp.utils.callback_before_return_response",
+#    
+#    # widget
+#    "editorjs_field_preview_callback": "django_editorjs2.blogapp.utils.editorjs_field_preview_callback",
+#    "editorjs_field_save_callback": "django_editorjs2.blogapp.utils.editorjs_field_save_callback",#
+#
+#    "max_attachment_size_bytes": 5 * 1024 * 1024,  # 5 MiB
+#    "attachment_file_extensions": ["zip","doc","docx",]#
+#
+#}
 
 
 # CKEDITOR_5  - configuration for CKEditor 5
