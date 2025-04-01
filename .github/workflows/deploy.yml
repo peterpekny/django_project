@@ -20,16 +20,23 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            echo "$(date) : Deployment Start" >> /tmp/python-deployment.log
+            echo "========== NEW DEPLOY ============" >> /tmp/python-deployment.log
+            echo "$(date) : Deployment Started" >> /tmp/python-deployment.log
             cd ~
             cd django_project >> /tmp/python-deployment.log
+            echo " + ========= Git Pull ============" >> /tmp/python-deployment.log
             git pull origin main >> /tmp/python-deployment.log
             source ../venv/bin/activate >> /tmp/python-deployment.log
+            echo " + ===== pip install packages ========" >> /tmp/python-deployment.log
             pip install -r requirements.txt >> /tmp/python-deployment.log
+            echo " + ========= migrations ===========" >> /tmp/python-deployment.log
             python3 manage.py migrate >> /tmp/python-deployment.log
+            echo " + ========= sttatic files ===========" >> /tmp/python-deployment.log
             mv /home/django_project/django_project/staticfiles/ /tmp/staticfiles/ >> /tmp/python-deployment.log
             python3 manage.py collectstatic --noinput >> /tmp/python-deployment.log
+            echo " + ========= restart services ===========" >> /tmp/python-deployment.log
             sudo /bin/systemctl restart gunicorn.service >> /tmp/python-deployment.log
             sudo /bin/systemctl status nginx.service >> /tmp/python-deployment.log
             echo "$(date) : Deployment finish" >> /tmp/python-deployment.log
             echo "$(date) : Deployment executed" >> /tmp/python-deployment-log.log
+            echo "======== FINISH DEPLOYMENT ==========" >> /tmp/python-deployment.log
