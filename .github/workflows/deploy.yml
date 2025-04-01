@@ -36,7 +36,9 @@ jobs:
             python3 manage.py collectstatic --noinput >> /tmp/python-deployment.log
             echo " + ========= restart services ===========" >> /tmp/python-deployment.log
             sudo /bin/systemctl restart gunicorn.service >> /tmp/python-deployment.log
-            sudo /bin/systemctl status nginx.service >> /tmp/python-deployment.log
+            sleep 3
+            sudo /bin/systemctl status gunicorn.service >> /tmp/python-deployment.log
+            #sudo /bin/systemctl status nginx.service >> /tmp/python-deployment.log
             echo "$(date) : Deployment finish" >> /tmp/python-deployment.log
             echo "$(date) : Deployment executed" >> /tmp/python-deployment-log.log
             echo "======== FINISH DEPLOYMENT ==========" >> /tmp/python-deployment.log
