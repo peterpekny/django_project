@@ -12,6 +12,12 @@ SECRET_KEY = config('SECRET_DJANGO_KEY')
 DEBUG = False
 ALLOWED_HOSTS = ['.pekny.online']
 
+# PROD environment - HTTPS settings
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
 CSRF_TRUSTED_ORIGINS = [
     "https://peter.pekny.online",
 ]
