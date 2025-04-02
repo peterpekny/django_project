@@ -12,6 +12,9 @@ SECRET_KEY = config('SECRET_DJANGO_KEY')
 DEBUG = False
 ALLOWED_HOSTS = ['.pekny.online']
 
+# changing default URL for admin
+ADMIN_URL = 'admin/'
+
 # PROD environment - HTTPS settings
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SECURE_SSL_REDIRECT = True

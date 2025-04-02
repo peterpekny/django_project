@@ -20,6 +20,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_DJANGO_KEY')
 
+# changing default URL for admin
+ADMIN_URL = 'admin/'
+CSRF_COOKIE_HTTPONLY = False
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 #ALLOWED_HOSTS = ['.pekny.online', '127.0.0.1']
@@ -40,6 +44,7 @@ INSTALLED_APPS = [
     # virtual keyboard
     'django_editorjs2', # EditorJs -- will be removed
     'django_ckeditor_5', # CKEditor 5
+    'adminsortable2', # Order of article
     
     # allauth
     'django.contrib.sites',  # allauth

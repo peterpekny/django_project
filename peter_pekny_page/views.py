@@ -55,7 +55,7 @@ def index(request):
 
     # Priradíme filtrované články ku kategóriám
     for category in categories:
-        category.articles = articles.filter(category=category)
+        category.articles = articles.filter(category=category).order_by('order')
 
     return render(request, "peter_pekny_page/index.html", {"categories": categories})
 

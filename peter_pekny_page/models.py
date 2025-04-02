@@ -92,7 +92,8 @@ class Article(models.Model):
     created_at        = models.DateTimeField(auto_now_add=True)
     image             = models.ImageField(upload_to=article_image_upload_path, verbose_name="Obrázok", blank=True, null=True)
     category          = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Kategória")
-    
+    order             = models.IntegerField(default=0)
+
     is_deleted = models.BooleanField(default=False, verbose_name="Vymazaný")
     visibility = models.CharField(
         max_length=10,
@@ -100,6 +101,9 @@ class Article(models.Model):
         default='public',
         verbose_name="Viditeľnosť"
     )
+    # for adminsortable2 library 
+    class Meta:
+        ordering = ['category', 'order']
 
     def __str__(self):
         return f"{self.title} ({'Vymazaný' if self.is_deleted else 'Aktívny'}) {self.short_description}"
