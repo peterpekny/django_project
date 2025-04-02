@@ -81,8 +81,8 @@ SOCIALACCOUNT_PROVIDERS = {
     # github account provider
     'github': {
         'APP': {
-            'client_id': config('SECRET_GITHUB_ID'),    
-            'secret': config('SECRET_GITHUB_KEY'), },
+            'client_id': config('SECRET_GITHUB_ID_PROD'),    
+            'secret': config('SECRET_GITHUB_KEY_PROD'), },
         },
 }
 
