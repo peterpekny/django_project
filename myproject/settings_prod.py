@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     # virtual keyboard
     #'django_editorjs2', # EditorJs -- will be removed
     'django_ckeditor_5', # CKEditor 5
+    'adminsortable2', # Order of article
     
     # allauth
     'django.contrib.sites',  # allauth
