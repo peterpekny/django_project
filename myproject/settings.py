@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_DJANGO_KEY')
 
 # changing default URL for admin
-ADMIN_URL = 'admin/'
+ADMIN_URL = 'djadmin/'
 CSRF_COOKIE_HTTPONLY = False
 
 # SECURITY WARNING: don't run with debug turned on in production!

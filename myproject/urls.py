@@ -5,7 +5,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('djadmin/', admin.site.urls),
     path("ckeditor5/", include('django_ckeditor_5.urls')),
     # Add peter_pekny_page app to the urlpatterns list
     path('', include('peter_pekny_page.urls')),
