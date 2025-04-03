@@ -157,6 +157,9 @@ def edit_article(request, article_id):
     return render(request, 'peter_pekny_page/edit_article.html', {'form': form, 'article': article})
 
 
+# ======================= #
+# Delete article function #
+# ======================= #
 from django.shortcuts import redirect
 
 def delete_article(request, article_id):
@@ -199,6 +202,30 @@ def delete_comment(request, comment_id):
     # Presmerovanie späť na stránku článku
     return redirect(reverse('peter_pekny_page:article_detail', args=[comment.article.id]))
 
+
+# =============== #
+# Search function #
+# =============== #
+
+from django.db.models import Q
+
+def search_articles(request):
+    query = request.GET.get('q', '')
+    results = []
+
+    if len(query) >= 3:
+        results = Article.objects.filter(
+            Q(title__icontains=query) |
+            Q(short_description__icontains=query) |
+            Q(content__icontains=query),
+            is_deleted=False,
+            visibility='public'
+        ).order_by('-created_at')
+
+    return render(request, "peter_pekny_page/search_results.html", {
+        "query": query,
+        "results": results,
+    })
 
 # =====================
 # vytvorim list article - pomocna funkcia

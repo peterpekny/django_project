@@ -255,47 +255,48 @@ header {
 }
 
 
-/* #################### */
-/* PRIDANE PRE NOVU NAVIGACIU */
-
-/* NAVIGÁCIA – rozdelenie na 3 časti */
-.navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 30px;
-    background-image: (rgb(255, 207, 135), rgb(235, 235, 235)); 
-    /* background-color: rgb(255, 207, 135); */
-    border-bottom: 5px solid #ffffff;
-  }
-  
-  /* Každá časť */
-  .nav-left,
-  .nav-center,
-  .nav-right {
-    flex: 1;
+/* Vyhľadávací formulár */
+.search-form {
     display: flex;
     align-items: center;
-  }
-  
-  /* Stred zarovnáme do stredu */
-  .nav-center {
     justify-content: center;
+    margin: 0 auto;
+    max-width: 400px;
+    padding: 4px 8px;
+    background-color: #f9f9f9;
+    border-radius: 20px;
+    border: 1px solid #ccc;
   }
   
-  /* Menu zarovnáme doprava */
-  .nav-right {
-    justify-content: flex-end;
+  .search-form input[type="text"] {
+    flex: 1;
+    border: none;
+    padding: 8px 12px;
+    font-size: 14px;
+    background-color: transparent;
+    outline: none;
   }
   
-  /* MENU zoznam */
-  .menu {
-    display: flex;
-    gap: 15px;
+  .search-form button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    color: #666;
+    font-size: 16px;
+  }
+  
+  .search-form button:hover {
+    color: #333;
+  }
+
+
+/* Vyhľadávací formulár vo vnútri menu */
+.searchbar-li {
     list-style: none;
+    padding: 10px 20px;
   }
   
-  /* VYHĽADÁVANIE */
   .search-form {
     display: flex;
     align-items: center;
@@ -303,8 +304,7 @@ header {
     border-radius: 20px;
     overflow: hidden;
     background-color: #fff;
-    max-width: 300px;
-    width: 100%;
+    max-width: 220px;
   }
   
   .search-form input[type="text"] {
@@ -330,7 +330,6 @@ header {
   }
 
 
-/* #################### */
 
 /* Štýl menu v hlavičke */
 .menu {

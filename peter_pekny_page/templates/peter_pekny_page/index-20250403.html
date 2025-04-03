@@ -77,52 +77,54 @@
         <!-- Header -->
         <!-- ------ -->
         <header>
-            <nav class="navbar">
-              <!-- Ľavá časť -->
-              <div class="nav-left">
-                <!-- sem môžeš neskôr dať logo -->
-              </div>
-          
-              <!-- Stredná časť - SEARCH -->
-              <div class="nav-center">
-                    <form method="GET" action="{% url 'peter_pekny_page:search_results' %}" class="search-form">
-                    {% comment %} <form method="GET" action="" class="search-form"> {% endcomment %}
-                    <input type="text" name="q" placeholder="Hľadať..." minlength="3" required>
-                  <button type="submit"><i class="fas fa-search"></i></button>
-                </form>
-              </div>
-          
-              <!-- Pravá časť - MENU -->
-              <div class="nav-right">
+            
+            <nav>
+                <!-- Hamburger button -->
+                <input type="checkbox" id="check">
+                <label for="check" class="checkbtn">
+                    <!-- <i class="fas fa-bars"></i> -->
+                    <i class="fas fa-hamburger"></i>
+                </label>
                 
-                    <!-- Hamburger button -->
-                    <input type="checkbox" id="check">
-                    <label for="check" class="checkbtn">
-                        <!-- <i class="fas fa-bars"></i> -->
-                        <i class="fas fa-hamburger"></i>
-                    </label>
-                <!-- MENU items -->
+                <!-- Menu Items -->
+                
                 <ul class="menu">
-                  <li class="animation-underline"><a href="#home">Home</a></li>
-                  <li class="animation-underline"><a href="#about" onclick="openSection('about')">About</a></li>
-                  <li class="animation-underline"><a href="#contacts" onclick="openSection('contacts')">Contacts</a></li>
-                  <li class="animation-underline"><a href="#curriculum" onclick="openSections('curriculum')">Curriculum</a></li>
-          
-                  {% if user.is_authenticated %}
+                
+                    <li class="searchbar-li">
+                        <form method="GET" action="" class="search-form">
+                            <input type="text" name="q" placeholder="Hľadať..." minlength="3" required>
+                            <button type="submit"><i class="fas fa-search"></i></button>
+                        </form>
+                    </li>
+                
+                </ul>   
+                
+                <ul class="menu">
+
+
+                    
+                    <li class="animation-underline"><a href="#home">Home</a></li>
+                    <li class="animation-underline"><a href="#about" onclick="openSection('about')">About</a></li>
+                    <li class="animation-underline"><a href="#contacts" onclick="openSection('contacts')">Contacts</a></li>
+                    <li class="animation-underline"><a href="#curriculum" onclick="openSections('curriculum')">curriculum</a></li>
+
+                    <!-- We are deciding which menu items we will show -->
+                {% if user.is_authenticated %}
                     {% if user.is_superuser %}
-                      <li class="animation-underline">
-                        <a href="{% url 'peter_pekny_page:create_article' %}">Create Project</a>
-                      </li>
+                    <li class="animation-underline"><a href="{% url 'peter_pekny_page:create_article' %}">Create
+                                Project</a></li>
                     {% endif %}
                     <li class="animation-underline"><a href="?logout=True">Logout</a></li>
-                  {% else %}
-                    <li class="animation-underline"><a href="#" id="openLoginForm">Login</a></li>
-                  {% endif %}
+
+                {% else %}
+                    <li class="animation-underline"><a href="#" id="openLoginForm">login</a></li>
+                {% endif %}
+                
+
+
                 </ul>
-              </div>
             </nav>
-          </header>
-          
+        </header>
 
         <!-- --------- -->
         <!-- Main Body -->

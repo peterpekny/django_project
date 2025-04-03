@@ -22,12 +22,26 @@ class CategoryAdmin(SortableAdminBase, admin.ModelAdmin):
 
 # Admin pre články – zobrazenie zoznamu s možnosťou úprav (ale bez drag & drop)
 @admin.register(Article)
-class ArticleAdmin(admin.ModelAdmin):  # bez SortableAdminMixin
+class ArticleAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'visibility', 'created_at', 'is_deleted')
-    fields = ('title', 'category', 'visibility', 'created_at', 'is_deleted')
+    
+    # Všetky editovateľné polia:
+    fields = (
+        'title',
+        'short_description',
+        'content',
+        'image',
+        'category',
+        'visibility',
+        'is_deleted',
+        'created_at',  # readonly, ale chceme ho vidieť
+    )
+
+    readonly_fields = ('created_at',)
+
     list_filter = ('visibility', 'is_deleted')
     search_fields = ('title', 'short_description', 'content')
-    ordering = ('category', 'order')  # zachováme triedenie
+    ordering = ('category', 'order')
     list_editable = ('visibility', 'is_deleted')
     prepopulated_fields = {"title": ("short_description",)}
 
@@ -35,6 +49,6 @@ class ArticleAdmin(admin.ModelAdmin):  # bez SortableAdminMixin
 # Admin pre komentáre (voliteľné – ak ho ešte nemáš)
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('article', 'author', 'created_at')
+    list_display = ('article' , 'author', 'created_at')
     search_fields = ('article__title', 'author__username', 'content')
     list_filter = ('created_at',)

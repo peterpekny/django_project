@@ -23,5 +23,7 @@ urlpatterns = [
     path('article/<int:article_id>/delete/', views.delete_article, name='delete_article'),
     # paths related to comments
     path('comment/<int:comment_id>/delete/', views.delete_comment, name='delete_comment'),
+    # path for search function
+    path('search/', views.search_articles, name='search_results'),
   
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # add static files to the urlpatterns
