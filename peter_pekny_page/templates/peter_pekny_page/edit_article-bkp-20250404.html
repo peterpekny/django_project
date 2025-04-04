@@ -8,31 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Article: {{ article.title }}</title>
 
-    {% include 'peter_pekny_page/includes/support_css_and_js.html' %}
-
-    {% load static %}
-
-    <!-- Loading page effect -->
+    <!-- Styles for edit article -->
+    <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/create-project.css' %}">
     <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/loadingPage.css' %}">
     <script src="{% static 'peter_pekny_page/js/loadingPage.js' %}"></script>
-
-    <!-- Favicon load -->
-    <link rel="shortcut icon" href="{% static 'peter_pekny_page/images/favicon.ico' %}" type="image/x-icon">
-
-    <!-- font-awesome.min.css -->
-    <!-- <link rel="stylesheet" href="assets/css/fontawsom-all.min.css"> -->
+    <!-- Font awsome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
-
-
-    <!-- Moj style sheet -->
+    <!-- My index styles for page -->
     <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/my_style.css' %}">
-    <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/game_style.css' %}">
-    <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/modal_styles.css' %}">
-    <link rel="stylesheet" href="{% static 'peter_pekny_page/styles/animated_modules.css' %}">
 
     <!-- CKeditor Styles -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ckeditor5@44.1.0/dist/ckeditor5.css">
@@ -52,60 +39,39 @@
     <!-- Content that is hiding untill all elements are loaded  -->
     <div id="content" style="display: none;">
 
-                <!-- Header -->
-                <header>
-                    <nav class="navbar">
-                      <!-- Ľavá časť -->
-                      <div class="nav-left">
-                        <!-- sem môžeš neskôr dať logo -->
-                      </div>
-                  
-                      <!-- Stredná časť - SEARCH -->
-                      <div class="nav-center">
-                    <!--
-                        <form method="GET" action="{% url 'peter_pekny_page:search_results' %}" class="search-form">
-                            {% comment %} <form method="GET" action="" class="search-form"> {% endcomment %}
-                            <input type="text" name="q" placeholder="Hľadať..." minlength="3" required>
-                          <button type="submit"><i class="fas fa-search"></i></button>
-                        </form> -->
-                      
-                    </div> 
-                  
-                      <!-- Pravá časť - MENU -->
-                      <div class="nav-right">
-                        
-                            <!-- Hamburger button -->
-                            <input type="checkbox" id="check">
-                            <label for="check" class="checkbtn">
-                                <!-- <i class="fas fa-bars"></i> -->
-                                <i class="fas fa-hamburger"></i>
-                            </label>
-                        <!-- MENU items -->
-                        <ul class="menu">
 
-                            <!-- We are deciding which menu items we will show -->
-                            {% if user.is_authenticated %}
-        
-                            <button type="submit" class="btn-top save" style="width: 150px; margin-top: 0 !important;"
-                                form="edit_article_form">Save <i class="fa-solid fa-check"
-                                    style="font-size: 15px;"></i></button>
-        
-                            <button type="submit" class="btn-top cancel" style="width: 150px; margin-top: 0 !important;"
-                                form="delete_form">Delete Article <i class="fa-solid fa-xmark"></i></button>
-        
-        
-                            {% else %}
-        
-                            {% endif %}
-                            <button class="btn-top cancel" style="width: 100px; margin-top: 0 !important;"
-                                OnClick="location.href='{% url 'peter_pekny_page:index' %}'">Home <i class="fas fa-home" style="font-size: 15px;"></i></button>
-                        </ul>
-                      </div>
-                    </nav>
-                  </header>
-        
-        <!-- pridabam kvoli hornemu odsadeniu -->
-        <div style="height: 45px;"></div>
+        <header style="opacity: 100% !important;">
+            <nav>
+                <!-- Hamburger button -->
+                <input type="checkbox" id="check">
+                <label for="check" class="checkbtn">
+                    <!-- <i class="fas fa-bars"></i> -->
+                    <i class="fas fa-hamburger"></i>
+                </label>
+                <!-- Menu Items -->
+                <ul class="menu">
+
+
+                    <!-- We are deciding which menu items we will show -->
+                    {% if user.is_authenticated %}
+
+                    <button type="submit" class="btn save" style="width: 150px; margin-top: 0 !important;"
+                        form="edit_article_form">Save <i class="fa-solid fa-check"
+                            style="font-size: 15px;"></i></button>
+
+                    <button type="submit" class="btn cancel" style="width: 150px; margin-top: 0 !important;"
+                        form="delete_form">Delete Article <i class="fa-solid fa-xmark"></i></button>
+
+
+                    {% else %}
+
+                    {% endif %}
+                    <button class="btn cancel" style="width: 100px; margin-top: 0 !important;"
+                        OnClick="location.href='{% url 'peter_pekny_page:index' %}'">Home <i class="fas fa-home" style="font-size: 15px;"></i></button>
+                </ul>
+            </nav>
+        </header>
+
 
         <div class="container">
             <div class="title_block">

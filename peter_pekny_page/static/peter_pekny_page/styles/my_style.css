@@ -28,6 +28,9 @@
     src: url("MyFonts/montserrat/Montserrat-Regular.ttf");
 }
 
+html {
+    scroll-padding-top: 60px; /* ak máš fixed navbar, zabráni prekrytiu pri anchor linkoch */
+  }
 
 .font_beckman {
     font-family: 'Beckman'
@@ -221,7 +224,7 @@ p {
 /*  <!-- ------ -->
     <!-- Header -->
     <!-- ------ --> */
-header {
+aheader {
     background-image: linear-gradient(rgb(255, 207, 135), rgb(235, 235, 235));
     /* Vytvorí gradientné pozadie pre hlavičku */
     padding: 5px 5px;
@@ -240,7 +243,7 @@ header {
     /* prehodi to nad vsetky prvky */
 }
 
-header {
+aheader {
     position: sticky;
     top: 0;
     width: 100%;
@@ -259,7 +262,7 @@ header {
 /* PRIDANE PRE NOVU NAVIGACIU */
 
 /* NAVIGÁCIA – rozdelenie na 3 časti */
-.navbar {
+.anavbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -269,6 +272,26 @@ header {
     border-bottom: 5px solid #ffffff;
   }
   
+
+  .navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+  
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 30px;
+  
+    background-color: rgba(250, 243, 234, 0.54); /* Priehľadné biele pozadie */
+    backdrop-filter: blur(10px); /* Rozmazanie pozadia */
+    -webkit-backdrop-filter: blur(10px); /* Safari podpora */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Jemný tieň */
+    border-bottom: 5px solid rgba(255, 255, 255, 0.3); /* Jemná spodná čiara */
+  }
+
+
   /* Každá časť */
   .nav-left,
   .nav-center,
@@ -314,6 +337,7 @@ header {
     outline: none;
     flex: 1;
     background-color: transparent;
+    height: 15px;
   }
   
   .search-form button {
