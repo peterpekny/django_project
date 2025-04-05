@@ -789,7 +789,22 @@ img.img_me_personal:hover {
 
 }
 
+.img_me_personal_logo {
 
+    max-width: 45px;
+    /* border-top-left-radius: 50%; */
+    /* border-bottom-left-radius: 50%; */
+    border-radius: 50%;
+
+}
+
+.nav-left p {
+    font-size: 12px;
+    color: #000000;
+    /* padding: 10px 0 43px; */
+    /* border-bottom: 1px solid #999fb3; */
+    margin:0 0 0 10px !important;
+}
 
 
 @media (min-width: 1200px) {
