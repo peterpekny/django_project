@@ -282,8 +282,8 @@ aheader {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 30px;
-  
+    /* padding: 10px 30px; */
+    padding: 10px 10px;
     background-color: rgba(250, 243, 234, 0.54); /* Priehľadné biele pozadie */
     backdrop-filter: blur(10px); /* Rozmazanie pozadia */
     -webkit-backdrop-filter: blur(10px); /* Safari podpora */
@@ -311,12 +311,6 @@ aheader {
     justify-content: flex-end;
   }
   
-  /* MENU zoznam */
-  .menu {
-    display: flex;
-    gap: 15px;
-    list-style: none;
-  }
   
   /* VYHĽADÁVANIE */
   .search-form {
@@ -327,6 +321,7 @@ aheader {
     overflow: hidden;
     background-color: #fff;
     max-width: 300px;
+    min-width: 200px;
     width: 100%;
   }
   
@@ -357,6 +352,13 @@ aheader {
 /* #################### */
 
 /* Štýl menu v hlavičke */
+  /* MENU zoznam */
+  .menu {
+    display: flex;
+    gap: 15px;
+    list-style: none;
+  }
+
 .menu {
     display: flex;
     /* Používa Flexbox pre rozloženie položiek menu */
@@ -467,8 +469,8 @@ aheader {
         position: fixed;
         top: 56px;
         right: -50%;
-        background-color: rgb(255, 207, 135);
-        opacity: 90%;
+        background-color: rgb(255 225 179);
+        opacity: 100%;
         width: 40%;
         height: 27vh;
         display: flex;
@@ -798,6 +800,15 @@ img.img_me_personal:hover {
 
 }
 
+@media (max-width: 700px) {
+
+    .img_me_personal_logo {
+        display: none;
+       
+    }
+
+}
+
 .nav-left p {
     font-size: 12px;
     color: #000000;
@@ -805,6 +816,16 @@ img.img_me_personal:hover {
     /* border-bottom: 1px solid #999fb3; */
     margin:0 0 0 10px !important;
 }
+
+@media (max-width: 700px) {
+
+    .nav-left p {
+        display: none;
+       
+    }
+
+}
+
 
 .btn-top-1 {
     display: block;
