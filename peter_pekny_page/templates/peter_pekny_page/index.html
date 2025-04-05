@@ -85,7 +85,13 @@
                 src="{% static 'peter_pekny_page/images/Randy_Lorde.webp' %}" alt="Personal Image">
                 {# Welcome mane message #}
                 {% if user.is_authenticated %}
-                    <p>Wellcome: {{user.first_name}} {{user.last_name}}</p>
+                    {% if user.is_superuser %}
+                        <p>Wellcome: {{user.first_name}} {{user.last_name}}
+                        <button class="btn-top-1 save-1" style=""
+                            OnClick="location.href='{% url 'peter_pekny_page:create_article' %}'">new article <i class="fa-regular fa-file"></i></button></p>
+                    {% else %}
+                        <p>Wellcome: {{user.first_name}} {{user.last_name}}</p>
+                    {% endif %}
                 {% else %}
                     <p>Wellcome on my page!</p>
                 {% endif %}
@@ -118,10 +124,12 @@
           
                   {% if user.is_authenticated %}
                     {% if user.is_superuser %}
+                    {% comment %} 
                       <li class="animation-underline">
-                        <a href="{% url 'peter_pekny_page:create_article' %}">Create Project</a>
+                        <a href="{% url 'peter_pekny_page:create_article' %}">ADD Project</a>
                       </li>
-                    {% endif %}
+                     {% endcomment %}
+                      {% endif %}
                     <li class="animation-underline"><a href="?logout=True">Logout</a></li>
                   {% else %}
                     <li class="animation-underline"><a href="#" id="openLoginForm">Login</a></li>
@@ -189,7 +197,7 @@
 
             <div class="container text-center whgrey">
                 <div class="row">
-                    <h1 class="py-3">Some fun PROJECTS</h1>
+                    <h1 class="py-3">Home PROJECTS</h1>
                 </div>
                 <div id="project_content" class="hiding_content project_content">
                     <!-- starting loop for categories -->
