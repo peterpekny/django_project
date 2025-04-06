@@ -81,16 +81,14 @@
               <!-- Ľavá časť -->
               <div class="nav-left">
                 <!-- logo -->
-                <a href="#" id="openLoginForm"><img class="img_me_personal_logo img-fluid "
-                src="{% static 'peter_pekny_page/images/Randy_Lorde.webp' %}" alt="Personal Image"></a>
+                <img class="img_me_personal_logo img-fluid "
+                src="{% static 'peter_pekny_page/images/Randy_Lorde.webp' %}" alt="Personal Image">
                 {# Welcome mane message #}
                 {% if user.is_authenticated %}
                     {% if user.is_superuser %}
                         <p>Wellcome: {{user.first_name}} {{user.last_name}}
                         <button class="btn-top-1 save-1" style=""
-                            OnClick="location.href='{% url 'peter_pekny_page:create_article' %}'">new article <i class="fa-regular fa-file"></i></button>
-                        </p><button class="btn-top-1 cancel-top" style=""
-                        OnClick="location.href='{% url 'peter_pekny_page:index' %}'"><i class="fa-regular fa-circle-xmark"></i></button>
+                            OnClick="location.href='{% url 'peter_pekny_page:create_article' %}'">new article <i class="fa-regular fa-file"></i></button></p>
                     {% else %}
                         <p>Wellcome: {{user.first_name}} {{user.last_name}}</p>
                     {% endif %}
@@ -134,7 +132,7 @@
                       {% endif %}
                     <li class="animation-underline"><a href="?logout=True">Logout</a></li>
                   {% else %}
-                    {% comment %} <li class="animation-underline"><a href="#" id="openLoginForm">Login</a></li> {% endcomment %}
+                    <li class="animation-underline"><a href="#" id="openLoginForm">Login</a></li>
                   {% endif %}
                 </ul>
               </div>
@@ -608,58 +606,55 @@
         <!-- ---------- -->
 
         <!-- Email Formular 1 - v stranke -->
-<!-- Email Formular 1 - v stranke -->
-<div class="container text-center whgrey">
-    <div class="row">
-        <h1 class="py-3">Email Me</h1>
-    </div>
-
-    <div id="emailme" class="hiding_content">
-        <form class="page-email-form" method="POST" action="">
-            {% csrf_token %}
-            <input type="hidden" name="form_type" value="contact">
-
+        <div class="container text-center whgrey">
             <div class="row">
-                <div class="col-12 col-md-6 form-color form-custom-font form-group">
-                    <div class="mt-1 p-3">
-                        <label for="id_email" class="form-label">Your Email</label>
-                        {{ contact_form.email }}
-                    </div>
-                </div>
-                <div class="col-12 col-md-6 form-color form-custom-font form-group">
-                    <div class="mt-1 p-3">
-                        <label for="id_name" class="form-label">Your Name</label>
-                        {{ contact_form.name }}
-                    </div>
-                </div>
+                <h1 class="py-3">Email Me</h1>
             </div>
-
-            <div class="row">
-                <div class="col-12 form-color form-custom-font form-group">
-                    <div class="mb-2 p-3">
-                        <label for="id_message" class="form-label">Your Message:</label>
-                        {{ contact_form.message }}
-                    </div>
-                </div>
-            </div>
-
-            <div class="row justify-content-center">
-                <div class="col-12">
-                    <div class="form-color form-custom-font form-group">
-                        <div class="mb-2 form-check">
-                            <input type="checkbox" class="form-check-input" style="float: unset !important;"
-                                   id="exampleCheck1">
-                            <label class="form-check-label" for="exampleCheck1">I agree with GDPR</label>
+            <div id="emailme" class="hiding_content">
+                <form class="page-email-form" id="page-email-form">
+                    <div class="row">
+                        <div class="col-12 col-md-6 form-color form-custom-font form-group">
+                            <div class="mt-1 p-3">
+                                <label for="email" class="form-label">Your Email</label>
+                                <input type="email" class="form-control hranate-rohy form-contro" id="email"
+                                    name="email" placeholder="put your email address">
+                            </div>
                         </div>
-                        <button class="btn btn-outline-myColor mb-3" type="submit" id="page-form-submit">
-                            Send
-                        </button>
+                        <div class="col-12 col-md-6 form-color form-custom-font form-group">
+                            <div class="mt-1 p-3">
+                                <label for="name" class="form-label">Your Name</label>
+                                <input type="text" class="form-control hranate-rohy form-contro" id="name" name="name"
+                                    placeholder="put your name here:">
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <div class="row">
+                        <div class="col-12 form-color form-custom-font form-group">
+                            <div class="mb-2 p-3">
+                                <label for="message" class="form-label">Your Message:</label>
+                                <textarea class="form-control hranate-rohy" id="message" name="message"
+                                    style="height: 120px;" placeholder="Type your message here ..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row  justify-content-center">
+                        <div class="col-12">
+                            <div class="form-color form-custom-font form-group">
+                                <div class="mb-2 form-check">
+                                    <input type="checkbox" class="form-check-input" style="float: unset !important;"
+                                        id="exampleCheck1">
+                                    <label class="form-check-label" for="exampleCheck1">I aggree with
+                                        GDPR</label>
+                                </div>
+                                <button class="btn btn-outline-myColor mb-3" type="submit"
+                                    id="page-form-submit">Send</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-        </form>
-    </div>
-</div>
+        </div>
+
 
         <!-- ADMIN login -->
         <!-- Tlačidlo ADMIN v navigačnom bare -->
@@ -675,8 +670,6 @@
                 <h4 class="font_beckman">Hello Admin, please login ...</h4>
                 <form id="login-form" method="post" action="/">
                     {% csrf_token %}
-                    <input type="hidden" name="form_type" value="login">
-                    
                     <label for="name">User name:</label>
                     <input class="custom-input" type="text" id="name-modal" name="username" required>
                     <label for="email">Password</label>

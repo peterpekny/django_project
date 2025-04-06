@@ -38,15 +38,36 @@
     <!-- Content that is hiding untill all elements are loaded  -->
     <div id="content" style="display: none;">
 
-        <!-- Header -->
-        <header style="opacity: 100% !important;">
-            <nav>
-                <!-- Hamburger button -->
-                <input type="checkbox" id="check">
-                <label for="check" class="checkbtn">
-                    <!-- <i class="fas fa-bars"></i> -->
-                    <i class="fas fa-hamburger"></i>
-                </label>
+
+                        <!-- Header -->
+                        <header>
+                            <nav class="navbar">
+                              <!-- Ľavá časť -->
+                              <div class="nav-left">
+                                <!-- sem môžeš neskôr dať logo -->
+                              </div>
+                          
+                              <!-- Stredná časť - SEARCH -->
+                              <div class="nav-center">
+                            <!--
+                                <form method="GET" action="{% url 'peter_pekny_page:search_results' %}" class="search-form">
+                                    {% comment %} <form method="GET" action="" class="search-form"> {% endcomment %}
+                                    <input type="text" name="q" placeholder="Hľadať..." minlength="3" required>
+                                  <button type="submit"><i class="fas fa-search"></i></button>
+                                </form> -->
+                              
+                            </div> 
+                          
+                              <!-- Pravá časť - MENU -->
+                              <div class="nav-right">
+                                
+                                    <!-- Hamburger button -->
+                                    <input type="checkbox" id="check">
+                                    <label for="check" class="checkbtn">
+                                        <!-- <i class="fas fa-bars"></i> -->
+                                        <i class="fas fa-hamburger"></i>
+                                    </label>
+                               
                 <!-- Menu Items -->
                 <ul class="menu">
 
@@ -54,7 +75,7 @@
                     <!-- We are deciding which menu items we will show -->
                     {% if user.is_authenticated %}
 
-                    <button type="submit" class="btn save" style="width: 150px; margin-top: 0 !important;"
+                    <button type="submit" class="btn-top save" style="width: 150px; margin-top: 0 !important;"
                         form="create_article_form">Save <i class="fa-solid fa-check"
                             style="font-size: 15px;"></i></button>
 
@@ -62,12 +83,19 @@
                     {% else %}
 
                     {% endif %}
-                    <button class="btn cancel" style="width: 100px; margin-top: 0 !important;"
+                    <button class="btn-top cancel" style="width: 100px; margin-top: 0 !important;"
                         OnClick="location.href='{% url 'peter_pekny_page:index' %}'">Home <i class="fas fa-home"
                             style="font-size: 15px;"></i></button>
                 </ul>
-            </nav>
-        </header>
+                              </div>
+                            </nav>
+                          </header>
+
+
+
+        <!-- pridabam kvoli hornemu odsadeniu -->
+        <div style="height: 45px;"></div>
+ 
 
 
         <div class="container">

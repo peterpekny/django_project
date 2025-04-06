@@ -62,3 +62,28 @@ class CommentForm(forms.ModelForm):
                         }
                     )
                 }
+          
+class ContactForm(forms.Form):
+    name = forms.CharField(
+        max_length=100,
+        label="Your Name",
+        widget=forms.TextInput(attrs={
+            'class': 'form-control hranate-rohy form-contro',
+            'placeholder': 'Put your name here...'
+        })
+    )
+    email = forms.EmailField(
+        label="Your Email",
+        widget=forms.EmailInput(attrs={
+            'class': 'form-control hranate-rohy form-contro',
+            'placeholder': 'Put your email address...'
+        })
+    )
+    message = forms.CharField(
+        label="Your Message",
+        widget=forms.Textarea(attrs={
+            'class': 'form-control hranate-rohy',
+            'placeholder': 'Type your message here...',
+            'style': 'height: 120px;'
+        })
+    )

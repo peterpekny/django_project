@@ -29,6 +29,16 @@ DEBUG = True
 #ALLOWED_HOSTS = ['.pekny.online', '127.0.0.1']
 ALLOWED_HOSTS = ['127.0.0.1']
 
+# Email settings
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = 'peter_pekny_page.email_backend.UnsafeEmailBackend'
+EMAIL_HOST = config('SECRET_EMAIL_HOST')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = config('SECRET_EMAIL_HOST_USER')  # použij presne ten, čo funguje v Nextcloud
+EMAIL_HOST_PASSWORD = config('SECRET_EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
