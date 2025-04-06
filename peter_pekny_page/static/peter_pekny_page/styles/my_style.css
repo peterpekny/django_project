@@ -29,7 +29,7 @@
 }
 
 html {
-    scroll-padding-top: 60px; /* ak máš fixed navbar, zabráni prekrytiu pri anchor linkoch */
+    scroll-padding: 250px; /* ak máš fixed navbar, zabráni prekrytiu pri anchor linkoch */
   }
 
 .font_beckman {
@@ -797,7 +797,21 @@ img.img_me_personal:hover {
     /* border-top-left-radius: 50%; */
     /* border-bottom-left-radius: 50%; */
     border-radius: 50%;
+    transition: filter 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+}
 
+.img_me_personal_logo:hover {
+
+/*
+    box-shadow:
+    0 0 60px 10px #fff, 
+    0 0 100px 60px #f0f,
+    0 0 120px 90px #0ff;
+*/
+    box-shadow:
+    0 0 25px 10px #fff;  /* inner white */
+    
+    transition: filter 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
 }
 
 @media (max-width: 700px) {

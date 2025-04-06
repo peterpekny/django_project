@@ -38,6 +38,7 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = config('SECRET_EMAIL_HOST_USER')  # použij presne ten, čo funguje v Nextcloud
 EMAIL_HOST_PASSWORD = config('SECRET_EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+CONTACT_RECIPIENT_EMAIL = ['peter@pekny.online', 'peter.pekny@gmail.com']
 
 # Application definition
 INSTALLED_APPS = [

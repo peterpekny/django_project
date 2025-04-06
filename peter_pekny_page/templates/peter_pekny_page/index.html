@@ -50,9 +50,6 @@
     <!-- loading score table for my first game -->
     <script src="{% static 'peter_pekny_page/js/load_scores.js' %}"></script>
 
-    <!-- Loading EmailJS stuff for sending emails -->
-    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
-
 </head>
 
 <body>
@@ -90,7 +87,7 @@
                         <button class="btn-top-1 save-1" style=""
                             OnClick="location.href='{% url 'peter_pekny_page:create_article' %}'">new article <i class="fa-regular fa-file"></i></button>
                         </p><button class="btn-top-1 cancel-top" style=""
-                        OnClick="location.href='{% url 'peter_pekny_page:index' %}'"><i class="fa-regular fa-circle-xmark"></i></button>
+                        OnClick="location.href='{% url 'peter_pekny_page:index' %}?logout=True'"><i class="fa-regular fa-circle-xmark"></i></button>
                     {% else %}
                         <p>Wellcome: {{user.first_name}} {{user.last_name}}</p>
                     {% endif %}
@@ -123,6 +120,7 @@
                   <li class="animation-underline"><a href="#about" onclick="openSection('about')">About</a></li>
                   <li class="animation-underline"><a href="#contacts" onclick="openSection('contacts')">Contacts</a></li>
                   <li class="animation-underline"><a href="#curriculum" onclick="openSections('curriculum')">Curriculum</a></li>
+                  <li class="animation-underline"><a href="#emailme" onclick="openSections('emailme')">emailme</a></li>
           
                   {% if user.is_authenticated %}
                     {% if user.is_superuser %}
@@ -614,7 +612,7 @@
         <h1 class="py-3">Email Me</h1>
     </div>
 
-    <div id="emailme" class="hiding_content">
+    <div  id="emailme"  class="hiding_content" name="emailme">
         <form class="page-email-form" method="POST" action="">
             {% csrf_token %}
             <input type="hidden" name="form_type" value="contact">
@@ -665,7 +663,6 @@
         <!-- Tlačidlo ADMIN v navigačnom bare -->
         <!-- Modal okno - login formulár -->
         
-        
 
         {% load socialaccount %}
         
@@ -701,8 +698,7 @@
             </div>
         </div>
 
-        <!-- Email send function -->
-        <script src="{% static 'peter_pekny_page/js/emailFunctions.js' %}"></script>
+
         <!-- Moda window functions - email form stuff -->
         <script src="{% static 'peter_pekny_page/js/modal_window.js' %}"></script>
 

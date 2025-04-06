@@ -63,6 +63,7 @@ from .forms import ContactForm  # pridaj na začiatok
 from django.core.mail import send_mail  # pre odosielanie mailov
 from django.conf import settings
 
+
 def index(request):
     """Hlavná stránka - zobrazí kategórie a články + spracuje formuláre"""
     
@@ -101,12 +102,12 @@ def index(request):
                 message = contact_form.cleaned_data['message']
                 
                 full_message = f"Správa od: {name} <{email}>\n\n{message}"
-                
+
                 send_mail(
                     subject="Kontakt z webu peter.pekny.online",
                     message=full_message,
                     from_email=settings.DEFAULT_FROM_EMAIL,
-                    recipient_list=['peter@pekny.online', 'peter.pekny@gmail.com'],
+                    recipient_list=settings.CONTACT_RECIPIENT_EMAIL,
                     fail_silently=False,
                 )
                 
