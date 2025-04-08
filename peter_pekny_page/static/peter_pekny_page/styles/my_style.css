@@ -465,7 +465,7 @@ aheader {
         z-index: 1;
     }
 
-    ul {
+    .nav-right ul {
         position: fixed;
         top: 56px;
         right: -50%;
@@ -481,11 +481,11 @@ aheader {
         border-radius: 10px;
     }
 
-    ul li {
+    .nav-right ul li {
         margin: auto 0;
     }
 
-    ul li a {
+    .nav-right ul li a {
         font-size: 3vh;
 
     }
