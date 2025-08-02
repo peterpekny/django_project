@@ -25,5 +25,8 @@ urlpatterns = [
     path('comment/<int:comment_id>/delete/', views.delete_comment, name='delete_comment'),
     # path for search function
     path('search/', views.search_articles, name='search_results'),
+    path('admin/', views.wiki_redirect, name='wiki_redirect'),
+    path('api/get_scores/', views.get_scores, name='get_scores'),
+    path('api/submit_score/', views.submit_score, name='submit_score'),
   
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # add static files to the urlpatterns

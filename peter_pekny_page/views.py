@@ -328,6 +328,54 @@ def search_articles(request):
 #     return render(request, 'peter_pekny_page/article_list.html', {'articles': articles})
 
 
+# Get score
+from django.http import JsonResponse
+from .models import Score
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
+def get_scores(request):
+    top_scores = Score.objects.all().order_by('-score', '-created_at')[:7]
+
+    data = []
+    for index, score in enumerate(top_scores, start=1):
+        data.append({
+            'pozicia': index,
+            'player_name': score.player_name,
+            'score': score.score,
+        })
+
+    response = JsonResponse(data, safe=False)
+    response["Access-Control-Allow-Origin"] = "*"
+    return response
+
+
+# SUBMIT SCORE
+
+import json
+from django.http import JsonResponse
+
+@csrf_exempt
+def submit_score(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            player = data.get('player')
+            score = data.get('score')
+
+            if not player or score is None:
+                return JsonResponse({'status': 'error', 'message': 'Missing fields'}, status=400)
+
+            if len(player) > 7:
+                return JsonResponse({'status': 'error', 'message': 'Name too long'}, status=400)
+
+            Score.objects.create(player_name=player, score=int(score))
+            return JsonResponse({'status': 'success'})
+        except Exception as e:
+            return JsonResponse({'status': 'error', 'message': str(e)}, status=500)
+    
+    return JsonResponse({'status': 'error', 'message': 'Invalid request'}, status=405)
+
 
 # =====================================
 # Test view function for map plugin
@@ -351,3 +399,7 @@ def show_map(request):
                 route_points.append((point.latitude, point.longitude))
 
     return render(request, "peter_pekny_page/map.html", {"route_points": route_points})
+
+def wiki_redirect(request):
+    """Redirect to Wikipedia"""
+    return redirect("https://en.wikipedia.org/wiki/Idiot")

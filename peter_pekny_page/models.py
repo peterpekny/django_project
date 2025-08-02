@@ -134,3 +134,15 @@ class Comment(models.Model):
 
     def __str__(self):
         return f"{self.author.username} ({self.article.title}) - {self.comment[:50]}"
+    
+
+    # Model for game score
+
+    
+class Score(models.Model):
+    player_name = models.CharField(max_length=100)
+    score = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.player_name} – {self.score}"

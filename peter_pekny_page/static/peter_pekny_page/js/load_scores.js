@@ -1,7 +1,10 @@
 // Funkcia pre nacitanie vysledkou s tabulky score
 // volame to hned po nacitani..
 function loadScores() {
-    fetch('https://peter.pekny.online/php/get_scores.php', {
+
+    const baseUrl = window.location.origin;
+
+    fetch(  `${baseUrl}/api/get_scores/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -25,7 +28,10 @@ function loadScores() {
 // Funkciu volam po zapisani tabulky vysledkou s aktualnymi datami
 //
 function loadScoresAfter() {
-    fetch('https://peter.pekny.online/php/get_scores.php', {
+
+    const baseUrl = window.location.origin;
+
+    fetch( `${baseUrl}/api/get_scores/`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

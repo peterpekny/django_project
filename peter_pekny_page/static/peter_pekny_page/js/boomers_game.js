@@ -202,7 +202,9 @@ function spustiHru() {
         const submitButton = document.querySelector('#submit-score-form button');
         submitButton.disabled = true;
 
-        fetch('https://peter.pekny.online/php/submit_score.php', {
+        const baseUrl = window.location.origin;
+
+        fetch( `${baseUrl}/api/submit_score/`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -279,6 +281,7 @@ function spustiHru() {
             document.getElementById('pause-icon').style.display = 'none';
             document.getElementById('score').style.display = 'none';
             document.getElementById('popis').style.display = 'none'
+            document.getElementById('popis1').style.display = 'none'
             //triggerVictoryAnimation();  // Spustí animáciu lietadla
             playBoardMusic('stop');
 
