@@ -28,5 +28,6 @@ urlpatterns = [
     path('admin/', views.wiki_redirect, name='wiki_redirect'),
     path('api/get_scores/', views.get_scores, name='get_scores'),
     path('api/submit_score/', views.submit_score, name='submit_score'),
+    path('youtube-progress/', views.youtube_progress, name='youtube_progress'),
   
 ]  + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) # add static files to the urlpatterns

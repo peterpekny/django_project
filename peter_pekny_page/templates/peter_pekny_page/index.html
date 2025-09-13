@@ -766,6 +766,41 @@
 
 
 
+<!-- youtube downloader Formular - v stranke -->
+
+
+<div class="container text-center whgrey">
+    <div class="row">
+        <h1 class="py-3">YouTube downloader</h1>
+    </div>
+
+    <div  id="YouTubeDownloader"  class="hiding_content" name="YouTubeDownloader">
+       <div class="youtube"> 
+            <form id="youtube-form" method="POST" action="/" class="yt-search-form">
+                {% csrf_token %}
+                <input type="hidden" name="form_type" value="youtube" >
+                
+                <input type="text" name="url" placeholder="YouTube link" inlength="3" required>
+                <button type="submit">Stiahnuť</button>
+            </form>
+
+            <div id="youtube-progress-container">
+                <div id="progress-bar" style="width: 100%; background: #eee; height: 25px; border-radius: 4px;">
+                    <div id="progress-inner" style="width: 0%; background: #4caf50; height: 100%; border-radius: 4px;"></div>
+                </div>
+                <div id="progress-text">Stiahnutie neprebieha</div>
+            </div>
+        </div>
+        <!-- YouTube downloader - download peter_pekny_page/js/youtube_download_frontend.js  -->
+        <script src="{% static 'peter_pekny_page/js/youtube_download_frontend.js' %}">
+        </script>
+
+        
+    </div>
+</div>
+
+
+
     <!-- --------------------------- -->
     <!-- Finish class slowVisibility -->
     <!-- --------------------------- -->

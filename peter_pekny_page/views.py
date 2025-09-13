@@ -63,6 +63,16 @@ from .forms import ContactForm  # pridaj na začiatok
 from django.core.mail import send_mail  # pre odosielanie mailov
 from django.conf import settings
 
+from django.shortcuts import render
+from django.http import FileResponse
+from .utils import download_youtube
+
+from django.http import JsonResponse
+from .utils import progress_data
+
+def youtube_progress(request):
+    return JsonResponse(progress_data)
+
 
 def index(request):
     """Hlavná stránka - zobrazí kategórie a články + spracuje formuláre"""
@@ -114,6 +124,16 @@ def index(request):
                 messages.success(request, "Ďakujem za správu! Ozvem sa čoskoro.")
                 return redirect('peter_pekny_page:index')
 
+        elif form_type == "youtube":
+            url = request.POST.get("url")
+            print("Got YouTube URL:", url)
+            
+            # Spusti sťahovanie a vráť rovno názov súboru (ale bez FileResponse)
+            filepath = download_youtube(url)
+            
+            # Po dokončení môžeš ukázať správy alebo redirect
+            return JsonResponse({"message": "Video stiahnuté!", "filename": filepath})
+        
     # ========== SPRACOVANIE GET ==========
     if request.GET.get("logout"):
         logout(request)
@@ -136,6 +156,7 @@ def index(request):
         "categories": categories,
         "contact_form": contact_form
     })
+
 
 
 # ============================
@@ -403,3 +424,5 @@ def show_map(request):
 def wiki_redirect(request):
     """Redirect to Wikipedia"""
     return redirect("https://en.wikipedia.org/wiki/Idiot")
+
+

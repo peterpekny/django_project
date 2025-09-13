@@ -1333,3 +1333,76 @@ footer .footer_text p {
     transition: background-color 0.7s ease; /* Plynulý prechod medzi farbami */
     transition: border 0.7s ease;
 }
+
+
+
+
+
+  /* YouTube blok */
+.youtube {
+    margin-top: 10px;
+}
+
+/* Form input + button vedľa seba */
+.yt-search-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.yt-search-form input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+.yt-search-form button {
+    padding: 10px 15px;
+    border: 1px;
+    border-radius: 6px;
+    font-size: 1rem;
+    color: #fff;
+    background-color: #1b5891;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.yt-search-form button:hover {
+    background-color: #ffffff;
+    outline-color: #1b5891;
+    color:#1b5891;
+}
+
+/* Progress bar */
+#youtube-progress-container {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;   /* horizontálne na stred */
+    justify-content: center; /* ak má väčšiu výšku, aj vertikálne */
+}
+
+
+#progress-bar {
+    width: 100%;
+    background: #eee;
+    height: 25px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+#progress-inner {
+    width: 0%;
+    background: linear-gradient(90deg, #4caf50, #66bb6a);
+    height: 100%;
+    transition: width 0.3s ease;
+}
+
+#progress-text {
+    margin-top: 10px;
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 10px;
+}
